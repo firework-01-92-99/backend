@@ -1,14 +1,15 @@
 package senior.project.firework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import senior.project.firework.models.Employer;
 import senior.project.firework.models.Posting;
 import senior.project.firework.repositories.repoPosting;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class PostingController {
@@ -29,5 +30,15 @@ public class PostingController {
                                        @RequestParam(name = "idDistrict") String idDistrict,
                                        @RequestParam(name = "idSubdistrict") String idSubdistrict){
         return repoPosting.searchPosting(establishmentName,positionName,idHiringtype,idProvince,idDistrict,idSubdistrict,sortSalary);
+    }
+
+    @GetMapping("/selectPosting")
+    public Optional<Posting> selectPosting(@RequestParam(name = "idPosting") long idPosting){
+        return repoPosting.findById(idPosting);
+    }
+
+    @GetMapping("/selectEmployerFromPosting")
+    public Employer selectEmployerFromPosting(@RequestParam(name = "idPosting")long idPosting){
+        return repoPosting.selectEmployerByPostingId(idPosting);
     }
 }

@@ -1,5 +1,7 @@
 package senior.project.firework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class Status {
   @OneToMany(mappedBy = "status")
   private List<Application> applicationList;
   @OneToMany(mappedBy = "status")
+  @JsonIgnore
   private List<Posting> postingList;
 
   public long getIdStatus() {

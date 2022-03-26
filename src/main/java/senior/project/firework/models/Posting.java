@@ -38,11 +38,10 @@ public class Posting {
   @JoinColumn(name = "hiring_type_idHiringtype")
   private HiringType hiringType;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "employer_idEmployer")
+  @JsonIgnore
   private Employer employer;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "status_idStatus")
   private Status status;
   @ManyToOne

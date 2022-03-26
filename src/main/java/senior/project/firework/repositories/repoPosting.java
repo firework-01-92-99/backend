@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import senior.project.firework.models.Employer;
 import senior.project.firework.models.Posting;
 
 import java.util.List;
@@ -26,4 +27,7 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
             "           ,(case when :sortSalary='' then ps.idPosting end) DESC ",nativeQuery = true)
     List<Posting> searchPosting(String establishmentName, String positionName, String idHiringtype, String idProvince, String idDistrict, String idSubdistrict, String sortSalary);
 
+    @Query(value =  "SELECT e FROM Posting p, Employer e " +
+                    "WHERE p.employer.idEmployer = e.idEmployer AND p.idPosting = :idPosting ")
+    Employer selectEmployerByPostingId(long idPosting);
 }
