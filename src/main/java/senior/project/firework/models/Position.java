@@ -3,6 +3,7 @@ package senior.project.firework.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "position")
@@ -13,10 +14,9 @@ public class Position {
   private long idposition;
   @Column(name = "positionName")
   private String positionName;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "posting_idPosting")
+  @OneToMany(mappedBy = "position")
   @JsonIgnore
-  private Posting posting;
+  private List<Posting> posting;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "employer_idEmployer")
@@ -38,19 +38,19 @@ public class Position {
     this.positionName = positionName;
   }
 
-  public Posting getPosting() {
-    return posting;
-  }
-
-  public void setPosting(Posting posting) {
-    this.posting = posting;
-  }
-
   public Employer getEmployer() {
     return employer;
   }
 
   public void setEmployer(Employer employer) {
     this.employer = employer;
+  }
+
+  public List<Posting> getPosting() {
+    return posting;
+  }
+
+  public void setPosting(List<Posting> posting) {
+    this.posting = posting;
   }
 }

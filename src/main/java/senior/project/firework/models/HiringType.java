@@ -1,5 +1,7 @@
 package senior.project.firework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class HiringType {
   @Column(name = "nameType")
   private String nameType;
   @OneToMany(mappedBy = "hiringType")
+  @JsonIgnore
   private List<Posting> posting;
 
   public long getIdHiringtype() {

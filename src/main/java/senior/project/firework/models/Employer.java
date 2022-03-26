@@ -50,6 +50,12 @@ public class Employer {
   private List<Ratings> ratingsList;
   @OneToMany(mappedBy = "employer")
   private List<Posting> postingList;
+  @ManyToOne
+  @JoinColumn(name = "district_idDistrict")
+  private District district;
+  @ManyToOne
+  @JoinColumn(name = "sub_district_idSubdistrict")
+  private SubDistrict subDistrict;
 
   public long getIdEmployer() {
     return idEmployer;
@@ -185,5 +191,21 @@ public class Employer {
 
   public void setPostingList(List<Posting> postingList) {
     this.postingList = postingList;
+  }
+
+  public District getDistrict() {
+    return district;
+  }
+
+  public void setDistrict(District district) {
+    this.district = district;
+  }
+
+  public SubDistrict getSubDistrict() {
+    return subDistrict;
+  }
+
+  public void setSubDistrict(SubDistrict subDistrict) {
+    this.subDistrict = subDistrict;
   }
 }

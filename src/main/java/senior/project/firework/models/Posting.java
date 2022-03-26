@@ -17,13 +17,13 @@ public class Posting {
   @Column(name = "workDescription")
   private String workDescription;
   @Column(name = "minAge")
-  private String minAge;
+  private long minAge;
   @Column(name = "maxAge")
-  private String maxAge;
+  private long maxAge;
   @Column(name = "minSalary")
-  private String minSalary;
+  private long minSalary;
   @Column(name = "maxSalary")
-  private String maxSalary;
+  private long maxSalary;
   @Column(name = "overtimePayment")
   private String overtimePayment;
   @Column(name = "startTime")
@@ -35,7 +35,6 @@ public class Posting {
   @Column(name = "welfare")
   private String welfare;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "hiring_type_idHiringtype")
   private HiringType hiringType;
   @ManyToOne
@@ -54,7 +53,8 @@ public class Posting {
   private List<Application> applicationList;
   @OneToMany(mappedBy = "posting")
   private List<PostingHasDay> postingHasDayList;
-  @OneToOne(mappedBy = "posting")
+  @ManyToOne
+  @JoinColumn(name = "position_idposition")
   private Position position;
   @OneToMany(mappedBy = "posting")
   @JsonIgnore
@@ -84,36 +84,44 @@ public class Posting {
     this.workDescription = workDescription;
   }
 
-  public String getMinAge() {
+  public long getMinAge() {
     return minAge;
   }
 
-  public void setMinAge(String minAge) {
+  public void setMinAge(long minAge) {
     this.minAge = minAge;
   }
 
-  public String getMaxAge() {
+  public long getMaxAge() {
     return maxAge;
   }
 
-  public void setMaxAge(String maxAge) {
+  public void setMaxAge(long maxAge) {
     this.maxAge = maxAge;
   }
 
-  public String getMinSalary() {
+  public long getMinSalary() {
     return minSalary;
   }
 
-  public void setMinSalary(String minSalary) {
+  public void setMinSalary(long minSalary) {
     this.minSalary = minSalary;
   }
 
-  public String getMaxSalary() {
+  public long getMaxSalary() {
     return maxSalary;
   }
 
-  public void setMaxSalary(String maxSalary) {
+  public void setMaxSalary(long maxSalary) {
     this.maxSalary = maxSalary;
+  }
+
+  public WorkerType getWorkerType() {
+    return workerType;
+  }
+
+  public void setWorkerType(WorkerType workerType) {
+    this.workerType = workerType;
   }
 
   public String getOvertimePayment() {

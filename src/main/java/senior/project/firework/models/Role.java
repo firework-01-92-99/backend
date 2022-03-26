@@ -14,6 +14,8 @@ public class Role {
   private String roleName;
   @OneToMany(mappedBy = "role")
   private List<Account> accountList;
+  @OneToMany(mappedBy = "role")
+  private List<Admin> adminList;
 
   public void setAccountList(List<Account> accountList) {
     this.accountList = accountList;

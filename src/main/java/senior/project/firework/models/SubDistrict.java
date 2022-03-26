@@ -3,6 +3,7 @@ package senior.project.firework.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "sub_district")
@@ -19,6 +20,9 @@ public class SubDistrict {
   @JsonIgnore
   @JoinColumn(name = "district_idDistrict")
   private District district;
+  @OneToMany(mappedBy = "subDistrict")
+  @JsonIgnore
+  private List<Employer> employerList;
 
   public District getDistrict() {
     return district;

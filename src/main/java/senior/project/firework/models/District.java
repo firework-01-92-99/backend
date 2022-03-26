@@ -20,6 +20,9 @@ public class District {
   @JsonIgnore
   @JoinColumn(name = "province_idProvince")
   private Province province;
+  @OneToMany(mappedBy = "district")
+  @JsonIgnore
+  private List<Employer> employerList;
 
   public Province getProvince() {
     return province;

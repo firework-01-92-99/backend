@@ -1,6 +1,8 @@
 package senior.project.firework.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,6 +25,10 @@ public class Admin {
   private List<Approve> approveList;
   @OneToMany(mappedBy = "admin")
   private List<Application> applicationList;
+  @ManyToOne
+  @JsonIgnore
+  @JoinColumn(name = "role_idRole")
+  private Role role;
 
   public List<Application> getApplicationList() {
     return applicationList;

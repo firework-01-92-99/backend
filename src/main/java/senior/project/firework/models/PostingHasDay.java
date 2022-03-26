@@ -12,7 +12,6 @@ public class PostingHasDay {
   @Column(name = "idPostingHasDay")
   private long idPostingHasDay;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "day_idDay")
   private Day day;
   @ManyToOne

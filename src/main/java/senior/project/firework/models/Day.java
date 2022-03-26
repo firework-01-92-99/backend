@@ -1,5 +1,7 @@
 package senior.project.firework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Day {
   @Column(name = "abbreviation")
   private String abbreviation;
   @OneToMany(mappedBy = "day")
+  @JsonIgnore
   private List<PostingHasDay> postingHasDayList;
 
   public long getIdDay() {
