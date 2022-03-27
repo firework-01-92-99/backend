@@ -15,12 +15,12 @@ public class DayController {
     @Autowired
     private repoDay repoDay;
 
-    @GetMapping("/allDay")
+    @GetMapping("/main/allDay")
     public List<Day> allDay(){
         return repoDay.findAll();
     }
 
-    @GetMapping("/selectDay")
+    @GetMapping("/main/selectDay")
     public Optional<Day> selectDay(@RequestParam(name = "idDay") long idDay){
         return repoDay.findById(idDay);
     }

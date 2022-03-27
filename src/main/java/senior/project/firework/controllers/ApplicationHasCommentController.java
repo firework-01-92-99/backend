@@ -13,7 +13,7 @@ public class ApplicationHasCommentController {
     @Autowired
     private repoApplicationHasComment repoApplicationHasComment;
 
-    @GetMapping("/allApplicationHasComment")
+    @GetMapping("/admin/allApplicationHasComment")
     public List<ApplicationHasComment> allApplicationHasComment(){
         return repoApplicationHasComment.findAll();
     }

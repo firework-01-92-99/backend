@@ -15,12 +15,12 @@ public class DistrictController {
     @Autowired
     private repoDistrict repoDistrict;
 
-    @GetMapping("/allDistrict")
+    @GetMapping("/main/allDistrict")
     public List<District> allDistrict(){
         return repoDistrict.findAll();
     }
 
-    @GetMapping("/selectDistrict")
+    @GetMapping("/main/selectDistrict")
     public Optional<District> selectDistrict(@RequestParam(name = "idDistrict") String idDistrict){
         return repoDistrict.findById(idDistrict);
     }

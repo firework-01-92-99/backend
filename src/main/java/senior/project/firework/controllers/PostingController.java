@@ -16,12 +16,12 @@ public class PostingController {
     @Autowired
     private repoPosting repoPosting;
 
-    @GetMapping("/allPosting")
+    @GetMapping("/main/allPosting")
     public List<Posting> allPosting(){
         return repoPosting.findAll();
     }
 
-    @GetMapping("/searchPosting")
+    @GetMapping("/main/searchPosting")
     public List<Posting> searchPosting(@RequestParam(name = "establishmentName") String establishmentName,
                                        @RequestParam(name = "positionName") String positionName,
                                        @RequestParam(name = "idHiringtype") String idHiringtype,
@@ -32,12 +32,12 @@ public class PostingController {
         return repoPosting.searchPosting(establishmentName,positionName,idHiringtype,idProvince,idDistrict,idSubdistrict,sortSalary);
     }
 
-    @GetMapping("/selectPosting")
+    @GetMapping("/main/selectPosting")
     public Optional<Posting> selectPosting(@RequestParam(name = "idPosting") long idPosting){
         return repoPosting.findById(idPosting);
     }
 
-    @GetMapping("/selectEmployerFromPosting")
+    @GetMapping("/main/selectEmployerFromPosting")
     public Employer selectEmployerFromPosting(@RequestParam(name = "idPosting")long idPosting){
         return repoPosting.selectEmployerByPostingId(idPosting);
     }

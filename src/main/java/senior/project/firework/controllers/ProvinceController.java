@@ -15,12 +15,12 @@ public class ProvinceController {
     @Autowired
     private repoProvince repoProvince;
 
-    @GetMapping("/allProvince")
+    @GetMapping("/main/allProvince")
     public List<Province> allProvince(){
         return repoProvince.findAll();
     }
 
-    @GetMapping("/selectProvince")
+    @GetMapping("/main/selectProvince")
     public Optional<Province> selectProvince(@RequestParam(name = "idProvince") String idProvince){
         return repoProvince.findById(idProvince);
     }

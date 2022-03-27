@@ -15,12 +15,12 @@ public class BusinesstypeController {
     @Autowired
     private repoBusinesstype repoBusinesstype;
 
-    @GetMapping("/allBusinesstype")
+    @GetMapping("/emp/allBusinesstype")
     public List<Businesstype> allBusinesstype(){
         return repoBusinesstype.findAll();
     }
 
-    @GetMapping("/selectBusinesstype")
+    @GetMapping("/emp/selectBusinesstype")
     public Optional<Businesstype> selectBusinesstype(@RequestParam(name = "idBusinessType") long idBusinessType){
         return repoBusinesstype.findById(idBusinessType);
     }

@@ -15,12 +15,12 @@ public class AccountController {
     @Autowired
     private repoAccount repoAccount;
 
-    @GetMapping("/allAccount")
+    @GetMapping("/admin/allAccount")
     public List<Account> allAccount(){
         return repoAccount.findAll();
     }
 
-    @GetMapping("/selectAccount")
+    @GetMapping("/admin/selectAccount")
     public Optional<Account> selectAccount(@RequestParam(name = "idAccount") long idAccount){
         return repoAccount.findById(idAccount);
     }

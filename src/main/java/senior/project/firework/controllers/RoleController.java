@@ -12,15 +12,23 @@ import java.util.Optional;
 
 @RestController
 public class RoleController {
+    //main/ - All role and guest
+    //allrole/ - All role except guest
+    //admin/ - admin
+    //emp/ - employer
+    //worker/ - worker
+    //admin_emp/ - admin and employer
+    //admin_worker/ - admin and worker
+    //emp_worker/ - employer and worker
     @Autowired
     private repoRole repoRole;
 
-    @GetMapping("/allRole")
+    @GetMapping("/main/allRole")
     public List<Role> allRole(){
         return repoRole.findAll();
     }
 
-    @GetMapping("/selectRole")
+    @GetMapping("/main/selectRole")
     public Optional<Role> selectRole(@RequestParam(name = "idRole") long idRole){
         return repoRole.findById(idRole);
     }

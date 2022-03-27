@@ -15,12 +15,12 @@ public class HiringTypeController {
     @Autowired
     private repoHiringType repoHiringType;
 
-    @GetMapping("/allHiringType")
+    @GetMapping("/main/allHiringType")
     public List<HiringType> allHiringType(){
         return repoHiringType.findAll();
     }
 
-    @GetMapping("/selectHiringType")
+    @GetMapping("/main/selectHiringType")
     public Optional<HiringType> selectHiringType(@RequestParam(name = "idHiringtype") long idHiringtype){
         return repoHiringType.findById(idHiringtype);
     }

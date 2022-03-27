@@ -15,12 +15,12 @@ public class AdminController {
     @Autowired
     private repoAdmin repoAdmin;
 
-    @GetMapping("/allAdmin")
+    @GetMapping("/admin/allAdmin")
     public List<Admin> allAdmin(){
         return repoAdmin.findAll();
     }
 
-    @GetMapping("/selectAdmin")
+    @GetMapping("/admin/selectAdmin")
     public Optional<Admin> selectAdmin(@RequestParam(name = "idAdmin") long idAdmin){
         return repoAdmin.findById(idAdmin);
     }

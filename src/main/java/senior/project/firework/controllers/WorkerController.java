@@ -15,12 +15,12 @@ public class WorkerController {
     @Autowired
     private repoWorker repoWorker;
 
-    @GetMapping("/allWorker")
+    @GetMapping("/admin/allWorker")
     public List<Worker> allWorker(){
         return repoWorker.findAll();
     }
 
-    @GetMapping("/selectWorker")
+    @GetMapping("/admin/selectWorker")
     public Optional<Worker> selectWorker(@RequestParam(name = "idWorker") long idWorker){
         return repoWorker.findById(idWorker);
     }

@@ -15,12 +15,12 @@ public class StatusController {
     @Autowired
     private repoStatus repoStatus;
 
-    @GetMapping("/allStatus")
+    @GetMapping("/main/allStatus")
     public List<Status> allStatus(){
         return repoStatus.findAll();
     }
 
-    @GetMapping("/selectStatus")
+    @GetMapping("/main/selectStatus")
     public Optional<Status> selectStatus(@RequestParam(name = "idStatus") long idStatus){
         return repoStatus.findById(idStatus);
     }

@@ -13,7 +13,7 @@ public class SubDistrictController {
     @Autowired
     private repoSubDistrict repoSubDistrict;
 
-    @GetMapping("/allSubDistrict")
+    @GetMapping("/main/allSubDistrict")
     public List<SubDistrict> allSubDistrict(){
         return repoSubDistrict.findAll();
     }

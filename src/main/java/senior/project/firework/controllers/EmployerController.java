@@ -15,12 +15,12 @@ public class EmployerController {
     @Autowired
     private repoEmployer repoEmployer;
 
-    @GetMapping("/allEmployer")
+    @GetMapping("/admin/allEmployer")
     public List<Employer> allEmployer(){
         return repoEmployer.findAll();
     }
 
-    @GetMapping("/selectEmployer")
+    @GetMapping("/admin/selectEmployer")
     public Optional<Employer> selectEmployer(@RequestParam(name = "idEmployer") long idEmployer){
         return repoEmployer.findById(idEmployer);
     }
