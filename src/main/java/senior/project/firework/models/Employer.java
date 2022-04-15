@@ -18,8 +18,6 @@ public class Employer {
   private String entrepreneurfName;
   @Column(name = "entrepreneurlName")
   private String entrepreneurlName;
-  @Column(name = "locationPic")
-  private String locationPic;
   @Column(name = "address")
   private String address;
   @Column(name = "tel")
@@ -56,6 +54,8 @@ public class Employer {
   @ManyToOne
   @JoinColumn(name = "sub_district_idSubdistrict")
   private SubDistrict subDistrict;
+  @OneToMany(mappedBy = "employer")
+  private List<LocationPic> locationPicList;
 
   public long getIdEmployer() {
     return idEmployer;
@@ -87,14 +87,6 @@ public class Employer {
 
   public void setEntrepreneurlName(String entrepreneurlName) {
     this.entrepreneurlName = entrepreneurlName;
-  }
-
-  public String getLocationPic() {
-    return locationPic;
-  }
-
-  public void setLocationPic(String locationPic) {
-    this.locationPic = locationPic;
   }
 
   public String getAddress() {
@@ -207,5 +199,13 @@ public class Employer {
 
   public void setSubDistrict(SubDistrict subDistrict) {
     this.subDistrict = subDistrict;
+  }
+
+  public List<LocationPic> getLocationPicList() {
+    return locationPicList;
+  }
+
+  public void setLocationPicList(List<LocationPic> locationPicList) {
+    this.locationPicList = locationPicList;
   }
 }
