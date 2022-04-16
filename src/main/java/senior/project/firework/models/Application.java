@@ -11,6 +11,12 @@ public class Application {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "idApplication")
   private long idApplication;
+  @Column(name = "posting_idPosting" , updatable = false , insertable = false)
+  private long idPosting;
+  @Column(name = "worker_idWorker" , updatable = false , insertable = false)
+  private long idWorker;
+  @Column(name = "status_idStatus" , updatable = false , insertable = false)
+  private long idStatus;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "worker_idWorker")
@@ -31,6 +37,40 @@ public class Application {
   @JsonIgnore
   @JoinColumn(name = "status_idStatus")
   private Status status;
+
+  public Application() {
+
+  }
+
+  public Application(Worker worker, Posting posting,Status status) {
+    this.worker = worker;
+    this.posting = posting;
+    this.status = status;
+  }
+
+  public long getIdPosting() {
+    return idPosting;
+  }
+
+  public void setIdPosting(long idPosting) {
+    this.idPosting = idPosting;
+  }
+
+  public long getIdWorker() {
+    return idWorker;
+  }
+
+  public void setIdWorker(long idWorker) {
+    this.idWorker = idWorker;
+  }
+
+  public long getIdStatus() {
+    return idStatus;
+  }
+
+  public void setIdStatus(long idStatus) {
+    this.idStatus = idStatus;
+  }
 
   public long getIdApplication() {
     return idApplication;

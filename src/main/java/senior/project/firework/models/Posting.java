@@ -37,6 +37,8 @@ public class Posting {
   @ManyToOne
   @JoinColumn(name = "hiring_type_idHiringtype")
   private HiringType hiringType;
+  @Column(name = "employer_idEmployer" , updatable = false , insertable = false)
+  private long idEmployer;
   @ManyToOne
   @JoinColumn(name = "employer_idEmployer")
   @JsonIgnore
@@ -217,5 +219,13 @@ public class Posting {
 
   public void setFavoriteList(List<Favorite> favoriteList) {
     this.favoriteList = favoriteList;
+  }
+
+  public long getIdEmployer() {
+    return idEmployer;
+  }
+
+  public void setIdEmployer(long idEmployer) {
+    this.idEmployer = idEmployer;
   }
 }
