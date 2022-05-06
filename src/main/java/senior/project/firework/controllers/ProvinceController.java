@@ -17,7 +17,7 @@ public class ProvinceController {
 
     @GetMapping("/main/allProvince")
     public List<Province> allProvince(){
-        return repoProvince.findAll();
+        return repoProvince.ListProvinceSort();
     }
 
     @GetMapping("/main/selectProvince")

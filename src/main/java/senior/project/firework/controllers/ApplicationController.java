@@ -9,6 +9,7 @@ import senior.project.firework.repositories.repoPosting;
 import senior.project.firework.repositories.repoStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ApplicationController {
@@ -43,4 +44,15 @@ public class ApplicationController {
         repoApplication.delete(delApplication);
         return "Cancel Success!";
     }
+
+    @GetMapping("/admin/selectApplication")
+    public Optional<Application> selectApplication(@RequestParam(name = "idApplication") long idApplication){
+        return repoApplication.findById(idApplication);
+    }
+
+    @GetMapping("/admin/selectApplicationByWorker")
+    public List<Application> selectApplicationByWorker(@RequestParam(name = "idWorker") String idWorker){
+        return repoApplication.selectByIdworker(idWorker);
+    }
+
 }

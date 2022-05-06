@@ -17,6 +17,8 @@ public class Worker {
   private String identificationNumber;
   @Column(name = "verifyPic")
   private String verifyPic;
+  @Column(name = "sex")
+  private String sex;
   @Column(name = "firstName")
   private String firstName;
   @Column(name = "middleName")
@@ -32,13 +34,20 @@ public class Worker {
   @OneToMany(mappedBy = "worker")
   private List<Application> applicationList;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "WorkerType_idWorkerType")
   private WorkerType workerType;
   @OneToMany(mappedBy = "worker")
   private List<Favorite> favoriteList;
   @OneToMany(mappedBy = "worker")
   private List<Ratings> ratingsList;
+
+  public String getSex() {
+    return sex;
+  }
+
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
 
   public long getIdWorker() {
     return idWorker;

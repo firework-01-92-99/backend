@@ -22,14 +22,11 @@ public class PostingController {
     }
 
     @GetMapping("/main/searchPosting")
-    public List<Posting> searchPosting(@RequestParam(defaultValue = "" , name = "establishmentName") String establishmentName,
-                                       @RequestParam(defaultValue = "" , name = "positionName") String positionName,
+    public List<Posting> searchPosting(@RequestParam(defaultValue = "" , name = "establishmentAndpositionName") String establishmentAndpositionName,
                                        @RequestParam(defaultValue = "" , name = "idHiringtype") String idHiringtype,
                                        @RequestParam(defaultValue = "" , name = "sortSalary")  String sortSalary,// DESC = High to Low - ASC = Low to High
-                                       @RequestParam(defaultValue = "" , name = "idProvince") String idProvince,
-                                       @RequestParam(defaultValue = "" , name = "idDistrict") String idDistrict,
-                                       @RequestParam(defaultValue = "" , name = "idSubdistrict") String idSubdistrict){
-        return repoPosting.searchPosting(establishmentName,positionName,idHiringtype,idProvince,idDistrict,idSubdistrict,sortSalary);
+                                       @RequestParam(defaultValue = "" , name = "idProvince") String idProvince){
+        return repoPosting.searchPosting(establishmentAndpositionName,idHiringtype,sortSalary,idProvince);
     }
 
     @GetMapping("/main/selectPosting")
@@ -41,4 +38,5 @@ public class PostingController {
     public Employer selectEmployerFromPosting(@RequestParam(name = "idPosting")long idPosting){
         return repoPosting.selectEmployerByPostingId(idPosting);
     }
+
 }
