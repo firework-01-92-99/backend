@@ -67,12 +67,12 @@ public class ApplicationController {
         return statusApplication;
     }
 
-    @GetMapping("/admin/selectApplication")
+    @GetMapping("/admin_worker/selectApplication")
     public StatusApplication selectApplication(@RequestParam(name = "idApplication") long idApplication){
         return showStatusApplication(idApplication);
     }
 
-    @GetMapping("/admin/selectApplicationByWorker")
+    @GetMapping("/admin_worker/selectApplicationByWorker")
     public List<StatusApplication> selectApplicationByWorker(@RequestParam(name = "idWorker") long idWorker){
         List<StatusApplication> statusApplicationList = new ArrayList<>();
         Optional<Worker> worker = repoWorker.findById(idWorker);
