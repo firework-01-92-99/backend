@@ -57,7 +57,8 @@ public class ApplicationController {
         Optional<Application> application = repoApplication.findById(idApplication);
         Optional<Posting> posting = repoPosting.findById(application.get().getIdPosting());
         Optional<Employer> employer = repoEmployer.findById(posting.get().getIdEmployer());
-        StatusApplication statusApplication = new StatusApplication(employer.get().getEstablishmentName(),
+        StatusApplication statusApplication = new StatusApplication(application.get().getIdApplication(),
+                employer.get().getEstablishmentName(),
                 posting.get().getPosition().getPositionName(),
                 employer.get().getProvince().getProvinceName(),
                 employer.get().getDistrict().getDistrictName(),

@@ -1,6 +1,7 @@
 package senior.project.firework.frontendmodel;
 
 public class StatusApplication {
+    private long idApplication;
     private String establishmentName;
     private String positionName;
     private String provinceName;
@@ -9,7 +10,8 @@ public class StatusApplication {
     private String postcode;
     private String statusName;
 
-    public StatusApplication(String establishmentName, String positionName, String provinceName, String districtName, String subDistrict, String postcode, String statusName) {
+    public StatusApplication(long idApplication, String establishmentName, String positionName, String provinceName, String districtName, String subDistrict, String postcode, String statusName) {
+        this.idApplication = idApplication;
         this.establishmentName = establishmentName;
         this.positionName = positionName;
         this.provinceName = provinceName;
@@ -17,6 +19,14 @@ public class StatusApplication {
         this.subDistrict = subDistrict;
         this.postcode = postcode;
         this.statusName = statusName;
+    }
+
+    public long getIdApplication() {
+        return idApplication;
+    }
+
+    public void setIdApplication(long idApplication) {
+        this.idApplication = idApplication;
     }
 
     public String getDistrictName() {
