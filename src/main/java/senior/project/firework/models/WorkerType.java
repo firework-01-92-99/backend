@@ -18,7 +18,20 @@ public class WorkerType {
   @JsonIgnore
   private List<Worker> workerList;
   @OneToMany(mappedBy = "workerType")
+  @JsonIgnore
   private List<Posting> postingList;
+
+  public List<Worker> getWorkerList() {
+    return workerList;
+  }
+
+  public List<Posting> getPostingList() {
+    return postingList;
+  }
+
+  public void setPostingList(List<Posting> postingList) {
+    this.postingList = postingList;
+  }
 
   public long getIdWorkerType() {
     return idWorkerType;

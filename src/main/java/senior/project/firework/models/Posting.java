@@ -47,7 +47,6 @@ public class Posting {
   @JoinColumn(name = "status_idStatus")
   private Status status;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "WorkerType_idWorkerType")
   private WorkerType workerType;
   @OneToMany(mappedBy = "posting")
