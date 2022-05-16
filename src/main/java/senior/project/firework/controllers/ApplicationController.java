@@ -60,6 +60,7 @@ public class ApplicationController {
         StatusApplication statusApplication = new StatusApplication(application.get().getIdApplication(),
                 employer.get().getEstablishmentName(),
                 posting.get().getPosition().getPositionName(),
+                employer.get().getAddress(),
                 employer.get().getProvince().getProvinceName(),
                 employer.get().getDistrict().getDistrictName(),
                 employer.get().getSubDistrict().getSubDistrict(),

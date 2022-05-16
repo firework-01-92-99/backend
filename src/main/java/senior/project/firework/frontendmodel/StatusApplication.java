@@ -4,21 +4,31 @@ public class StatusApplication {
     private long idApplication;
     private String establishmentName;
     private String positionName;
+    private String address;
     private String provinceName;
     private String districtName;
     private String subDistrict;
     private String postcode;
     private String statusName;
 
-    public StatusApplication(long idApplication, String establishmentName, String positionName, String provinceName, String districtName, String subDistrict, String postcode, String statusName) {
+    public StatusApplication(long idApplication, String establishmentName, String positionName, String address, String provinceName, String districtName, String subDistrict, String postcode, String statusName) {
         this.idApplication = idApplication;
         this.establishmentName = establishmentName;
         this.positionName = positionName;
+        this.address = address;
         this.provinceName = provinceName;
         this.districtName = districtName;
         this.subDistrict = subDistrict;
         this.postcode = postcode;
         this.statusName = statusName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public long getIdApplication() {
