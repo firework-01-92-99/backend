@@ -30,10 +30,6 @@ public class Employer {
   private String lineId;
   @ManyToOne
   @JsonIgnore
-  @JoinColumn(name = "province_idProvince")
-  private Province province;
-  @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "businessType_idBusinessType")
   private Businesstype businesstype;
   @OneToOne(cascade = CascadeType.ALL)
@@ -48,6 +44,9 @@ public class Employer {
   private List<Ratings> ratingsList;
   @OneToMany(mappedBy = "employer")
   private List<Posting> postingList;
+  @ManyToOne
+  @JoinColumn(name = "province_idProvince")
+  private Province province;
   @ManyToOne
   @JoinColumn(name = "district_idDistrict")
   private District district;

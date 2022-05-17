@@ -1,5 +1,7 @@
 package senior.project.firework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Province {
   @OneToMany(mappedBy = "province")
   private List<District> districtList;
   @OneToMany(mappedBy = "province")
+  @JsonIgnore
   private List<Employer> employerList;
 
   public String getIdProvince() {
