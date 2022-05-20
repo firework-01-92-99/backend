@@ -1,0 +1,23 @@
+version: "3"
+services:
+  backend:
+    container_name: fireworkBE
+    build: .
+    image: backend
+    environment:
+      - MYSQL_DATABASE=firework
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=flukefriendbest
+    volumes:
+      -  /home/ppclothes/backend/images:/public/img
+    ports:
+      - "3000:3000"
+    networks:
+       NETWORK:
+          ipv4_address: 172.21.0.12
+networks:
+  default:
+    external:
+       name: NETWORK
+  NETWORK:
+    external: true
