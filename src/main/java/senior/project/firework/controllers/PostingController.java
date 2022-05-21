@@ -1,12 +1,16 @@
 package senior.project.firework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import senior.project.firework.models.Employer;
 import senior.project.firework.models.Posting;
 import senior.project.firework.repositories.repoPosting;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +21,19 @@ public class PostingController {
     private repoPosting repoPosting;
 
     @GetMapping("/main/allPosting")
-    public List<Posting> allPosting(){
-        return repoPosting.findAll();
+    public Page<Posting> allPosting(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo){
+        Pageable pageable = PageRequest.of(pageNo,3);
+        return repoPosting.findAllActive(pageable);
     }
 
     @GetMapping("/main/searchPosting")
-    public List<Posting> searchPosting(@RequestParam(defaultValue = "" , name = "establishmentAndpositionName") String establishmentAndpositionName,
+    public Page<Posting> searchPosting(@RequestParam(defaultValue = "" , name = "establishmentAndpositionName") String establishmentAndpositionName,
                                        @RequestParam(defaultValue = "" , name = "idHiringtype") String idHiringtype,
                                        @RequestParam(defaultValue = "" , name = "sortSalary")  String sortSalary,// DESC = High to Low - ASC = Low to High
-                                       @RequestParam(defaultValue = "" , name = "idProvince") String idProvince){
-        return repoPosting.searchPosting(establishmentAndpositionName,idHiringtype,sortSalary,idProvince);
+                                       @RequestParam(defaultValue = "" , name = "idProvince") String idProvince,
+                                       @RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo){
+        Pageable pageable = PageRequest.of(pageNo,3);
+        return repoPosting.searchPosting(establishmentAndpositionName,idHiringtype,sortSalary,idProvince,pageable);
     }
 
     @GetMapping("/main/selectPosting")
