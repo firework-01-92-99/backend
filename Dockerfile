@@ -3,7 +3,7 @@ RUN mkdir -p /workspace
 COPY src /workspace/src
 COPY pom.xml /workspace
 WORKDIR /workspace
-RUN mvn clean install
+RUN mvn -f pom.xml clean package
 
 FROM openjdk:11.0-slim
 EXPOSE 3000
