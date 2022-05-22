@@ -7,11 +7,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
-    @Value("#{'${clothes.origin.method}'.split(',')}")
+    @Value("#{'${firework.origin.method}'.split(',')}")
     private String[] methodList;
-    @Value("#{'${clothes.origin.host}'.split(',')}")
+    @Value("#{'${firework.origin.host}'.split(',')}")
     String[] hostList;
-    @Value("#{'${clothes.origin.headers}'.split(',')}")
+    @Value("#{'${firework.origin.headers}'.split(',')}")
     String[] headersList;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
