@@ -2,8 +2,7 @@ version: "3"
 services:
   backend:
     container_name: fireworkBE
-    build: .
-    image: backend
+    image: ghcr.io/firework-01-92-99/firework-back:dev
     environment:
       - MYSQL_DATABASE=firework
       - MYSQL_USER=root
