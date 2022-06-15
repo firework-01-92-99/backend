@@ -1,5 +1,6 @@
 package senior.project.firework.controllers;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import senior.project.firework.models.Account;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,4 +25,11 @@ public class AccountController {
     public Optional<Account> selectAccount(@RequestParam(name = "idAccount") long idAccount){
         return repoAccount.findById(idAccount);
     }
+
+    @PostMapping("/main/register")
+    public void RegisAccount(){
+
+    }
+
+
 }

@@ -68,6 +68,14 @@ public class JwtAuthenticationController {
 //        }
 //    }
 
+    @GetMapping("/allrole/me")
+    public Account WhoAmI(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        Account account = repoAccount.findByUsername(username);
+        return account;
+    }
+
     @PostMapping(value = "/main/passwordencoder")
     public String testPasswordEncoder(@RequestParam(defaultValue = "" , name = "password") String password) {
         String encodedPassword = passwordEncoder.encode(password);
