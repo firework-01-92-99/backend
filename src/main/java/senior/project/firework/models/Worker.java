@@ -41,6 +41,19 @@ public class Worker {
   @OneToMany(mappedBy = "worker")
   private List<Ratings> ratingsList;
 
+  public Worker(String identificationNumber, String sex, String firstName, String middleName, String lastName, String phone) {
+    this.identificationNumber = identificationNumber;
+    this.sex = sex;
+    this.firstName = firstName;
+    this.middleName = middleName;
+    this.lastName = lastName;
+    this.phone = phone;
+  }
+
+  public Worker() {
+
+  }
+
   public String getSex() {
     return sex;
   }

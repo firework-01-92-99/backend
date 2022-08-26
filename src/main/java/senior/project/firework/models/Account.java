@@ -16,7 +16,6 @@ public class Account {
   @Column(name = "password")
   private String password;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "role_idRole")
   private Role role;
   @OneToOne(cascade = CascadeType.ALL)
@@ -27,6 +26,24 @@ public class Account {
   private Employer employer;
   @OneToOne(mappedBy = "account")
   private Worker worker;
+
+  public Account(String username, String password, Role role, Worker worker) {
+    this.username = username;
+    this.password = password;
+    this.role = role;
+    this.worker = worker;
+  }
+
+  public Account(String username, String password, Role role, Employer employer) {
+    this.username = username;
+    this.password = password;
+    this.role = role;
+    this.employer = employer;
+  }
+
+  public Account() {
+
+  }
 
   public long getIdAccount() {
     return idAccount;

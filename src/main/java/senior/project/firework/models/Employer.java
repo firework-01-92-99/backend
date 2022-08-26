@@ -56,6 +56,24 @@ public class Employer {
   @OneToMany(mappedBy = "employer")
   private List<LocationPic> locationPicList;
 
+  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String lineId, Businesstype businesstype, Province province, District district, SubDistrict subDistrict) {
+    this.establishmentName = establishmentName;
+    this.entrepreneurfName = entrepreneurfName;
+    this.entrepreneurlName = entrepreneurlName;
+    this.address = address;
+    this.tel = tel;
+    this.phone = phone;
+    this.lineId = lineId;
+    this.businesstype = businesstype;
+    this.province = province;
+    this.district = district;
+    this.subDistrict = subDistrict;
+  }
+
+  public Employer() {
+
+  }
+
   public long getIdEmployer() {
     return idEmployer;
   }

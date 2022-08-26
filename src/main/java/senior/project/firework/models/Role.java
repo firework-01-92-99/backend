@@ -1,5 +1,7 @@
 package senior.project.firework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class Role {
   @Column(name = "roleName")
   private String roleName;
   @OneToMany(mappedBy = "role")
+  @JsonIgnore
   private List<Account> accountList;
   @OneToMany(mappedBy = "role")
   private List<Admin> adminList;
