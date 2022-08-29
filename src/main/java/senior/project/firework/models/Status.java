@@ -22,6 +22,30 @@ public class Status {
   @JsonIgnore
   private List<Posting> postingList;
 
+  public Status(long idStatus, String statusName, List<Approve> approveList, List<Application> applicationList, List<Posting> postingList) {
+    this.idStatus = idStatus;
+    this.statusName = statusName;
+    this.approveList = approveList;
+    this.applicationList = applicationList;
+    this.postingList = postingList;
+  }
+
+  public Status() {
+
+  }
+
+  public List<Approve> getApproveList() {
+    return approveList;
+  }
+
+  public List<Application> getApplicationList() {
+    return applicationList;
+  }
+
+  public List<Posting> getPostingList() {
+    return postingList;
+  }
+
   public long getIdStatus() {
     return idStatus;
   }

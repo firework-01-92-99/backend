@@ -30,6 +30,29 @@ public class Admin {
   @JoinColumn(name = "role_idRole")
   private Role role;
 
+  public Admin(long idAdmin, String username, String password, String firstName, String lastName, List<Approve> approveList, List<Application> applicationList, Role role) {
+    this.idAdmin = idAdmin;
+    this.username = username;
+    this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.approveList = approveList;
+    this.applicationList = applicationList;
+    this.role = role;
+  }
+
+  public Admin() {
+
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
+  }
+
   public List<Application> getApplicationList() {
     return applicationList;
   }

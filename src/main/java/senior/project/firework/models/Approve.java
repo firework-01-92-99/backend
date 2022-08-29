@@ -24,6 +24,19 @@ public class Approve {
   @JsonIgnore
   private Account account;
 
+  public Approve(Admin admin, Status status, Account account) {
+    this.admin = admin;
+    this.status = status;
+    this.account = account;
+  }
+
+  public Approve(long idApprove, Admin admin, Status status, Account account) {
+    this.idApprove = idApprove;
+    this.admin = admin;
+    this.status = status;
+    this.account = account;
+  }
+
   public Admin getAdmin() {
     return admin;
   }

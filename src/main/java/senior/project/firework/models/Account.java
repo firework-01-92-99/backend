@@ -27,6 +27,16 @@ public class Account {
   @OneToOne(mappedBy = "account")
   private Worker worker;
 
+  public Account(long idAccount, String username, String password, Role role, Approve approve, Employer employer, Worker worker) {
+    this.idAccount = idAccount;
+    this.username = username;
+    this.password = password;
+    this.role = role;
+    this.approve = approve;
+    this.employer = employer;
+    this.worker = worker;
+  }
+
   public Account(String username, String password, Role role, Worker worker) {
     this.username = username;
     this.password = password;
