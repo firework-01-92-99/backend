@@ -37,6 +37,10 @@ public class Approve {
     this.account = account;
   }
 
+  public Approve() {
+
+  }
+
   public Admin getAdmin() {
     return admin;
   }

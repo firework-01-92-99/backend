@@ -40,6 +40,9 @@ public class Worker {
   private List<Favorite> favoriteList;
   @OneToMany(mappedBy = "worker")
   private List<Ratings> ratingsList;
+  @ManyToOne
+  @JoinColumn(name = "nationality_idnationality")
+  private Nationality nationality;
 
   public Worker(String identificationNumber, String sex, String firstName, String middleName, String lastName, String phone) {
     this.identificationNumber = identificationNumber;
@@ -156,5 +159,13 @@ public class Worker {
 
   public void setRatingsList(List<Ratings> ratingsList) {
     this.ratingsList = ratingsList;
+  }
+
+  public Nationality getNationality() {
+    return nationality;
+  }
+
+  public void setNationality(Nationality nationality) {
+    this.nationality = nationality;
   }
 }

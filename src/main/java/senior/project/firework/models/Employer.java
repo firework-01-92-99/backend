@@ -55,8 +55,11 @@ public class Employer {
   private SubDistrict subDistrict;
   @OneToMany(mappedBy = "employer")
   private List<LocationPic> locationPicList;
+  @ManyToOne
+  @JoinColumn(name = "nationality_idnationality")
+  private Nationality nationality;
 
-  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String lineId, Businesstype businesstype, Province province, District district, SubDistrict subDistrict) {
+  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String lineId, Businesstype businesstype, Province province, District district, SubDistrict subDistrict,Nationality nationality) {
     this.establishmentName = establishmentName;
     this.entrepreneurfName = entrepreneurfName;
     this.entrepreneurlName = entrepreneurlName;
@@ -68,6 +71,7 @@ public class Employer {
     this.province = province;
     this.district = district;
     this.subDistrict = subDistrict;
+    this.nationality = nationality;
   }
 
   public Employer() {
@@ -224,5 +228,13 @@ public class Employer {
 
   public void setLocationPicList(List<LocationPic> locationPicList) {
     this.locationPicList = locationPicList;
+  }
+
+  public Nationality getNationality() {
+    return nationality;
+  }
+
+  public void setNationality(Nationality nationality) {
+    this.nationality = nationality;
   }
 }

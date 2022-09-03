@@ -25,10 +25,13 @@ public class Admin {
   private List<Approve> approveList;
   @OneToMany(mappedBy = "admin")
   private List<Application> applicationList;
+  @OneToMany(mappedBy = "admin")
+  private List<AdminHasAct> adminHasActList;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "role_idRole")
   private Role role;
+
 
   public Admin(long idAdmin, String username, String password, String firstName, String lastName, List<Approve> approveList, List<Application> applicationList, Role role) {
     this.idAdmin = idAdmin;
@@ -109,4 +112,11 @@ public class Admin {
     this.lastName = lastName;
   }
 
+  public List<AdminHasAct> getAdminHasActList() {
+    return adminHasActList;
+  }
+
+  public void setAdminHasActList(List<AdminHasAct> adminHasActList) {
+    this.adminHasActList = adminHasActList;
+  }
 }

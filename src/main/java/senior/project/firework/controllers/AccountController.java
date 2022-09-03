@@ -54,7 +54,7 @@ public class AccountController {
     public void RegisAccountForEmployer(Account account,String encodedpassword){
         Employer newEmployer = new Employer(account.getEmployer().getEstablishmentName(),account.getEmployer().getEntrepreneurfName(),account.getEmployer().getEntrepreneurlName(),
                 account.getEmployer().getAddress(),account.getEmployer().getTel(),account.getEmployer().getPhone(),account.getEmployer().getLineId(),
-                account.getEmployer().getBusinesstype(),account.getEmployer().getProvince(),account.getEmployer().getDistrict(),account.getEmployer().getSubDistrict());
+                account.getEmployer().getBusinesstype(),account.getEmployer().getProvince(),account.getEmployer().getDistrict(),account.getEmployer().getSubDistrict(),account.getEmployer().getNationality());
         repoEmployer.save(newEmployer);
         Account newAccount = new Account(account.getUsername(),encodedpassword,account.getRole(),account.getEmployer());
         repoAccount.save(newAccount);

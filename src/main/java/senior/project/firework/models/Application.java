@@ -37,6 +37,10 @@ public class Application {
   @JsonIgnore
   @JoinColumn(name = "status_idStatus")
   private Status status;
+  @ManyToOne
+  @JsonIgnore
+  @JoinColumn(name = "act_to_registrar_idaction")
+  private ActToRegister actToRegister;
 
   public Application() {
 
@@ -118,5 +122,13 @@ public class Application {
 
   public void setStatus(Status status) {
     this.status = status;
+  }
+
+  public ActToRegister getActToRegister() {
+    return actToRegister;
+  }
+
+  public void setActToRegister(ActToRegister actToRegister) {
+    this.actToRegister = actToRegister;
   }
 }
