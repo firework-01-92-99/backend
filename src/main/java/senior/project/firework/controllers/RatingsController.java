@@ -6,8 +6,11 @@ import senior.project.firework.repositories.repoRatings;
 import senior.project.firework.repositories.repoEmployer;
 import senior.project.firework.repositories.repoWorker;
 import senior.project.firework.models.Ratings;
+import senior.project.firework.models.Worker;
 
+import javax.persistence.ManyToOne;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class RatingsController {
@@ -34,9 +37,29 @@ public class RatingsController {
         return repoRatings.save(ratings);
     }
 
-    @GetMapping("/worker/getMyScore")
-    public long getMyScore(@RequestParam(name = "idWorker") long idworker){
+    @DeleteMapping("/emp/cancelScore")
+    public void cancelScore(@RequestParam(name = "idRating") long idRating){
+        repoRatings.deleteById(idRating);
+    }
 
-        return 0;
+    @GetMapping("/worker/getMyTotalScore")
+    public double getMyTotalScore(@RequestParam(name = "idWorker") long idworker){
+        Worker worker = repoWorker.getById(idworker);
+        List<Ratings> ratingsList = repoRatings.findByWorker(worker);
+        double totalScore = 0;
+        double count = 0;
+        for (Ratings ratingPerLine : ratingsList) {
+            totalScore += ratingPerLine.getRate();
+            count++;
+        }
+        double realScore = totalScore/count;
+        return Math.floor(realScore * 100)/100;
+    }
+
+    @GetMapping("/worker/getMyScoreList")
+    public List<Ratings> getMyScoreList(@RequestParam(name = "idWorker") long idworker){
+        Worker worker = repoWorker.getById(idworker);
+        List<Ratings> ratingsList = repoRatings.findByWorker(worker);
+        return ratingsList;
     }
 }
