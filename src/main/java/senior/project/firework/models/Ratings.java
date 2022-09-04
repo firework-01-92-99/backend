@@ -3,6 +3,7 @@ package senior.project.firework.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "ratings")
@@ -25,6 +26,18 @@ public class Ratings {
   @JsonIgnore
   @JoinColumn(name = "worker_idWorker")
   private Worker worker;
+
+  public Ratings(long rate, String comment, Date timestamp, Employer employer, Worker worker) {
+    this.rate = rate;
+    this.comment = comment;
+    this.timestamp = timestamp;
+    this.employer = employer;
+    this.worker = worker;
+  }
+
+  public Ratings() {
+
+  }
 
   public long getIdRating() {
     return idRating;

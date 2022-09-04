@@ -1,6 +1,7 @@
 package senior.project.firework.controllers;
 
-import org.hibernate.jdbc.Work;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import senior.project.firework.exceptions.ExceptionRepo;
@@ -66,5 +67,18 @@ public class AccountController {
         repoWorker.save(newWorker);
         Account newAccount = new Account(account.getUsername(),encodedpassword,account.getRole(),account.getWorker());
         repoAccount.save(newAccount);
+    }
+
+    @PutMapping(value = "/allroles/editAccount")
+    public Account EditAccount(@RequestBody Account editAccount){
+        return repoAccount.save(editAccount);
+    }
+
+    @GetMapping(value = "/allroles/me")
+    public Account ReturnUser(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        Account account = repoAccount.findByUsername(username);
+        return account;
     }
 }
