@@ -10,9 +10,11 @@ import senior.project.firework.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import senior.project.firework.exceptions.AccountException;
+import senior.project.firework.services.EmailBusiness;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @RestController
 public class AccountController {
@@ -40,6 +42,8 @@ public class AccountController {
     private repoDistrict repoDistrict;
     @Autowired
     private repoSubDistrict repoSubDistrict;
+    @Autowired
+    EmailBusiness emailBusiness;
 
     @GetMapping("/main/allAccount")
     public List<Account> allAccount(){
@@ -52,7 +56,7 @@ public class AccountController {
     }
 
     @PostMapping("/main/register")
-    public void RegisAccount(@RequestBody Account account){
+    public void RegisAccount(@RequestBody Account account) throws Exception {
         if(repoAccount.findByUsername(account.getUsername()) != null){
             throw new AccountException(ExceptionRepo.ERROR_CODE.USERNAME_HAVE_ALREADY,"Username have already!");
         }
@@ -64,7 +68,7 @@ public class AccountController {
         }
     }
 
-    public void RegisAccountForEmployer(Account account,String encodedpassword){
+    public void RegisAccountForEmployer(Account account,String encodedpassword) throws Exception {
         Status status = repoStatus.findById(6L).orElse(null);
         Approve approve = new Approve(status);
         repoApprove.save(approve);
@@ -83,9 +87,13 @@ public class AccountController {
                 businesstype,newAccount,province, district,subDistrict,nationality);
 
         repoEmployer.save(employer);
+        Random random = new Random();
+        int randomWithNextInt = random.nextInt(999999);
+        String otp = String.format("%06d", randomWithNextInt);
+        emailBusiness.sendActivateUserEmail(account.getEmployer().getEmail(), account.getEmployer().getEstablishmentName(), otp);
     }
 
-    public void RegisAccountForWorker(Account account,String encodedpassword){
+    public void RegisAccountForWorker(Account account,String encodedpassword) throws Exception {
         Status status = repoStatus.findById(6L).orElse(null);
         Approve approve = new Approve(status);
         repoApprove.save(approve);
@@ -100,7 +108,10 @@ public class AccountController {
                 account.getWorker().getLastName(),account.getWorker().getPhone(),newAccount,nationality,workerType);
 
         repoWorker.save(worker);
-
+        Random random = new Random();
+        int randomWithNextInt = random.nextInt(999999);
+        String otp = String.format("%06d", randomWithNextInt);
+        emailBusiness.sendActivateUserEmail(account.getUsername(), account.getWorker().getFirstName(), otp);
     }
 
     @GetMapping(value = "/allroles/me")

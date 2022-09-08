@@ -88,6 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin_emp/**").hasAnyRole("ADMIN","EMP")
                 .antMatchers("/admin_worker/**").hasAnyRole("ADMIN","WORKER")
                 .antMatchers("/emp_worker/**").hasAnyRole("EMP","WORKER").
+//                .antMatchers("/actuator/**").anonymous()
+//                .anyRequest().authenticated().
                 // all other requests need to be authenticated
                         and().
                 // make sure we use stateless session; session won't be used to
