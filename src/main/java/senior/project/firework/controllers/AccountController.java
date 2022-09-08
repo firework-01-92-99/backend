@@ -5,12 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import senior.project.firework.exceptions.ExceptionRepo;
-import senior.project.firework.models.Account;
-import senior.project.firework.models.Employer;
-import senior.project.firework.models.Worker;
-import senior.project.firework.repositories.repoAccount;
-import senior.project.firework.repositories.repoWorker;
-import senior.project.firework.repositories.repoEmployer;
+import senior.project.firework.models.*;
+import senior.project.firework.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import senior.project.firework.exceptions.AccountException;
@@ -28,8 +24,24 @@ public class AccountController {
     private repoEmployer repoEmployer;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private repoApprove repoApprove;
+    @Autowired
+    private repoStatus repoStatus;
+    @Autowired
+    private repoWorkerType repoWorkerType;
+    @Autowired
+    private repoNationality repoNationality;
+    @Autowired
+    private repoBusinesstype repoBusinesstype;
+    @Autowired
+    private repoProvince repoProvince;
+    @Autowired
+    private repoDistrict repoDistrict;
+    @Autowired
+    private repoSubDistrict repoSubDistrict;
 
-    @GetMapping("/admin/allAccount")
+    @GetMapping("/main/allAccount")
     public List<Account> allAccount(){
         return repoAccount.findAll();
     }
@@ -53,25 +65,42 @@ public class AccountController {
     }
 
     public void RegisAccountForEmployer(Account account,String encodedpassword){
-        Employer newEmployer = new Employer(account.getEmployer().getEstablishmentName(),account.getEmployer().getEntrepreneurfName(),account.getEmployer().getEntrepreneurlName(),
-                account.getEmployer().getAddress(),account.getEmployer().getTel(),account.getEmployer().getPhone(),account.getEmployer().getLineId(),
-                account.getEmployer().getBusinesstype(),account.getEmployer().getProvince(),account.getEmployer().getDistrict(),account.getEmployer().getSubDistrict(),account.getEmployer().getNationality());
-        repoEmployer.save(newEmployer);
-        Account newAccount = new Account(account.getUsername(),encodedpassword,account.getRole(),account.getEmployer());
+        Status status = repoStatus.findById(6L).orElse(null);
+        Approve approve = new Approve(status);
+        repoApprove.save(approve);
+        Account newAccount = new Account(account.getUsername(),encodedpassword,account.getRole(),approve);
         repoAccount.save(newAccount);
+
+        Businesstype businesstype = repoBusinesstype.findById(account.getEmployer().getBusinesstype().getIdBusinessType()).orElse(null);
+        Province province = repoProvince.findById(account.getEmployer().getProvince().getIdProvince()).orElse(null);
+        District district = repoDistrict.findById(account.getEmployer().getDistrict().getIdDistrict()).orElse(null);
+        SubDistrict subDistrict = repoSubDistrict.findById(account.getEmployer().getSubDistrict().getIdSubdistrict()).orElse(null);
+        Nationality nationality = repoNationality.findById(account.getEmployer().getNationality().getIdnationality()).orElse(null);
+
+        Employer employer = new Employer(account.getEmployer().getEstablishmentName(),account.getEmployer().getEntrepreneurfName(),
+                account.getEmployer().getEntrepreneurlName(),account.getEmployer().getAddress(),account.getEmployer().getTel(),
+                account.getEmployer().getPhone(),account.getEmployer().getEmail(),account.getEmployer().getLineId(),
+                businesstype,newAccount,province, district,subDistrict,nationality);
+
+        repoEmployer.save(employer);
     }
 
     public void RegisAccountForWorker(Account account,String encodedpassword){
-        Worker newWorker = new Worker(account.getWorker().getIdentificationNumber(),account.getWorker().getSex(),
-                account.getWorker().getFirstName(),account.getWorker().getMiddleName(),account.getWorker().getLastName(),account.getWorker().getPhone());
-        repoWorker.save(newWorker);
-        Account newAccount = new Account(account.getUsername(),encodedpassword,account.getRole(),account.getWorker());
+        Status status = repoStatus.findById(6L).orElse(null);
+        Approve approve = new Approve(status);
+        repoApprove.save(approve);
+        Account newAccount = new Account(account.getUsername(),encodedpassword,account.getRole(),approve);
         repoAccount.save(newAccount);
-    }
 
-    @PutMapping(value = "/allroles/editAccount")
-    public Account EditAccount(@RequestBody Account editAccount){
-        return repoAccount.save(editAccount);
+        Nationality nationality = repoNationality.findById(account.getWorker().getNationality().getIdnationality()).orElse(null);
+        WorkerType workerType = repoWorkerType.findById(account.getWorker().getWorkerType().getIdWorkerType()).orElse(null);
+
+        Worker worker = new Worker(account.getWorker().getIdentificationNumber(),account.getWorker().getVerifyPic(),
+                account.getWorker().getSex(),account.getWorker().getFirstName(),account.getWorker().getMiddleName(),
+                account.getWorker().getLastName(),account.getWorker().getPhone(),newAccount,nationality,workerType);
+
+        repoWorker.save(worker);
+
     }
 
     @GetMapping(value = "/allroles/me")

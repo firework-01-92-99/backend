@@ -17,7 +17,6 @@ public class Approve {
   @JoinColumn(name = "admin_idAdmin")
   private Admin admin;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "status_idStatus")
   private Status status;
   @OneToOne(mappedBy = "approve")
@@ -39,6 +38,15 @@ public class Approve {
 
   public Approve() {
 
+  }
+
+  public Approve(Status status, Account account) {
+    this.status = status;
+    this.account = account;
+  }
+
+  public Approve(Status status) {
+    this.status = status;
   }
 
   public Admin getAdmin() {

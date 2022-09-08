@@ -35,25 +35,19 @@ public class AdminController {
         return repoAdmin.findById(idAdmin);
     }
     
-    @PostMapping("/admin/approveAccount")
-    public Approve approveAccount(@RequestParam(name = "idAdmin") long idAdmin,@RequestParam(name = "idAccount") long idAccount,@RequestParam(name = "idStatus") long idStatus){
-        Optional<Admin> admin = repoAdmin.findById(idAdmin);
-        Admin admin1 = new Admin(admin.get().getIdAdmin(),admin.get().getUsername(),admin.get().getPassword(),admin.get().getFirstName(),
-                admin.get().getLastName(),admin.get().getApproveList(),admin.get().getApplicationList(),admin.get().getRole());
-        Optional<Account> account = repoAccount.findById(idAccount);
-        Account account1 = new Account(account.get().getIdAccount(),account.get().getUsername(),account.get().getPassword(),account.get().getRole(),
-                account.get().getApprove(),account.get().getEmployer(),account.get().getWorker());
-        Optional<Status> status = repoStatus.findById(idStatus);
-        Status status1 = new Status(status.get().getIdStatus(),status.get().getStatusName(),status.get().getApproveList(),status.get().getApplicationList(),
-                status.get().getPostingList());
-        Approve approve = new Approve(admin1,status1,account1);
+    @PutMapping("/main/approveAccount")
+    public Approve approveAccount(@RequestParam(name = "idApprove") long idApprove,@RequestParam(name = "idAdmin") long idAdmin,@RequestParam(name = "idStatus") long idStatus){
+        Approve approve = repoApprove.findById(idApprove).orElse(null);
+        Admin admin = repoAdmin.findById(idAdmin).orElse(null);
+        Status status = repoStatus.findById(idStatus).orElse(null);
+        approve.setAdmin(admin);
+        approve.setStatus(status);
         return repoApprove.save(approve);
     }
 
     @PutMapping(value = "/admin/editApprove")
     public Approve Editapprove(@RequestParam(name = "idApprove") long idApprove){
-        Optional<Approve> approve = repoApprove.findById(idApprove);
-        Approve approve1 = new Approve(approve.get().getIdApprove(),approve.get().getAdmin(),approve.get().getStatus(),approve.get().getAccount());
-        return repoApprove.save(approve1);
+        Approve approve = repoApprove.findById(idApprove).orElse(null);
+        return repoApprove.save(approve);
     }
 }

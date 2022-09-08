@@ -71,5 +71,19 @@ public class Ratings {
     this.timestamp = timestamp;
   }
 
+  public Employer getEmployer() {
+    return employer;
+  }
 
+  public void setEmployer(Employer employer) {
+    this.employer = employer;
+  }
+
+  public Worker getWorker() {
+    return worker;
+  }
+
+  public void setWorker(Worker worker) {
+    this.worker = worker;
+  }
 }

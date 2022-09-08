@@ -8,7 +8,6 @@ import senior.project.firework.repositories.repoWorker;
 import senior.project.firework.models.Ratings;
 import senior.project.firework.models.Worker;
 
-import javax.persistence.ManyToOne;
 import java.util.Date;
 import java.util.List;
 
@@ -22,19 +21,25 @@ public class RatingsController {
     private repoRatings repoRatings;
 
     @PostMapping("/emp/giveScore")
-    public Ratings GiveScore(@RequestBody Ratings ratings){
+    public String GiveScore(@RequestBody Ratings ratings){
+        if( ratings.getEmployer() == repoEmployer.getById(ratings.getEmployer().getIdEmployer())
+                && ratings.getWorker() == repoWorker.getById(ratings.getWorker().getIdWorker() )){
+            return "You give score already.";
+        }
         long now = System.currentTimeMillis();
         Date sqlDate = new Date(now);
         ratings.setTimestamp((java.sql.Date) sqlDate);
-        return repoRatings.save(ratings);
+        repoRatings.save(ratings);
+        return "Score = "+ratings.getRate();
     }
 
     @PutMapping("/emp/editScore")
-    public Ratings EditScore(@RequestBody Ratings ratings){
+    public String EditScore(@RequestBody Ratings ratings){
         long now = System.currentTimeMillis();
         Date sqlDate = new Date(now);
         ratings.setTimestamp((java.sql.Date) sqlDate);
-        return repoRatings.save(ratings);
+        repoRatings.save(ratings);
+        return "Score = "+ratings.getRate();
     }
 
     @DeleteMapping("/emp/cancelScore")

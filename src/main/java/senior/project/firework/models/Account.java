@@ -20,22 +20,11 @@ public class Account {
   private Role role;
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "approve_idApprove")
-  @JsonIgnore
   private Approve approve;
   @OneToOne(mappedBy = "account")
   private Employer employer;
   @OneToOne(mappedBy = "account")
   private Worker worker;
-
-  public Account(long idAccount, String username, String password, Role role, Approve approve, Employer employer, Worker worker) {
-    this.idAccount = idAccount;
-    this.username = username;
-    this.password = password;
-    this.role = role;
-    this.approve = approve;
-    this.employer = employer;
-    this.worker = worker;
-  }
 
   public Account(String username, String password, Role role, Worker worker) {
     this.username = username;
@@ -49,6 +38,21 @@ public class Account {
     this.password = password;
     this.role = role;
     this.employer = employer;
+  }
+
+  public Account(String username, String password, Role role, Approve approve) {
+    this.username = username;
+    this.password = password;
+    this.role = role;
+    this.approve = approve;
+  }
+
+  public Account(String username, String password, Role role, Approve approve, Worker worker) {
+    this.username = username;
+    this.password = password;
+    this.role = role;
+    this.approve = approve;
+    this.worker = worker;
   }
 
   public Account() {

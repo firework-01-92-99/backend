@@ -15,20 +15,14 @@ public class Status {
   @Column(name = "statusName")
   private String statusName;
   @OneToMany(mappedBy = "status")
+  @JsonIgnore
   private List<Approve> approveList;
   @OneToMany(mappedBy = "status")
+  @JsonIgnore
   private List<Application> applicationList;
   @OneToMany(mappedBy = "status")
   @JsonIgnore
   private List<Posting> postingList;
-
-  public Status(long idStatus, String statusName, List<Approve> approveList, List<Application> applicationList, List<Posting> postingList) {
-    this.idStatus = idStatus;
-    this.statusName = statusName;
-    this.approveList = approveList;
-    this.applicationList = applicationList;
-    this.postingList = postingList;
-  }
 
   public Status() {
 

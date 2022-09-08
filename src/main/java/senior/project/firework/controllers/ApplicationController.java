@@ -3,6 +3,8 @@ package senior.project.firework.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import senior.project.firework.frontendmodel.StatusApplication;
+import senior.project.firework.frontendmodel.HowManyApplication;
+import senior.project.firework.frontendmodel.WhoApplication;
 import senior.project.firework.models.*;
 import senior.project.firework.repositories.repoApplication;
 import senior.project.firework.repositories.repoWorker;
@@ -84,6 +86,25 @@ public class ApplicationController {
             statusApplicationList.add(statusApplication);
         }
         return statusApplicationList;
+    }
+
+    @GetMapping("/admin_emp/showAllWorker")
+    public HowManyApplication showAllWorker(@RequestParam(name = "idPosting") long idPosting){
+        return setAllWorker(idPosting);
+    }
+
+    public HowManyApplication setAllWorker(long idPosting){
+        List<WhoApplication> whoApplicationList = new ArrayList<>();
+        Posting posting = repoPosting.findById(idPosting).orElse(null);
+        List<Application> applicationList = posting.getApplicationList();
+        long count = 1;
+        for(Application applicationPerLine : applicationList){
+            WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdWorker(),applicationPerLine.getStatus().getStatusName());
+            whoApplicationList.add(whoApplication);
+            count++;
+        }
+        HowManyApplication howManyApplication = new HowManyApplication(idPosting,whoApplicationList);
+        return howManyApplication;
     }
 
 }

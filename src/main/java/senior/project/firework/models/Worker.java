@@ -44,13 +44,17 @@ public class Worker {
   @JoinColumn(name = "nationality_idnationality")
   private Nationality nationality;
 
-  public Worker(String identificationNumber, String sex, String firstName, String middleName, String lastName, String phone) {
+  public Worker(String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, Account account, Nationality nationality, WorkerType workerType) {
     this.identificationNumber = identificationNumber;
+    this.verifyPic = verifyPic;
     this.sex = sex;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
     this.phone = phone;
+    this.account = account;
+    this.nationality = nationality;
+    this.workerType = workerType;
   }
 
   public Worker() {

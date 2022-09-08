@@ -15,6 +15,7 @@ public class Businesstype {
   @Column(name = "nameType")
   private String nameType;
   @OneToMany(mappedBy = "businesstype")
+  @JsonIgnore
   private List<Employer> employerList;
 
   public void setEmployerList(List<Employer> employerList) {

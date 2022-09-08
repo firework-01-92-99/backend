@@ -29,7 +29,6 @@ public class Employer {
   @Column(name = "lineId")
   private String lineId;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "businessType_idBusinessType")
   private Businesstype businesstype;
   @OneToOne(cascade = CascadeType.ALL)
@@ -59,15 +58,17 @@ public class Employer {
   @JoinColumn(name = "nationality_idnationality")
   private Nationality nationality;
 
-  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String lineId, Businesstype businesstype, Province province, District district, SubDistrict subDistrict,Nationality nationality) {
+  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String email, String lineId, Businesstype businesstype, Account account, Province province, District district, SubDistrict subDistrict, Nationality nationality) {
     this.establishmentName = establishmentName;
     this.entrepreneurfName = entrepreneurfName;
     this.entrepreneurlName = entrepreneurlName;
     this.address = address;
     this.tel = tel;
     this.phone = phone;
+    this.email = email;
     this.lineId = lineId;
     this.businesstype = businesstype;
+    this.account = account;
     this.province = province;
     this.district = district;
     this.subDistrict = subDistrict;
