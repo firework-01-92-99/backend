@@ -21,21 +21,21 @@ jobs:
           push: true
           tags: ghcr.io/firework-01-92-99/firework-back:dev
 
-#   deploy:
-#     needs:
-#       - build
-#     runs-on: ubuntu-20.04
-#     steps:
-#       - uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.HOSTNAME }}
-#           username: ${{ secrets.USERNAME }}
-#           password: ${{ secrets.PASSWORD }}
-#           # port: ${{ secrets.SERVERPORT }}
-#           script: |
-#             cd ~/backend
-#             docker-compose down
-#             git pull
-#             docker-compose pull
-#             docker-compose up -d
-#             docker image prune -af
+  deploy:
+    needs:
+      - build
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOSTNAME }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          # port: ${{ secrets.SERVERPORT }}
+          script: |
+            cd ~/backend
+            docker-compose down
+            git pull
+            docker-compose pull
+            docker-compose up -d
+            docker image prune -af
