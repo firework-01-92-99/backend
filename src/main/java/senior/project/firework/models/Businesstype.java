@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "businessType")
+@Table(name = "businesstype")
 public class Businesstype {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class Businesstype {
   private long idBusinessType;
   @Column(name = "nameType")
   private String nameType;
-  @OneToMany(mappedBy = "businessType")
+  @OneToMany(mappedBy = "businesstype")
   @JsonIgnore
   private List<Employer> employerList;
 
