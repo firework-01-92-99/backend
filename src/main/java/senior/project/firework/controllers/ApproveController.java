@@ -22,28 +22,45 @@ public class ApproveController {
     }
 
     @GetMapping("/main/getAllApproveByIdStatus")
-    public List<WhoInApprove> getAllApprove(@RequestParam(name = "idStatus") long idStatus){
-        return setAllApprove(idStatus);
+    public List<WhoInApprove> getAllApprove(@RequestParam(name = "idStatus") long idStatus,@RequestParam(name = "idRole") long idRole){
+        return setAllApprove(idStatus,idRole);
     }
 
-    public List<WhoInApprove> setAllApprove(long idStatus){
+    public List<WhoInApprove> setAllApprove(long idStatus,long idRole){
         List<Approve> approveList = repoApprove.findAll();
         List<WhoInApprove> whoInApproveList = new ArrayList<>();
         long count = 1;
         for(Approve approvePerLine : approveList){
-            if(idStatus == 0){
-                WhoInApprove whoInApprove = new WhoInApprove();
-                setWhoInApprove(whoInApprove,count,approvePerLine);
-                whoInApproveList.add(whoInApprove);
-                count++;
-            }else{
-                if(approvePerLine.getStatus().getIdStatus() == idStatus){
+            if(idRole == 0){
+                if(idStatus == 0){
                     WhoInApprove whoInApprove = new WhoInApprove();
                     setWhoInApprove(whoInApprove,count,approvePerLine);
                     whoInApproveList.add(whoInApprove);
                     count++;
+                }else{
+                    if(approvePerLine.getStatus().getIdStatus() == idStatus){
+                        WhoInApprove whoInApprove = new WhoInApprove();
+                        setWhoInApprove(whoInApprove,count,approvePerLine);
+                        whoInApproveList.add(whoInApprove);
+                        count++;
+                    }
+                }
+            }else if(approvePerLine.getAccount().getRole().getIdRole() == idRole){
+                if(idStatus == 0){
+                    WhoInApprove whoInApprove = new WhoInApprove();
+                    setWhoInApprove(whoInApprove,count,approvePerLine);
+                    whoInApproveList.add(whoInApprove);
+                    count++;
+                }else{
+                    if(approvePerLine.getStatus().getIdStatus() == idStatus){
+                        WhoInApprove whoInApprove = new WhoInApprove();
+                        setWhoInApprove(whoInApprove,count,approvePerLine);
+                        whoInApproveList.add(whoInApprove);
+                        count++;
+                    }
                 }
             }
+
         }
         return whoInApproveList;
     }
@@ -56,6 +73,7 @@ public class ApproveController {
             whoInApprove.setWorkOrEmp("Employer");
             whoInApprove.setNationlity(approve.getAccount().getEmployer().getNationality().getNationality_name());
             whoInApprove.setStatus(approve.getStatus().getStatusName());
+            whoInApprove.setIdEmpOrWork(approve.getAccount().getEmployer().getIdEmployer());
         }else if(approve.getAccount().getRole().getIdRole() == 3 /* Worker */){
             whoInApprove.setCount(count);
             whoInApprove.setIdApprove(approve.getIdApprove());
@@ -68,6 +86,7 @@ public class ApproveController {
             whoInApprove.setWorkOrEmp("Worker");
             whoInApprove.setNationlity(approve.getAccount().getWorker().getNationality().getNationality_name());
             whoInApprove.setStatus(approve.getStatus().getStatusName());
+            whoInApprove.setIdEmpOrWork(approve.getAccount().getWorker().getIdWorker());
         }
         return whoInApprove;
     }
