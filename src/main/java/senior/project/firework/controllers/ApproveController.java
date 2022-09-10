@@ -21,7 +21,7 @@ public class ApproveController {
         return repoApprove.findAll();
     }
 
-    @GetMapping("/main/getAllApproveByIdStatus")
+    @GetMapping("/main/getAllApproveByIdStatusAndIdRole")
     public List<WhoInApprove> getAllApprove(@RequestParam(name = "idStatus") long idStatus,@RequestParam(name = "idRole") long idRole){
         return setAllApprove(idStatus,idRole);
     }
