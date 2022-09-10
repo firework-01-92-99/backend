@@ -1,17 +1,23 @@
 package senior.project.firework.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 import senior.project.firework.exceptions.EmailException;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class EmailBusiness {
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     private final EmailService emailService;
 
@@ -36,8 +42,25 @@ public class EmailBusiness {
     }
 
     private String readEmailTemplate(String filename) throws IOException {
-        File file = ResourceUtils.getFile("classpath:email/"+filename);
-        return FileCopyUtils.copyToString(new FileReader(file));
+        Resource resource = resourceLoader.getResource("classpath:email/" + filename);
+
+        InputStream inputStream = resource.getInputStream();
+
+        Assert.notNull(inputStream, "Could not load template resource!");
+
+        String email = null;
+
+        try {
+            byte[] bdata = FileCopyUtils.copyToByteArray(inputStream);
+            email = new String(bdata, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            if (inputStream != null) {
+                IOUtils.closeQuietly(inputStream);
+            }
+        }
+        return email;
     }
 
 }
