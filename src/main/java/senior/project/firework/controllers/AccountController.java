@@ -43,6 +43,8 @@ public class AccountController {
     @Autowired
     private repoSubDistrict repoSubDistrict;
     @Autowired
+    private repoAdmin repoAdmin;
+    @Autowired
     EmailBusiness emailBusiness;
 
     @GetMapping("/main/allAccount")
@@ -120,5 +122,14 @@ public class AccountController {
         String username = userDetails.getUsername();
         Account account = repoAccount.findByUsername(username);
         return account;
+    }
+
+    @GetMapping(value = "/allroles/meAdmin")
+    public Admin ReturnAdmin(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        Account account = repoAccount.findByUsername(username);
+        Admin admin = repoAdmin.findByUsername(account.getUsername());
+        return admin;
     }
 }

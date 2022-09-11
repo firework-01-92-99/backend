@@ -16,7 +16,7 @@ public class ApproveController {
     @Autowired
     private repoApprove repoApprove;
 
-    @GetMapping("/main/allApprove")
+    @GetMapping("/admin/allApprove")
     public List<Approve> allApprove(){
         return repoApprove.findAll();
     }
