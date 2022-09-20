@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import senior.project.firework.models.Employer;
+import senior.project.firework.models.Position;
 import senior.project.firework.models.Posting;
 
 import org.springframework.data.domain.Page;
@@ -38,4 +39,6 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
     @Query(value =  "SELECT e FROM Posting p, Employer e " +
                     "WHERE p.employer.idEmployer = e.idEmployer AND p.idPosting = :idPosting ")
     Employer selectEmployerByPostingId(long idPosting);
+
+    List<Posting> findByPosition(Position position);
 }

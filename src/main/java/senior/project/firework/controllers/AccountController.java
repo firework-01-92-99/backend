@@ -47,7 +47,7 @@ public class AccountController {
     @Autowired
     EmailBusiness emailBusiness;
 
-    @GetMapping("/main/allAccount")
+    @GetMapping("/admin/allAccount")
     public List<Account> allAccount(){
         return repoAccount.findAll();
     }
@@ -59,8 +59,8 @@ public class AccountController {
 
     @PostMapping("/main/register")
     public void RegisAccount(@RequestBody Account account) throws Exception {
-        if(repoAccount.findByUsername(account.getUsername()) != null){
-            throw new AccountException(ExceptionRepo.ERROR_CODE.USERNAME_HAVE_ALREADY,"Username have already!");
+        if(repoAccount.findByEmail(account.getEmail()) != null){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_EMAIL_HAVE_ALREADY,"Email have already!");
         }
         String encodedpassword = passwordEncoder.encode(account.getPassword());
         if(account.getRole().getIdRole() == 2){
@@ -74,7 +74,7 @@ public class AccountController {
         Status status = repoStatus.findById(6L).orElse(null);
         Approve approve = new Approve(status);
         repoApprove.save(approve);
-        Account newAccount = new Account(account.getUsername(),encodedpassword,account.getRole(),approve);
+        Account newAccount = new Account(account.getEmail(),encodedpassword,account.getRole(),approve);
         repoAccount.save(newAccount);
 
         Businesstype businesstype = repoBusinesstype.findById(account.getEmployer().getBusinesstype().getIdBusinessType()).orElse(null);
@@ -85,7 +85,7 @@ public class AccountController {
 
         Employer employer = new Employer(account.getEmployer().getEstablishmentName(),account.getEmployer().getEntrepreneurfName(),
                 account.getEmployer().getEntrepreneurlName(),account.getEmployer().getAddress(),account.getEmployer().getTel(),
-                account.getEmployer().getPhone(),account.getEmployer().getEmail(),account.getEmployer().getLineId(),
+                account.getEmployer().getPhone(),account.getEmployer().getEmail(),account.getEmployer().getLineId(),account.getEmployer().getVerifyCert(),
                 businesstype,newAccount,province, district,subDistrict,nationality);
 
         repoEmployer.save(employer);
@@ -99,7 +99,7 @@ public class AccountController {
         Status status = repoStatus.findById(6L).orElse(null);
         Approve approve = new Approve(status);
         repoApprove.save(approve);
-        Account newAccount = new Account(account.getUsername(),encodedpassword,account.getRole(),approve);
+        Account newAccount = new Account(account.getEmail(),encodedpassword,account.getRole(),approve);
         repoAccount.save(newAccount);
 
         Nationality nationality = repoNationality.findById(account.getWorker().getNationality().getIdnationality()).orElse(null);
@@ -113,23 +113,31 @@ public class AccountController {
         Random random = new Random();
         int randomWithNextInt = random.nextInt(999999);
         String otp = String.format("%06d", randomWithNextInt);
-        emailBusiness.sendActivateUserEmail(account.getUsername(), account.getWorker().getFirstName(), otp);
+        emailBusiness.sendActivateUserEmail(account.getEmail(), account.getWorker().getFirstName(), otp);
     }
 
     @GetMapping(value = "/allroles/me")
     public Account ReturnUser(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        Account account = repoAccount.findByUsername(username);
+        Account account = repoAccount.findByEmail(username);
         return account;
+    }
+
+    @GetMapping(value = "/allroles/getMyAccountStatus")
+    public Status ReturnMyAccountStatus(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        Account account = repoAccount.findByEmail(username);
+        return account.getApprove().getStatus();
     }
 
     @GetMapping(value = "/allroles/meAdmin")
     public Admin ReturnAdmin(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        Account account = repoAccount.findByUsername(username);
-        Admin admin = repoAdmin.findByUsername(account.getUsername());
+        Account account = repoAccount.findByEmail(username);
+        Admin admin = repoAdmin.findByEmail(account.getEmail());
         return admin;
     }
 }

@@ -13,8 +13,8 @@ public class Admin {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "idAdmin")
   private long idAdmin;
-  @Column(name = "username")
-  private String username;
+  @Column(name = "email")
+  private String email;
   @Column(name = "password")
   private String password;
   @Column(name = "firstName")
@@ -33,9 +33,9 @@ public class Admin {
   private Role role;
 
 
-  public Admin(long idAdmin, String username, String password, String firstName, String lastName, List<Approve> approveList, List<Application> applicationList, Role role) {
+  public Admin(long idAdmin, String email, String password, String firstName, String lastName, List<Approve> approveList, List<Application> applicationList, Role role) {
     this.idAdmin = idAdmin;
-    this.username = username;
+    this.email = email;
     this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -80,12 +80,12 @@ public class Admin {
     this.idAdmin = idAdmin;
   }
 
-  public String getUsername() {
-    return username;
+  public String getEmail() {
+    return email;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getPassword() {

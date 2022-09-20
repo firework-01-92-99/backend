@@ -40,6 +40,8 @@ public class Worker {
   private List<Favorite> favoriteList;
   @OneToMany(mappedBy = "worker")
   private List<Ratings> ratingsList;
+  @OneToMany(mappedBy = "worker")
+  private List<EditWorker> editWorkerList;
   @ManyToOne
   @JoinColumn(name = "nationality_idnationality")
   private Nationality nationality;
@@ -59,6 +61,14 @@ public class Worker {
 
   public Worker() {
 
+  }
+
+  public List<EditWorker> getEditWorkerList() {
+    return editWorkerList;
+  }
+
+  public void setEditWorkerList(List<EditWorker> editWorkerList) {
+    this.editWorkerList = editWorkerList;
   }
 
   public String getSex() {

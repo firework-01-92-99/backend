@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import senior.project.firework.models.Admin;
 
 public interface repoAdmin extends JpaRepository<Admin,Long> {
-    Admin findByUsername(String username);
+    Admin findByEmail(String email);
 }

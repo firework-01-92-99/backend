@@ -28,6 +28,8 @@ public class Employer {
   private String email;
   @Column(name = "lineId")
   private String lineId;
+  @Column(name = "verifyCert")
+  private String verifyCert;
   @ManyToOne
   @JoinColumn(name = "businessType_idBusinessType")
   private Businesstype businesstype;
@@ -57,8 +59,11 @@ public class Employer {
   @ManyToOne
   @JoinColumn(name = "nationality_idnationality")
   private Nationality nationality;
+  @OneToMany(mappedBy = "employer")
+  @JsonIgnore
+  private List<EditEmployer> editEmployerList;
 
-  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String email, String lineId, Businesstype businesstype, Account account, Province province, District district, SubDistrict subDistrict, Nationality nationality) {
+  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String email, String lineId, String verifyCert, Businesstype businesstype, Account account, Province province, District district, SubDistrict subDistrict, Nationality nationality) {
     this.establishmentName = establishmentName;
     this.entrepreneurfName = entrepreneurfName;
     this.entrepreneurlName = entrepreneurlName;
@@ -67,6 +72,7 @@ public class Employer {
     this.phone = phone;
     this.email = email;
     this.lineId = lineId;
+    this.verifyCert = verifyCert;
     this.businesstype = businesstype;
     this.account = account;
     this.province = province;
@@ -77,6 +83,22 @@ public class Employer {
 
   public Employer() {
 
+  }
+
+  public List<EditEmployer> getEditEmployerList() {
+    return editEmployerList;
+  }
+
+  public void setEditEmployerList(List<EditEmployer> editEmployerList) {
+    this.editEmployerList = editEmployerList;
+  }
+
+  public String getVerifyCert() {
+    return verifyCert;
+  }
+
+  public void setVerifyCert(String verifyCert) {
+    this.verifyCert = verifyCert;
   }
 
   public long getIdEmployer() {

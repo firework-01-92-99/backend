@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "ratings")
@@ -17,7 +18,9 @@ public class Ratings {
   @Column(name = "comment")
   private String comment;
   @Column(name = "timestamp")
-  private java.sql.Date timestamp;
+  private LocalDate timestamp;
+  @Column(name = "for_who")
+  private String forwho;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "employer_idEmployer")
@@ -27,16 +30,25 @@ public class Ratings {
   @JoinColumn(name = "worker_idWorker")
   private Worker worker;
 
-  public Ratings(long rate, String comment, Date timestamp, Employer employer, Worker worker) {
+  public Ratings(long rate, String comment, LocalDate timestamp, String forwho, Employer employer, Worker worker) {
     this.rate = rate;
     this.comment = comment;
     this.timestamp = timestamp;
+    this.forwho = forwho;
     this.employer = employer;
     this.worker = worker;
   }
 
   public Ratings() {
 
+  }
+
+  public String getFor_who() {
+    return forwho;
+  }
+
+  public void setFor_who(String for_who) {
+    this.forwho = for_who;
   }
 
   public long getIdRating() {
@@ -63,11 +75,11 @@ public class Ratings {
     this.comment = comment;
   }
 
-  public java.sql.Date getTimestamp() {
+  public LocalDate getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(java.sql.Date timestamp) {
+  public void setTimestamp(LocalDate timestamp) {
     this.timestamp = timestamp;
   }
 

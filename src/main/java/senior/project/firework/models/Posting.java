@@ -60,6 +60,31 @@ public class Posting {
   @JsonIgnore
   private List<Favorite> favoriteList;
 
+  public Posting(){
+
+  }
+
+  public Posting(String sex, String workDescription, long minAge, long maxAge, long minSalary, long maxSalary, String overtimePayment, String startTime, String endTime, String properties, String welfare, HiringType hiringType, long idEmployer, Employer employer, Status status, WorkerType workerType, List<PostingHasDay> postingHasDayList, Position position) {
+    this.sex = sex;
+    this.workDescription = workDescription;
+    this.minAge = minAge;
+    this.maxAge = maxAge;
+    this.minSalary = minSalary;
+    this.maxSalary = maxSalary;
+    this.overtimePayment = overtimePayment;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.properties = properties;
+    this.welfare = welfare;
+    this.hiringType = hiringType;
+    this.idEmployer = idEmployer;
+    this.employer = employer;
+    this.status = status;
+    this.workerType = workerType;
+    this.postingHasDayList = postingHasDayList;
+    this.position = position;
+  }
+
   public long getIdPosting() {
     return idPosting;
   }

@@ -22,7 +22,7 @@ public class AuthenticationUser implements UserDetails {
     }
 
     public AuthenticationUser(Account user){
-        this.username = user.getUsername();
+        this.username = user.getEmail();
         this.password = user.getPassword();
         this.authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole().getRoleName()));
     }

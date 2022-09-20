@@ -2,12 +2,17 @@ package senior.project.firework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import senior.project.firework.models.Employer;
+import senior.project.firework.repositories.repoRole;
 import senior.project.firework.repositories.repoRatings;
 import senior.project.firework.repositories.repoEmployer;
 import senior.project.firework.repositories.repoWorker;
 import senior.project.firework.models.Ratings;
 import senior.project.firework.models.Worker;
+import senior.project.firework.models.Role;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,38 +24,67 @@ public class RatingsController {
     private repoWorker repoWorker;
     @Autowired
     private repoRatings repoRatings;
+    @Autowired
+    private repoRole repoRole;
 
-    @PostMapping("/emp/giveScore")
-    public String GiveScore(@RequestBody Ratings ratings){
-        if( ratings.getEmployer() == repoEmployer.getById(ratings.getEmployer().getIdEmployer())
-                && ratings.getWorker() == repoWorker.getById(ratings.getWorker().getIdWorker() )){
+    @GetMapping("/main/getRatings")
+    public List<Ratings> getRatings(){
+        return repoRatings.findAll();
+    }
+
+    @GetMapping("/main/getDate")
+    public LocalDate getDate(){
+        LocalDate date = LocalDate.now();
+        return date;
+    }
+
+    @PostMapping("/emp_worker/giveScore")
+    public String GiveScore(@RequestParam(name = "idWorker") long idWorker,
+                            @RequestParam(name = "idEmployer") long idEmployer,
+                            @RequestParam(name = "rate") long rate,
+                            @RequestParam(name = "comment") String comment,
+                            @RequestParam(name = "idRole") long idRole){
+        Worker worker = repoWorker.findById(idWorker).orElse(null);
+        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
+        Role role = repoRole.findById(idRole).orElse(null);
+        if( repoRatings.findByWorkerAndEmployerAndForwho(worker, employer, role.getRoleName() ) !=null ){
             return "You give score already.";
         }
-        long now = System.currentTimeMillis();
-        Date sqlDate = new Date(now);
-        ratings.setTimestamp((java.sql.Date) sqlDate);
+        LocalDate date = LocalDate.now();
+        Ratings ratings = new Ratings(rate,comment,date, role.getRoleName(), employer,worker);
         repoRatings.save(ratings);
-        return "Score = "+ratings.getRate();
+        return "Score = " + ratings.getRate();
     }
 
-    @PutMapping("/emp/editScore")
+    @PutMapping("/emp_worker/editScore")
     public String EditScore(@RequestBody Ratings ratings){
-        long now = System.currentTimeMillis();
-        Date sqlDate = new Date(now);
-        ratings.setTimestamp((java.sql.Date) sqlDate);
+        LocalDate date = LocalDate.now();
+        ratings.setTimestamp(date);
         repoRatings.save(ratings);
-        return "Score = "+ratings.getRate();
+        return "Score = " + ratings.getRate();
     }
 
-    @DeleteMapping("/emp/cancelScore")
+    @DeleteMapping("/emp_worker/cancelScore")
     public void cancelScore(@RequestParam(name = "idRating") long idRating){
         repoRatings.deleteById(idRating);
     }
 
-    @GetMapping("/worker/getMyTotalScore")
-    public double getMyTotalScore(@RequestParam(name = "idWorker") long idworker){
-        Worker worker = repoWorker.getById(idworker);
-        List<Ratings> ratingsList = repoRatings.findByWorker(worker);
+    @GetMapping("/main/getMyTotalScore")
+    public Double getMyTotalScore(@RequestParam(name = "idWorkerOrEmployer") long idWorkerOrEmployer,@RequestParam(name = "idRole") long idRole){
+        Role role = repoRole.findById(idRole).orElse(null);
+        if(role.getRoleName().equals("ROLE_WORKER")){
+            Worker worker = repoWorker.getById(idWorkerOrEmployer);
+            List<Ratings> ratingsList = repoRatings.findByWorkerAndForwho(worker,role.getRoleName());
+            return returnScoreDouble(ratingsList);
+        }else if(role.getRoleName().equals("ROLE_EMP")){
+            Employer employer = repoEmployer.getById(idWorkerOrEmployer);
+            List<Ratings> ratingsList = repoRatings.findByEmployerAndForwho(employer,role.getRoleName());
+            return returnScoreDouble(ratingsList);
+        }
+        return null;
+    }
+
+    public Double returnScoreDouble(List<Ratings> ratingsList){
         double totalScore = 0;
         double count = 0;
         for (Ratings ratingPerLine : ratingsList) {
@@ -58,13 +92,21 @@ public class RatingsController {
             count++;
         }
         double realScore = totalScore/count;
-        return Math.floor(realScore * 100)/100;
+        return realScore;
     }
 
-    @GetMapping("/worker/getMyScoreList")
-    public List<Ratings> getMyScoreList(@RequestParam(name = "idWorker") long idworker){
-        Worker worker = repoWorker.getById(idworker);
-        List<Ratings> ratingsList = repoRatings.findByWorker(worker);
-        return ratingsList;
+    @GetMapping("/main/getMyScoreList")
+    public List<Ratings> getMyScoreList(@RequestParam(name = "idWorkerOrEmployer") long idWorkerOrEmployer,@RequestParam(name = "idRole") long idRole){
+        Role role = repoRole.findById(idRole).orElse(null);
+        if(role.getRoleName().equals("ROLE_WORKER")){
+            Worker worker = repoWorker.getById(idWorkerOrEmployer);
+            List<Ratings> ratingsList = repoRatings.findByWorkerAndForwho(worker,role.getRoleName());
+            return ratingsList;
+        }else if(role.getRoleName().equals("ROLE_EMP")){
+            Employer employer = repoEmployer.getById(idWorkerOrEmployer);
+            List<Ratings> ratingsList = repoRatings.findByEmployerAndForwho(employer,role.getRoleName());
+            return ratingsList;
+        }
+        return null;
     }
 }

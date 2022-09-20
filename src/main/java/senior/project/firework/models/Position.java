@@ -22,6 +22,15 @@ public class Position {
   @JoinColumn(name = "employer_idEmployer")
   private Employer employer;
 
+  public Position(){
+
+  }
+
+  public Position(String positionName, Employer employer) {
+    this.positionName = positionName;
+    this.employer = employer;
+  }
+
   public long getIdposition() {
     return idposition;
   }

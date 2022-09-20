@@ -26,7 +26,7 @@ public class JWTUserDetailsService implements UserDetailsService {
 //        Optional<Account> user = Optional.ofNullable(repoAccount.findByAccUsername(username));
 //        return user.map(AuthenticationUser::new).get();
 
-        Account user = repoAccount.findByUsername(username);
+        Account user = repoAccount.findByEmail(username);
         return new AuthenticationUser(user);
 
     }

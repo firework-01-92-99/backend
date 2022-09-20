@@ -11,8 +11,8 @@ public class Account {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "idAccount")
   private long idAccount;
-  @Column(name = "username")
-  private String username;
+  @Column(name = "email")
+  private String email;
   @Column(name = "password")
   private String password;
   @ManyToOne
@@ -26,29 +26,29 @@ public class Account {
   @OneToOne(mappedBy = "account")
   private Worker worker;
 
-  public Account(String username, String password, Role role, Worker worker) {
-    this.username = username;
+  public Account(String email, String password, Role role, Worker worker) {
+    this.email = email;
     this.password = password;
     this.role = role;
     this.worker = worker;
   }
 
-  public Account(String username, String password, Role role, Employer employer) {
-    this.username = username;
+  public Account(String email, String password, Role role, Employer employer) {
+    this.email = email;
     this.password = password;
     this.role = role;
     this.employer = employer;
   }
 
-  public Account(String username, String password, Role role, Approve approve) {
-    this.username = username;
+  public Account(String email, String password, Role role, Approve approve) {
+    this.email = email;
     this.password = password;
     this.role = role;
     this.approve = approve;
   }
 
-  public Account(String username, String password, Role role, Approve approve, Worker worker) {
-    this.username = username;
+  public Account(String email, String password, Role role, Approve approve, Worker worker) {
+    this.email = email;
     this.password = password;
     this.role = role;
     this.approve = approve;
@@ -67,12 +67,12 @@ public class Account {
     this.idAccount = idAccount;
   }
 
-  public String getUsername() {
-    return username;
+  public String getEmail() {
+    return email;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getPassword() {

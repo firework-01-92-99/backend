@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import senior.project.firework.exceptions.AccountException;
 import senior.project.firework.exceptions.ExceptionRepo;
 import senior.project.firework.models.Account;
+import senior.project.firework.models.Status;
 import senior.project.firework.repositories.repoAccount;
 import senior.project.firework.services.JWTUserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,16 +47,29 @@ public class JwtAuthenticationController {
 
     @RequestMapping(value = "/main/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-        if(repoAccount.findByUsername(authenticationRequest.getUsername()) == null) {
-            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_USERNAME_INCORRECT,"Username incorrect!!");
+        if(repoAccount.findByEmail(authenticationRequest.getUsername()) == null) {
+            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_EMAIL_INCORRECT,"Email incorrect!!");
         }
-        Account account = repoAccount.findByUsername(authenticationRequest.getUsername());
+        Account account = repoAccount.findByEmail(authenticationRequest.getUsername());
         if(!passwordEncoder.matches(authenticationRequest.getPassword(),account.getPassword())){
             throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"Password incorrect!!");
+        }
+        if(account.getApprove().getStatus().getIdStatus() != 1 || account.getApprove().getStatus().getIdStatus() != 4){
+            checkStatusAccount(account.getApprove().getStatus());
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    public void checkStatusAccount(Status status) throws Exception {
+        if (status.getIdStatus() == 5) {
+            throw new AccountException(ExceptionRepo.ERROR_CODE.STATUS_ACCOUNT_REJECT, "Account Reject!!");
+        } else if (status.getIdStatus() == 9) {
+            throw new AccountException(ExceptionRepo.ERROR_CODE.STATUS_ACCOUNT_DELETED, "Account Deleted!!");
+        } else if(status.getIdStatus() == 6){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.STATUS_ACCOUNT_WAIT_APPROVE,"Status Wait Approve!!");
+        }
     }
 
 //    private void authenticate(String username, String password) throws Exception {
@@ -72,7 +86,7 @@ public class JwtAuthenticationController {
     public Account WhoAmI(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        Account account = repoAccount.findByUsername(username);
+        Account account = repoAccount.findByEmail(username);
         return account;
     }
 
