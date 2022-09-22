@@ -1,5 +1,7 @@
 package senior.project.firework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,7 @@ public class Location {
   private double longitude;
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "employer_idEmployer")
+  @JsonIgnore
   private Employer employer;
 
   public Employer getEmployer() {

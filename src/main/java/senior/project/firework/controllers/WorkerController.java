@@ -14,7 +14,7 @@ public class WorkerController {
     @Autowired
     private repoWorker repoWorker;
 
-    @GetMapping("/admin/allWorker")
+    @GetMapping("/main/allWorker")
     public List<Worker> allWorker(){
         return repoWorker.findAll();
     }

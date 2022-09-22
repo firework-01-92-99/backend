@@ -1,5 +1,7 @@
 package senior.project.firework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,7 @@ public class EditWorker {
     private String phone;
     @ManyToOne
     @JoinColumn(name = "worker_idWorker")
+    @JsonIgnore
     private Worker worker;
 
     public EditWorker(){

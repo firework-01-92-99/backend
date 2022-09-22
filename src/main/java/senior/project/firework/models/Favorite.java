@@ -9,8 +9,8 @@ import javax.persistence.*;
 public class Favorite {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "idFavoritel")
-  private long idFavoritel;
+  @Column(name = "idFavorite")
+  private long idFavorite;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "worker_idWorker")
@@ -19,6 +19,15 @@ public class Favorite {
   @JsonIgnore
   @JoinColumn(name = "posting_idPosting")
   private Posting posting;
+
+  public Favorite(){
+
+  }
+
+  public Favorite(Worker worker, Posting posting) {
+    this.worker = worker;
+    this.posting = posting;
+  }
 
   public Worker getWorker() {
     return worker;
@@ -36,12 +45,11 @@ public class Favorite {
     this.posting = posting;
   }
 
-  public long getIdFavoritel() {
-    return idFavoritel;
+  public long getIdFavorite() {
+    return idFavorite;
   }
 
-  public void setIdFavoritel(long idFavoritel) {
-    this.idFavoritel = idFavoritel;
+  public void setIdFavorite(long idFavorite) {
+    this.idFavorite = idFavorite;
   }
-
 }

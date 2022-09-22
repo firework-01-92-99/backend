@@ -1,5 +1,7 @@
 package senior.project.firework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -37,6 +39,7 @@ public class EditEmployer {
     private String postcode;
     @ManyToOne
     @JoinColumn(name = "employer_idEmployer")
+    @JsonIgnore
     private Employer employer;
 
     public EditEmployer(){
