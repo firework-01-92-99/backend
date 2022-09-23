@@ -30,8 +30,6 @@ public class ApplicationController {
     private repoStatus repoStatus;
     @Autowired
     private repoEmployer repoEmployer;
-    @Autowired
-    private repoPosition repoPosition;
 
     @GetMapping("/admin/allApplication")
     public List<Application> allApplication(){
