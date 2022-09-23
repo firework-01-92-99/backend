@@ -30,6 +30,16 @@ public class EditWorker {
 
     }
 
+    public EditWorker(long idEditWorker, String verifyPic, String firstName, String middleName, String lastName, String phone, Worker worker) {
+        this.idEditWorker = idEditWorker;
+        this.verifyPic = verifyPic;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.worker = worker;
+    }
+
     public EditWorker(String verifyPic, String firstName, String middleName, String lastName, String phone, Worker worker) {
         this.verifyPic = verifyPic;
         this.firstName = firstName;

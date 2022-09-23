@@ -104,12 +104,17 @@ public class AccountController {
 
         Nationality nationality = repoNationality.findById(account.getWorker().getNationality().getIdnationality()).orElse(null);
         WorkerType workerType = repoWorkerType.findById(account.getWorker().getWorkerType().getIdWorkerType()).orElse(null);
-
-        Worker worker = new Worker(account.getWorker().getIdentificationNumber(),account.getWorker().getVerifyPic(),
-                account.getWorker().getSex(),account.getWorker().getFirstName(),account.getWorker().getMiddleName(),
-                account.getWorker().getLastName(),account.getWorker().getPhone(),newAccount,nationality,workerType);
-
-        repoWorker.save(worker);
+        if(account.getWorker().getMiddleName() == null){
+            Worker worker = new Worker(account.getWorker().getIdentificationNumber(),account.getWorker().getVerifyPic(),
+                    account.getWorker().getSex(),account.getWorker().getFirstName(),"",
+                    account.getWorker().getLastName(),account.getWorker().getPhone(),newAccount,nationality,workerType);
+            repoWorker.save(worker);
+        }else{
+            Worker worker = new Worker(account.getWorker().getIdentificationNumber(),account.getWorker().getVerifyPic(),
+                    account.getWorker().getSex(),account.getWorker().getFirstName(),account.getWorker().getMiddleName(),
+                    account.getWorker().getLastName(),account.getWorker().getPhone(),newAccount,nationality,workerType);
+            repoWorker.save(worker);
+        }
         Random random = new Random();
         int randomWithNextInt = random.nextInt(999999);
         String otp = String.format("%06d", randomWithNextInt);
