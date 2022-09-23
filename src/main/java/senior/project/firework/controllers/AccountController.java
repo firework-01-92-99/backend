@@ -71,7 +71,7 @@ public class AccountController {
     }
 
     public void RegisAccountForEmployer(Account account,String encodedpassword) throws Exception {
-        Status status = repoStatus.findById(6L).orElse(null);
+        Status status = repoStatus.findById(10L).orElse(null);
         Approve approve = new Approve(status);
         repoApprove.save(approve);
         Account newAccount = new Account(account.getEmail(),encodedpassword,account.getRole(),approve);

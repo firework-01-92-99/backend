@@ -88,7 +88,7 @@ public class ApplicationController {
         return statusApplicationList;
     }
 
-    @GetMapping("/admin_emp/showAllWorker")
+    @GetMapping("/main/showAllWorker")
     public HowManyApplication showAllWorker(@RequestParam(name = "idPosting") long idPosting){
         return setAllWorker(idPosting);
     }
@@ -99,7 +99,10 @@ public class ApplicationController {
         List<Application> applicationList = posting.getApplicationList();
         long count = 1;
         for(Application applicationPerLine : applicationList){
-            WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdWorker(),applicationPerLine.getStatus().getStatusName());
+            Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
+            WhoApplication whoApplication = new WhoApplication(count,worker.getIdWorker(),worker.getIdentificationNumber(),
+                    worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
+                    worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getStatusName());
             whoApplicationList.add(whoApplication);
             count++;
         }

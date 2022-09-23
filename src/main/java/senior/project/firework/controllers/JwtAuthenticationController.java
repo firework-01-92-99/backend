@@ -54,7 +54,8 @@ public class JwtAuthenticationController {
         if(!passwordEncoder.matches(authenticationRequest.getPassword(),account.getPassword())){
             throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"Password incorrect!!");
         }
-        if(account.getApprove().getStatus().getIdStatus() != 1 || account.getApprove().getStatus().getIdStatus() != 4){
+        if(account.getApprove().getStatus().getIdStatus() != 1 || account.getApprove().getStatus().getIdStatus() != 4
+                || account.getApprove().getStatus().getIdStatus() != 10){
             checkStatusAccount(account.getApprove().getStatus());
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
@@ -69,6 +70,8 @@ public class JwtAuthenticationController {
             throw new AccountException(ExceptionRepo.ERROR_CODE.STATUS_ACCOUNT_DELETED, "Account Deleted!!");
         } else if(status.getIdStatus() == 6){
             throw new AccountException(ExceptionRepo.ERROR_CODE.STATUS_ACCOUNT_WAIT_APPROVE,"Status Wait Approve!!");
+        } else if(status.getIdStatus() == 10){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.STATUS_ACCOUNT_WAIT_OTP,"Status Wait OTP!!");
         }
     }
 
