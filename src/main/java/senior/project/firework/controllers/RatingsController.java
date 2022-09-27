@@ -27,7 +27,7 @@ public class RatingsController {
     @Autowired
     private repoRole repoRole;
 
-    @GetMapping("/main/getRatings")
+    @GetMapping("/admin/getRatings")
     public List<Ratings> getRatings(){
         return repoRatings.findAll();
     }
@@ -69,7 +69,7 @@ public class RatingsController {
         repoRatings.deleteById(idRating);
     }
 
-    @GetMapping("/main/getMyTotalScore")
+    @GetMapping("/emp_worker/getMyTotalScore")
     public Double getMyTotalScore(@RequestParam(name = "idWorkerOrEmployer") long idWorkerOrEmployer,@RequestParam(name = "idRole") long idRole){
         Role role = repoRole.findById(idRole).orElse(null);
         if(role.getRoleName().equals("ROLE_WORKER")){
@@ -95,7 +95,7 @@ public class RatingsController {
         return realScore;
     }
 
-    @GetMapping("/main/getMyScoreList")
+    @GetMapping("/emp_worker/getMyScoreList")
     public List<Ratings> getMyScoreList(@RequestParam(name = "idWorkerOrEmployer") long idWorkerOrEmployer,@RequestParam(name = "idRole") long idRole){
         Role role = repoRole.findById(idRole).orElse(null);
         if(role.getRoleName().equals("ROLE_WORKER")){

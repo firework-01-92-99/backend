@@ -22,24 +22,24 @@ public class PositionController {
     @Autowired
     private repoPosting repoPosting;
 
-    @GetMapping("/main/allPosition")
+    @GetMapping("/admin/allPosition")
     public List<Position> allPosition(){
         return repoPosition.findAll();
     }
 
-    @GetMapping("/main/getMyPosition")
+    @GetMapping("/emp/getMyPosition")
     public List<Position> getMyPosition(@RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
         return repoPosition.findByEmployer(employer);
     }
 
-    @GetMapping("/main/getMyPostingByPosition")
+    @GetMapping("/emp/getMyPostingByPosition")
     public List<Posting> getMyPostingByPosition(@RequestParam(name = "idPosition") long idPosition){
         Position position = repoPosition.findById(idPosition).orElse(null);
         return repoPosting.findByPosition(position);
     }
 
-    @PostMapping("/main/createPosition")
+    @PostMapping("/emp/createPosition")
     public void createPosition(@RequestParam(name = "namePosition") String namePosition,
                                @RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
@@ -47,7 +47,7 @@ public class PositionController {
         repoPosition.save(position);
     }
 
-    @PutMapping("/main/editPosition")
+    @PutMapping("/emp/editPosition")
     public void editPosition(@RequestParam(name = "idPosition") long idPosition,
                              @RequestParam(name = "namePosition") String namePosition){
         Position position = repoPosition.findById(idPosition).orElse(null);
@@ -55,7 +55,7 @@ public class PositionController {
         repoPosition.save(position);
     }
 
-    @DeleteMapping("/main/deletePosition")
+    @DeleteMapping("/emp/deletePosition")
     public void deletePosition(@RequestParam(name = "idPosition") long idPosition) throws Exception{
         Position position = repoPosition.findById(idPosition).orElse(null);
         if(!position.getPosting().isEmpty()){

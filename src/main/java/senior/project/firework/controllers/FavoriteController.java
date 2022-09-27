@@ -22,7 +22,7 @@ public class FavoriteController {
     @Autowired
     private repoPosting repoPosting;
 
-    @GetMapping("/main/allFavorite")
+    @GetMapping("/admin/allFavorite")
     public List<WhatFavorite> allFavorite(){
         List<WhatFavorite> whatFavoriteList = new ArrayList<WhatFavorite>();
         List<Favorite> favoriteList = repoFavorite.findAll();
@@ -34,7 +34,7 @@ public class FavoriteController {
         return whatFavoriteList;
     }
 
-    @GetMapping("/main/getMyFavorite")
+    @GetMapping("/worker/getMyFavorite")
     public List<WhatFavorite> getMyFavorite(@RequestParam(name = "idWorker") long idWorker){
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         List<WhatFavorite> whatFavoriteList = new ArrayList<WhatFavorite>();
@@ -47,7 +47,7 @@ public class FavoriteController {
         return whatFavoriteList;
     }
 
-    @PostMapping("/main/addMyFavorite")
+    @PostMapping("/worker/addMyFavorite")
     public WhatFavorite addMyFavorite(@RequestParam(name = "idWorker") long idWorker,
                                       @RequestParam(name = "idPosting") long idPosting){
         Worker worker = repoWorker.findById(idWorker).orElse(null);
@@ -58,7 +58,7 @@ public class FavoriteController {
         return whatFavorite;
     }
 
-    @DeleteMapping("/main/deleteMyFavorite")
+    @DeleteMapping("/worker/deleteMyFavorite")
     public void deleteMyFavorite(@RequestParam(name = "idFavorite") long idFavorite){
         Favorite favorite = repoFavorite.findById(idFavorite).orElse(null);
         repoFavorite.delete(favorite);

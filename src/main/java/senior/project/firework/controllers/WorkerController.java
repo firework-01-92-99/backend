@@ -26,7 +26,7 @@ public class WorkerController {
     @Autowired
     private repoEditWorker repoEditWorker;
 
-    @GetMapping("/main/allWorker")
+    @GetMapping("/admin/allWorker")
     public List<Worker> allWorker(){
         return repoWorker.findAll();
     }
@@ -36,7 +36,7 @@ public class WorkerController {
         return repoWorker.findById(idWorker).orElse(null);
     }
 
-    @PutMapping("/main/deleteMyWorker")
+    @PutMapping("/worker/deleteMyWorker")
     public void deleteMyWorker(@RequestParam(name = "idWorker") long idWorker){
         Status status = repoStatus.findById(8L).orElse(null);
         Worker worker = repoWorker.findById(idWorker).orElse(null);
@@ -45,7 +45,7 @@ public class WorkerController {
         repoAccount.save(account);
     }
 
-    @PutMapping("/main/DeleteWorker")
+    @PutMapping("/admin/DeleteWorker")
     public void DeleteWorker(@RequestParam(name = "idWorker") long idWorker){
         Status status = repoStatus.findById(9L).orElse(null);
         Worker worker = repoWorker.findById(idWorker).orElse(null);
@@ -55,7 +55,7 @@ public class WorkerController {
     }
 
 
-    @PostMapping("/main/editMyWorker")
+    @PostMapping("/worker/editMyWorker")
     public void editMyWorker(@RequestBody Worker worker){
         Status status = repoStatus.findById(7L).orElse(null);
         Worker workerForAccount = repoWorker.findById(worker.getIdWorker()).orElse(null);
@@ -70,8 +70,8 @@ public class WorkerController {
         repoAccount.save(account);
     }
 
-    @PutMapping("/main/youCanEdit")
-    public void youCanEdit(@RequestParam(name = "idWorker") long idWorker){
+    @PutMapping("/admin/youCanEditWorker")
+    public void youCanEditWorker(@RequestParam(name = "idWorker") long idWorker){
         Status status = repoStatus.findById(4L).orElse(null);
         Worker Worker1 = repoWorker.findById(idWorker).orElse(null);
         long idEditWorker = repoEditWorker.getMaxIdWorkerByWorker(Worker1);
@@ -109,8 +109,8 @@ public class WorkerController {
 
     }
 
-    @DeleteMapping("/main/youCanNotEdit")
-    public void youCanNotEdit(@RequestParam(name = "idWorker") long idWorker){
+    @DeleteMapping("/admin/youCanNotEditWorker")
+    public void youCanNotEditWorker(@RequestParam(name = "idWorker") long idWorker){
         Status status = repoStatus.findById(4L).orElse(null);
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         long idEditWorker = repoEditWorker.getMaxIdWorkerByWorker(worker);

@@ -86,7 +86,7 @@ public class ApplicationController {
         return statusApplicationList;
     }
 
-    @GetMapping("/main/showAllWorker")
+    @GetMapping("/admin_emp/showAllWorker")
     public HowManyApplication showAllWorker(@RequestParam(name = "idPosting") long idPosting){
         return setAllWorker(idPosting);
     }

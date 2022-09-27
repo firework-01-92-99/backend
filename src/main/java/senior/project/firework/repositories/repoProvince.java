@@ -12,4 +12,7 @@ public interface repoProvince extends JpaRepository<Province,String> {
     @Query(value = "SELECT * FROM firework.province order by firework.province.provinceName asc",nativeQuery = true)
     List<Province> ListProvinceSort();
 
+
+
+    Province findByProvinceName(String provinceName);
 }

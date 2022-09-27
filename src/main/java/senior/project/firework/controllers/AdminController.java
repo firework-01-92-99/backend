@@ -35,7 +35,7 @@ public class AdminController {
         return repoAdmin.findById(idAdmin);
     }
     
-    @PutMapping("/main/approveAccount")
+    @PutMapping("/admin/approveAccount")
     public Approve approveAccount(@RequestParam(name = "idApprove") long idApprove,@RequestParam(name = "idAdmin") long idAdmin,@RequestParam(name = "idStatus") long idStatus){
         Approve approve = repoApprove.findById(idApprove).orElse(null);
         Admin admin = repoAdmin.findById(idAdmin).orElse(null);
