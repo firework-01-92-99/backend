@@ -8,7 +8,10 @@ import senior.project.firework.exceptions.ExceptionRepo;
 import senior.project.firework.models.Account;
 import senior.project.firework.models.Employer;
 import senior.project.firework.models.Posting;
+import senior.project.firework.models.Status;
 import senior.project.firework.repositories.repoPosting;
+import senior.project.firework.repositories.repoEmployer;
+import senior.project.firework.repositories.repoStatus;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +23,15 @@ import java.util.Optional;
 public class PostingController {
     @Autowired
     private repoPosting repoPosting;
+    @Autowired
+    private repoEmployer repoEmployer;
+    @Autowired
+    private repoStatus repoStatus;
+
+    @GetMapping("/main/posting")
+    public List<Posting> allPosting(){
+        return repoPosting.findAll();
+    }
 
     @GetMapping("/main/allPosting")
     public Page<Posting> allPosting(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo){
@@ -47,9 +59,37 @@ public class PostingController {
         return repoPosting.selectEmployerByPostingId(idPosting);
     }
 
-    @PostMapping("/main/createPosting")
-    public void createPosting(@RequestBody Posting posting){
-
+    @PostMapping("/emp/createPosting")
+    public Posting createPosting(@RequestBody Posting posting,@RequestParam(name = "idEmployer") long idEmployer){
+        Employer employer = repoEmployer.getById(idEmployer);
+        Status status = repoStatus.findById(1L).orElse(null);
+        Posting newPosting = new Posting(posting.getSex(),posting.getWorkDescription(),posting.getMinAge(),posting.getMaxAge(),
+                posting.getMinSalary(),posting.getMaxSalary(),posting.getOvertimePayment(),posting.getStartTime(),posting.getEndTime(),
+                posting.getProperties(),posting.getWelfare(),posting.getHiringType(),employer,status,
+                posting.getWorkerType(),posting.getPostingHasDayList(),posting.getPosition());
+        return repoPosting.save(newPosting);
     }
+
+    @PutMapping("/emp/editPosting")
+    public Posting editPosting(@RequestBody Posting posting){
+        return repoPosting.save(posting);
+    }
+
+    @PutMapping("/emp/ActivePosting")
+    public void ActivePosting(@RequestParam(name = "idPosting") long idPosting){
+        Status status = repoStatus.findById(1L).orElse(null);
+        Posting posting = repoPosting.findById(idPosting).orElse(null);
+        posting.setStatus(status);
+        repoPosting.save(posting);
+    }
+
+    @PutMapping("/emp/inActivePosting")
+    public void inActivePosting(@RequestParam(name = "idPosting") long idPosting){
+        Status status = repoStatus.findById(2L).orElse(null);
+        Posting posting = repoPosting.findById(idPosting).orElse(null);
+        posting.setStatus(status);
+        repoPosting.save(posting);
+    }
+
 
 }
