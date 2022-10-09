@@ -31,6 +31,7 @@ public class ApproveController {
         List<WhoInApprove> whoInApproveList = new ArrayList<>();
         long count = 1;
         for(Approve approvePerLine : approveList){
+            if(approvePerLine.getAccount()== null) continue;
             if(idRole == 0){
                 if(idStatus == 0){
                     WhoInApprove whoInApprove = new WhoInApprove();

@@ -88,11 +88,13 @@ public class AccountController {
                 account.getEmployer().getPhone(),account.getEmployer().getEmail(),account.getEmployer().getLineId(),account.getEmployer().getVerifyCert(),
                 businesstype,newAccount,province, district,subDistrict,nationality);
 
+        System.out.println(account.getEmail());
         repoEmployer.save(employer);
         Random random = new Random();
         int randomWithNextInt = random.nextInt(999999);
         String otp = String.format("%06d", randomWithNextInt);
-        emailBusiness.sendActivateUserEmail(account.getEmployer().getEmail(), account.getEmployer().getEstablishmentName(), otp);
+        emailBusiness.sendActivateUserEmail(account.getEmail(), account.getEmployer().getEstablishmentName(), otp);
+        System.out.println(account.getEmail());
     }
 
     public void RegisAccountForWorker(Account account,String encodedpassword) throws Exception {
@@ -137,7 +139,7 @@ public class AccountController {
         return account.getApprove().getStatus();
     }
 
-    @GetMapping(value = "/allroles/meAdmin")
+    @GetMapping(value = "/admin/meAdmin")
     public Admin ReturnAdmin(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
