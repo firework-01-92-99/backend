@@ -3,9 +3,6 @@ package senior.project.firework.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import senior.project.firework.exceptions.AccountException;
-import senior.project.firework.exceptions.ExceptionRepo;
-import senior.project.firework.models.Account;
 import senior.project.firework.models.Employer;
 import senior.project.firework.models.Posting;
 import senior.project.firework.models.Status;
@@ -91,5 +88,11 @@ public class PostingController {
         repoPosting.save(posting);
     }
 
+    @GetMapping("/main/getPostingByStatus")
+    public List<Posting> getPostingByStatus(@RequestParam(name = "idEmployer") long idEmployer,@RequestParam(name = "idStatus") long idStatus){
+        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
+        Status status = repoStatus.findById(idStatus).orElse(null);
+        return repoPosting.findByEmployerAndStatus(employer,status);
+    }
 
 }

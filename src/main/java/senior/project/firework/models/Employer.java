@@ -28,8 +28,8 @@ public class Employer {
   private String email;
   @Column(name = "lineId")
   private String lineId;
-  @Column(name = "verifyCert")
-  private String verifyCert;
+  @Column(name = "profile")
+  private String profile;
   @ManyToOne
   @JoinColumn(name = "businessType_idBusinessType")
   private Businesstype businesstype;
@@ -63,7 +63,7 @@ public class Employer {
   @JsonIgnore
   private List<EditEmployer> editEmployerList;
 
-  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String email, String lineId, String verifyCert, Businesstype businesstype, Account account, Province province, District district, SubDistrict subDistrict, Nationality nationality) {
+  public Employer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String email, String lineId, String profile, Businesstype businesstype, Account account, Province province, District district, SubDistrict subDistrict, Nationality nationality) {
     this.establishmentName = establishmentName;
     this.entrepreneurfName = entrepreneurfName;
     this.entrepreneurlName = entrepreneurlName;
@@ -72,7 +72,7 @@ public class Employer {
     this.phone = phone;
     this.email = email;
     this.lineId = lineId;
-    this.verifyCert = verifyCert;
+    this.profile = profile;
     this.businesstype = businesstype;
     this.account = account;
     this.province = province;
@@ -93,12 +93,12 @@ public class Employer {
     this.editEmployerList = editEmployerList;
   }
 
-  public String getVerifyCert() {
-    return verifyCert;
+  public String getProfile() {
+    return profile;
   }
 
-  public void setVerifyCert(String verifyCert) {
-    this.verifyCert = verifyCert;
+  public void setProfile(String profile) {
+    this.profile = profile;
   }
 
   public long getIdEmployer() {

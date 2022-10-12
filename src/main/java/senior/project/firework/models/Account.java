@@ -1,8 +1,7 @@
 package senior.project.firework.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "account")
@@ -25,6 +24,8 @@ public class Account {
   private Employer employer;
   @OneToOne(mappedBy = "account")
   private Worker worker;
+  @OneToMany(mappedBy = "account")
+  private List<OTP> otpList;
 
   public Account(String email, String password, Role role, Worker worker) {
     this.email = email;
@@ -113,5 +114,13 @@ public class Account {
 
   public void setWorker(Worker worker) {
     this.worker = worker;
+  }
+
+  public List<OTP> getOtpList() {
+    return otpList;
+  }
+
+  public void setOtpList(List<OTP> otpList) {
+    this.otpList = otpList;
   }
 }

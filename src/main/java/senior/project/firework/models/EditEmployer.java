@@ -27,8 +27,8 @@ public class EditEmployer {
     private String email;
     @Column(name = "lineId")
     private String lineId;
-    @Column(name = "verifyCert")
-    private String verifyCert;
+    @Column(name = "profile")
+    private String profile;
     @Column(name = "provinceName")
     private String provinceName;
     @Column(name = "districtName")
@@ -46,7 +46,7 @@ public class EditEmployer {
 
     }
 
-    public EditEmployer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String email, String lineId, String verifyCert, String provinceName, String districtName, String subDistrict, String postcode, Employer employer) {
+    public EditEmployer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String email, String lineId, String profile, String provinceName, String districtName, String subDistrict, String postcode, Employer employer) {
         this.establishmentName = establishmentName;
         this.entrepreneurfName = entrepreneurfName;
         this.entrepreneurlName = entrepreneurlName;
@@ -55,7 +55,7 @@ public class EditEmployer {
         this.phone = phone;
         this.email = email;
         this.lineId = lineId;
-        this.verifyCert = verifyCert;
+        this.profile = profile;
         this.provinceName = provinceName;
         this.districtName = districtName;
         this.subDistrict = subDistrict;
@@ -135,12 +135,12 @@ public class EditEmployer {
         this.lineId = lineId;
     }
 
-    public String getVerifyCert() {
-        return verifyCert;
+    public String getProfile() {
+        return profile;
     }
 
-    public void setVerifyCert(String verifyCert) {
-        this.verifyCert = verifyCert;
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public String getProvinceName() {

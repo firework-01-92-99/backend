@@ -45,9 +45,9 @@ public class AccountController {
     @Autowired
     private repoAdmin repoAdmin;
     @Autowired
-    EmailBusiness emailBusiness;
+    private EmailBusiness emailBusiness;
 
-    @GetMapping("/admin/allAccount")
+    @GetMapping("/main/allAccount")
     public List<Account> allAccount(){
         return repoAccount.findAll();
     }
@@ -85,7 +85,7 @@ public class AccountController {
 
         Employer employer = new Employer(account.getEmployer().getEstablishmentName(),account.getEmployer().getEntrepreneurfName(),
                 account.getEmployer().getEntrepreneurlName(),account.getEmployer().getAddress(),account.getEmployer().getTel(),
-                account.getEmployer().getPhone(),account.getEmployer().getEmail(),account.getEmployer().getLineId(),account.getEmployer().getVerifyCert(),
+                account.getEmployer().getPhone(),account.getEmployer().getEmail(),account.getEmployer().getLineId(),account.getEmployer().getProfile(),
                 businesstype,newAccount,province, district,subDistrict,nationality);
 
         System.out.println(account.getEmail());

@@ -26,7 +26,7 @@ public class Admin {
   @OneToMany(mappedBy = "admin")
   private List<Application> applicationList;
   @OneToMany(mappedBy = "admin")
-  private List<AdminHasAct> adminHasActList;
+  private List<ActToRegister> actToRegisterList;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "role_idRole")
@@ -46,6 +46,14 @@ public class Admin {
 
   public Admin() {
 
+  }
+
+  public List<ActToRegister> getActToRegisterList() {
+    return actToRegisterList;
+  }
+
+  public void setActToRegisterList(List<ActToRegister> actToRegisterList) {
+    this.actToRegisterList = actToRegisterList;
   }
 
   public Role getRole() {
@@ -112,11 +120,4 @@ public class Admin {
     this.lastName = lastName;
   }
 
-  public List<AdminHasAct> getAdminHasActList() {
-    return adminHasActList;
-  }
-
-  public void setAdminHasActList(List<AdminHasAct> adminHasActList) {
-    this.adminHasActList = adminHasActList;
-  }
 }

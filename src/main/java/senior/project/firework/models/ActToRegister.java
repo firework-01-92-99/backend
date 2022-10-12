@@ -19,9 +19,10 @@ public class ActToRegister {
     @OneToMany(mappedBy = "actToRegister")
     @JsonIgnore
     private List<Application> applicationList;
-    @OneToMany(mappedBy = "actToRegister")
+    @ManyToOne
     @JsonIgnore
-    private List<AdminHasAct> adminHasActList;
+    @JoinColumn(name = "admin_idAdmin")
+    private Admin admin;
 
     public long getIdaction() {
         return idaction;
@@ -55,11 +56,11 @@ public class ActToRegister {
         this.applicationList = applicationList;
     }
 
-    public List<AdminHasAct> getAdminHasActList() {
-        return adminHasActList;
+    public Admin getAdmin() {
+        return admin;
     }
 
-    public void setAdminHasActList(List<AdminHasAct> adminHasActList) {
-        this.adminHasActList = adminHasActList;
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 }

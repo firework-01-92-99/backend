@@ -72,7 +72,7 @@ public class EmployerController {
         }
         account.getApprove().setStatus(status);
         EditEmployer editEmployer = new EditEmployer(employer.getEstablishmentName(),employer.getEntrepreneurfName(),employer.getEntrepreneurlName(),
-                employer.getAddress(),employer.getTel(),employer.getPhone(),employer.getTel(),employer.getLineId(),employer.getVerifyCert(),
+                employer.getAddress(),employer.getTel(),employer.getPhone(),employer.getTel(),employer.getLineId(),employer.getProfile(),
                 employer.getProvince().getProvinceName(),employer.getDistrict().getDistrictName(),employer.getSubDistrict().getSubDistrict(),
                 employer.getSubDistrict().getPostcode(),employer);
         repoEditEmployer.save(editEmployer);
@@ -95,7 +95,7 @@ public class EmployerController {
         String newText6 = editEmployer.getPhone();
         String newText7 = editEmployer.getEmail();
         String newText8 = editEmployer.getLineId();
-        String newText9 = editEmployer.getVerifyCert();
+        String newText9 = editEmployer.getProfile();
         Province newText10 = repoProvince.findByProvinceName(editEmployer.getProvinceName());
         District newText11 = repoDistrict.findByDistrictName(editEmployer.getDistrictName());
         SubDistrict newText12 = repoSubDistrict.findByPostcode(editEmployer.getPostcode());
@@ -108,7 +108,7 @@ public class EmployerController {
         String oldText6 = employer.getPhone();
         String oldText7 = employer.getEmail();
         String oldText8 = employer.getLineId();
-        String oldText9 = employer.getVerifyCert();
+        String oldText9 = employer.getProfile();
         Province oldText10 = employer.getProvince();
         District oldText11 = employer.getDistrict();
         SubDistrict oldText12 = employer.getSubDistrict();
@@ -122,7 +122,7 @@ public class EmployerController {
         editEmployer.setTel(oldText6);
         editEmployer.setEmail(oldText7);
         editEmployer.setLineId(oldText8);
-        editEmployer.setVerifyCert(oldText9);
+        editEmployer.setProfile(oldText9);
         editEmployer.setProvinceName(oldText10.getProvinceName());
         editEmployer.setDistrictName(oldText11.getDistrictName());
         editEmployer.setSubDistrict(oldText12.getSubDistrict());
@@ -137,7 +137,7 @@ public class EmployerController {
         employer.setTel(newText6);
         employer.setEmail(newText7);
         employer.setLineId(newText8);
-        employer.setVerifyCert(newText9);
+        employer.setProfile(newText9);
         employer.setProvince(newText10);
         employer.setDistrict(newText11);
         employer.setSubDistrict(newText12);
