@@ -87,25 +87,44 @@ public class ApplicationController {
     }
 
     @GetMapping("/admin_emp/showAllWorker")
-    public HowManyApplication showAllWorker(@RequestParam(name = "idPosting") long idPosting){
-        return setAllWorker(idPosting);
+    public HowManyApplication showAllWorker(@RequestParam(name = "idPosting") long idPosting,@RequestParam(name = "idStatus") long idStatus){
+        return setAllWorker(idPosting,idStatus);
     }
 
-    public HowManyApplication setAllWorker(long idPosting){
+    public HowManyApplication setAllWorker(long idPosting,long idStatus){
         List<WhoApplication> whoApplicationList = new ArrayList<>();
         Posting posting = repoPosting.findById(idPosting).orElse(null);
         List<Application> applicationList = posting.getApplicationList();
         long count = 1;
-        for(Application applicationPerLine : applicationList){
-            Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
-            WhoApplication whoApplication = new WhoApplication(count,worker.getIdWorker(),worker.getIdentificationNumber(),
-                    worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
-                    worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getStatusName());
-            whoApplicationList.add(whoApplication);
-            count++;
+        if(idStatus == 0){
+            for(Application applicationPerLine : applicationList){
+                count = getCount(whoApplicationList, count, applicationPerLine);
+            }
+        }else if(idStatus == 4){
+            for(Application applicationPerLine : applicationList){
+                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                    count = getCount(whoApplicationList, count, applicationPerLine);
+                }
+            }
+        }else if(idStatus == 5){
+            for(Application applicationPerLine : applicationList){
+                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                    count = getCount(whoApplicationList, count, applicationPerLine);
+                }
+            }
         }
         HowManyApplication howManyApplication = new HowManyApplication(idPosting,whoApplicationList);
         return howManyApplication;
+    }
+
+    public long getCount(List<WhoApplication> whoApplicationList, long count, Application applicationPerLine) {
+        Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
+        WhoApplication whoApplication = new WhoApplication(count,worker.getIdWorker(),worker.getIdentificationNumber(),
+                worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
+                worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getStatusName());
+        whoApplicationList.add(whoApplication);
+        count++;
+        return count;
     }
 
 }

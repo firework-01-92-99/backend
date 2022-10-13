@@ -11,6 +11,7 @@ import senior.project.firework.models.Posting;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import senior.project.firework.models.Status;
 
 import java.util.List;
 
@@ -41,4 +42,6 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
     Employer selectEmployerByPostingId(long idPosting);
 
     List<Posting> findByPosition(Position position);
+
+    List<Posting> findByEmployerAndStatus(Employer employer,Status status);
 }
