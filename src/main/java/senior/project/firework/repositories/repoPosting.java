@@ -37,6 +37,13 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
             "AND p.status.idStatus = 1 ")
     Page<Posting> findAllActive(Pageable pageable);
 
+    @Query(value =  "SELECT p FROM Posting p, Status s ,Employer e " +
+            "WHERE p.status.idStatus = s.idStatus " +
+            "AND p.employer.idEmployer = e.idEmployer " +
+            "AND p.status.idStatus = 2 " +
+            "AND e.idEmployer = ?1 ")
+    Page<Posting> findAllInActiveByEmployerId(long idEmployer,Pageable pageable);
+
     @Query(value =  "SELECT e FROM Posting p, Employer e " +
                     "WHERE p.employer.idEmployer = e.idEmployer AND p.idPosting = :idPosting ")
     Employer selectEmployerByPostingId(long idPosting);

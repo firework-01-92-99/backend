@@ -88,11 +88,11 @@ public class PostingController {
         repoPosting.save(posting);
     }
 
-    @GetMapping("/main/getPostingByStatus")
-    public List<Posting> getPostingByStatus(@RequestParam(name = "idEmployer") long idEmployer,@RequestParam(name = "idStatus") long idStatus){
-        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
-        Status status = repoStatus.findById(idStatus).orElse(null);
-        return repoPosting.findByEmployerAndStatus(employer,status);
+    @GetMapping("/main/getPostingInActiveByIdEmployer")
+    public Page<Posting> getPostingByStatus(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
+            @RequestParam(name = "idEmployer") long idEmployer){
+        Pageable pageable = PageRequest.of(pageNo,3);
+        return repoPosting.findAllInActiveByEmployerId(idEmployer,pageable);
     }
 
 }
