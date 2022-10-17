@@ -19,6 +19,15 @@ public class PostingHasDay {
   @JoinColumn(name = "posting_idPosting")
   private Posting posting;
 
+  public PostingHasDay(Day day, Posting posting) {
+    this.day = day;
+    this.posting = posting;
+  }
+
+  public PostingHasDay() {
+
+  }
+
   public long getIdPostingHasDay() {
     return idPostingHasDay;
   }

@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import senior.project.firework.models.Employer;
 import senior.project.firework.models.Posting;
 import senior.project.firework.models.Status;
+import senior.project.firework.models.PostingHasDay;
 import senior.project.firework.repositories.repoPosting;
 import senior.project.firework.repositories.repoEmployer;
 import senior.project.firework.repositories.repoStatus;
+import senior.project.firework.repositories.repoPostingHasDay;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,8 @@ public class PostingController {
     private repoEmployer repoEmployer;
     @Autowired
     private repoStatus repoStatus;
+    @Autowired
+    private repoPostingHasDay repoPostingHasDay;
 
     @GetMapping("/main/posting")
     public List<Posting> allPosting(){
@@ -63,8 +67,14 @@ public class PostingController {
         Posting newPosting = new Posting(posting.getSex(),posting.getWorkDescription(),posting.getMinAge(),posting.getMaxAge(),
                 posting.getMinSalary(),posting.getMaxSalary(),posting.getOvertimePayment(),posting.getStartTime(),posting.getEndTime(),
                 posting.getProperties(),posting.getWelfare(),posting.getHiringType(),employer,status,
-                posting.getWorkerType(),posting.getPostingHasDayList(),posting.getPosition());
-        return repoPosting.save(newPosting);
+                posting.getWorkerType(),posting.getPosition());
+        repoPosting.save(newPosting);
+        List<PostingHasDay> postingHasDayList = posting.getPostingHasDayList();
+        for(PostingHasDay postingHasDayPerLine:postingHasDayList){
+            PostingHasDay newPostingHasDay = new PostingHasDay(postingHasDayPerLine.getDay(),newPosting);
+            repoPostingHasDay.save(newPostingHasDay);
+        }
+        return newPosting;
     }
 
     @PutMapping("/emp/editPosting")
