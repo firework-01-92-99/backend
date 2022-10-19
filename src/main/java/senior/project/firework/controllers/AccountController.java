@@ -46,6 +46,8 @@ public class AccountController {
     private repoAdmin repoAdmin;
     @Autowired
     private EmailBusiness emailBusiness;
+    @Autowired
+    private repoOTP repoOTP;
 
     @GetMapping("/main/allAccount")
     public List<Account> allAccount(){
@@ -95,6 +97,9 @@ public class AccountController {
         String otp = String.format("%06d", randomWithNextInt);
         emailBusiness.sendActivateUserEmail(account.getEmail(), account.getEmployer().getEstablishmentName(), otp);
         System.out.println(account.getEmail());
+
+        OTP newOTP = new OTP(randomWithNextInt,newAccount);
+        repoOTP.save(newOTP);
     }
 
     public void RegisAccountForWorker(Account account,String encodedpassword) throws Exception {

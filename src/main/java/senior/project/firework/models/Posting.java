@@ -64,7 +64,7 @@ public class Posting {
 
   }
 
-  public Posting(String sex, String workDescription, long minAge, long maxAge, long minSalary, long maxSalary, String overtimePayment, String startTime, String endTime, String properties, String welfare, HiringType hiringType, Employer employer, Status status, WorkerType workerType, List<PostingHasDay> postingHasDayList, Position position) {
+  public Posting(String sex, String workDescription, long minAge, long maxAge, long minSalary, long maxSalary, String overtimePayment, String startTime, String endTime, String properties, String welfare, HiringType hiringType, Employer employer, Status status, WorkerType workerType,Position position) {
     this.sex = sex;
     this.workDescription = workDescription;
     this.minAge = minAge;
@@ -80,7 +80,6 @@ public class Posting {
     this.employer = employer;
     this.status = status;
     this.workerType = workerType;
-    this.postingHasDayList = postingHasDayList;
     this.position = position;
   }
 

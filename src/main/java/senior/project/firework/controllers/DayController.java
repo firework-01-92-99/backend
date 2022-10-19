@@ -24,4 +24,9 @@ public class DayController {
     public Optional<Day> selectDay(@RequestParam(name = "idDay") long idDay){
         return repoDay.findById(idDay);
     }
+
+    @GetMapping("/main/getMondayToFriday")
+    public List<Day> getMondayToFriday(){
+        return repoDay.getMondayToFriday();
+    }
 }
