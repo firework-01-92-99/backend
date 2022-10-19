@@ -2,20 +2,23 @@ package senior.project.firework.frontendmodel;
 
 import senior.project.firework.models.Posting;
 import senior.project.firework.models.Worker;
+import senior.project.firework.models.Employer;
 
 public class WhatFavorite {
     private long idWhatFavorite;
     private Worker worker;
     private Posting posting;
+    private Employer employer;
 
     public WhatFavorite(){
 
     }
 
-    public WhatFavorite(long idWhatFavorite, Worker worker, Posting posting) {
+    public WhatFavorite(long idWhatFavorite, Worker worker, Posting posting, Employer employer) {
         this.idWhatFavorite = idWhatFavorite;
         this.worker = worker;
         this.posting = posting;
+        this.employer = employer;
     }
 
     public long getIdWhatFavorite() {
@@ -40,5 +43,13 @@ public class WhatFavorite {
 
     public void setPosting(Posting posting) {
         this.posting = posting;
+    }
+
+    public Employer getEmployer() {
+        return employer;
+    }
+
+    public void setEmployer(Employer employer) {
+        this.employer = employer;
     }
 }
