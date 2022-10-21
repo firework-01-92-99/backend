@@ -92,11 +92,11 @@ public class AccountController {
 
         System.out.println(account.getEmail());
         repoEmployer.save(employer);
+
         Random random = new Random();
         int randomWithNextInt = random.nextInt(999999);
         String otp = String.format("%06d", randomWithNextInt);
-        emailBusiness.sendActivateUserEmail(account.getEmail(), account.getEmployer().getEstablishmentName(), otp);
-        System.out.println(account.getEmail());
+        emailBusiness.sendActivateUserEmail(account.getEmail(), account.getWorker().getFirstName(), otp);
 
         OTP newOTP = new OTP(randomWithNextInt,newAccount);
         repoOTP.save(newOTP);
@@ -122,10 +122,79 @@ public class AccountController {
                     account.getWorker().getLastName(),account.getWorker().getPhone(),newAccount,nationality,workerType);
             repoWorker.save(worker);
         }
+
         Random random = new Random();
         int randomWithNextInt = random.nextInt(999999);
         String otp = String.format("%06d", randomWithNextInt);
         emailBusiness.sendActivateUserEmail(account.getEmail(), account.getWorker().getFirstName(), otp);
+
+        OTP newOTP = new OTP(randomWithNextInt,newAccount);
+        repoOTP.save(newOTP);
+    }
+
+    @PostMapping("/main/receiveOTP")
+    public String receiveOTP(@RequestParam(name = "receiveOTP") long receiveOTP,@RequestParam(name = "idAccount") long idAccount) throws Exception {
+        long maxIdOTP = repoOTP.getMaxIdOTP(idAccount);
+        long maxOTP = repoOTP.findById(maxIdOTP).orElse(null).getOtpNo();
+        Account account = repoAccount.findById(idAccount).orElse(null);
+        if(maxOTP == receiveOTP){
+            if(account.getApprove().getStatus().equals(repoStatus.findById(3L).orElse(null))){
+                Status status = repoStatus.findById(4L).orElse(null);
+                account.getApprove().setStatus(status);
+                repoAccount.save(account);
+                return "OTP correct,You can edit password.";
+            }else if(account.getApprove().getStatus().equals(repoStatus.findById(10L).orElse(null))){
+                Status status = repoStatus.findById(6L).orElse(null);
+                account.getApprove().setStatus(status);
+                repoAccount.save(account);
+                return "OTP correct,Wait Admin approve.";
+            }
+        }
+        throw new AccountException(ExceptionRepo.ERROR_CODE.OTP_INCORRECT,"OTP incorrect!");
+    }
+
+    //อย่ายุ่งอันนี้นะ
+    @GetMapping("/main/getMyMaxOTP")
+    public long getMyMaxOTP(@RequestParam(name = "idAccount") long idAccount){
+        long maxIdOTP = repoOTP.getMaxIdOTP(idAccount);
+        long maxOTP = repoOTP.findById(maxIdOTP).orElse(null).getOtpNo();
+        return maxOTP;
+    }
+
+    @PostMapping("/main/forgetPassword")
+    public String forgetPassword(@RequestParam(name = "email") String email) throws Exception {
+        List<Account> ListAccount = repoAccount.findAll();
+        for(Account accountPerLine:ListAccount){
+            if(accountPerLine.getEmail().equals(email)){
+                Random random = new Random();
+                int randomWithNextInt = random.nextInt(999999);
+                String otp = String.format("%06d", randomWithNextInt);
+                emailBusiness.sendActivateUserEmail(accountPerLine.getEmail(), accountPerLine.getWorker().getFirstName(), otp);
+
+                OTP newOTP = new OTP(randomWithNextInt,accountPerLine);
+                repoOTP.save(newOTP);
+
+                Status status = repoStatus.findById(3L).orElse(null);
+                accountPerLine.getApprove().setStatus(status);
+                repoAccount.save(accountPerLine);
+                return "Wait OTP in email " + accountPerLine.getEmail();
+            }
+        }
+        throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_EMAIL_INCORRECT,"Not have this Email!");
+    }
+
+    @PostMapping("/main/editPassword")
+    public String editPassword(@RequestParam(name = "currentPassword") String currentPassword,
+                             @RequestParam(name = "newPassword") String newPassword,
+                             @RequestParam(name = "idAccount") long idAccount) throws Exception {
+        Account account = repoAccount.findById(idAccount).orElse(null);
+        if(!passwordEncoder.matches(currentPassword,account.getPassword())){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"You current Password incorrect!!");
+        }
+        String newPasswordEncoder = passwordEncoder.encode(newPassword);
+        account.setPassword(newPasswordEncoder);
+        repoAccount.save(account);
+        return "Edit Success!";
     }
 
     @GetMapping(value = "/allroles/me")

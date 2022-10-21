@@ -17,7 +17,9 @@ public class ExceptionRepo {
         STATUS_ACCOUNT_REJECT(2005),
         STATUS_ACCOUNT_DELETED(2009),
 
-        POSITION_POSTING_NOT_NULL(3001);
+        POSITION_POSTING_NOT_NULL(3001),
+
+        OTP_INCORRECT(4001);
 
         private int errorValue;
 
