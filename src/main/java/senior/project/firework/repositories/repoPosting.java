@@ -40,6 +40,19 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
     @Query(value =  "SELECT p FROM Posting p, Status s ,Employer e " +
             "WHERE p.status.idStatus = s.idStatus " +
             "AND p.employer.idEmployer = e.idEmployer " +
+            "AND e.idEmployer = ?1 ")
+    Page<Posting> findAllPostingByEmployerId(long idEmployer,Pageable pageable);
+
+    @Query(value =  "SELECT p FROM Posting p, Status s ,Employer e " +
+            "WHERE p.status.idStatus = s.idStatus " +
+            "AND p.employer.idEmployer = e.idEmployer " +
+            "AND p.status.idStatus = 1 " +
+            "AND e.idEmployer = ?1 ")
+    Page<Posting> findAllActiveByEmployerId(long idEmployer,Pageable pageable);
+
+    @Query(value =  "SELECT p FROM Posting p, Status s ,Employer e " +
+            "WHERE p.status.idStatus = s.idStatus " +
+            "AND p.employer.idEmployer = e.idEmployer " +
             "AND p.status.idStatus = 2 " +
             "AND e.idEmployer = ?1 ")
     Page<Posting> findAllInActiveByEmployerId(long idEmployer,Pageable pageable);

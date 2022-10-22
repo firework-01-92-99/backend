@@ -133,10 +133,10 @@ public class AccountController {
     }
 
     @PostMapping("/main/receiveOTP")
-    public String receiveOTP(@RequestParam(name = "receiveOTP") long receiveOTP,@RequestParam(name = "idAccount") long idAccount) throws Exception {
-        long maxIdOTP = repoOTP.getMaxIdOTP(idAccount);
+    public String receiveOTP(@RequestParam(name = "receiveOTP") long receiveOTP,@RequestParam(name = "email") String email) throws Exception {
+        Account account = repoAccount.findByEmail(email);
+        long maxIdOTP = repoOTP.getMaxIdOTP(account.getIdAccount());
         long maxOTP = repoOTP.findById(maxIdOTP).orElse(null).getOtpNo();
-        Account account = repoAccount.findById(idAccount).orElse(null);
         if(maxOTP == receiveOTP){
             if(account.getApprove().getStatus().equals(repoStatus.findById(3L).orElse(null))){
                 Status status = repoStatus.findById(4L).orElse(null);

@@ -29,4 +29,9 @@ public class DayController {
     public List<Day> getMondayToFriday(){
         return repoDay.getMondayToFriday();
     }
+
+    @GetMapping("/main/getSundayToSaturday")
+    public List<Day> getSundayToSaturday(){
+        return repoDay.getSundayToSaturday();
+    }
 }
