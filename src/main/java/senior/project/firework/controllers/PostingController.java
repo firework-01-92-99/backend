@@ -77,7 +77,7 @@ public class PostingController {
         return newPosting;
     }
 
-    @PutMapping("/emp/editPosting")
+    @PutMapping("/main/editPosting")
     public Posting editPosting(@RequestBody Posting posting){
         return repoPosting.save(posting);
     }
@@ -98,11 +98,25 @@ public class PostingController {
         repoPosting.save(posting);
     }
 
+    @GetMapping("/main/getPostingActiveByIdEmployer")
+    public Page<Posting> getPostingActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
+                                                        @RequestParam(name = "idEmployer") long idEmployer){
+        Pageable pageable = PageRequest.of(pageNo,3);
+        return repoPosting.findAllActiveByEmployerId(idEmployer,pageable);
+    }
+
     @GetMapping("/main/getPostingInActiveByIdEmployer")
-    public Page<Posting> getPostingByStatus(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
+    public Page<Posting> getPostingInActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
             @RequestParam(name = "idEmployer") long idEmployer){
         Pageable pageable = PageRequest.of(pageNo,3);
         return repoPosting.findAllInActiveByEmployerId(idEmployer,pageable);
+    }
+
+    @GetMapping("/main/getAllPostingByIdEmployer")
+    public Page<Posting> getAllPostingByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
+                                                        @RequestParam(name = "idEmployer") long idEmployer){
+        Pageable pageable = PageRequest.of(pageNo,3);
+        return repoPosting.findAllPostingByEmployerId(idEmployer,pageable);
     }
 
 }

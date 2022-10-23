@@ -10,4 +10,8 @@ public interface repoDay extends JpaRepository<Day,Long> {
 
     @Query(value = "SELECT * FROM day where idDay in (2,3,4,5,6)" ,nativeQuery = true)
     List<Day> getMondayToFriday();
+
+    @Query(value = "SELECT * FROM day where idDay " ,nativeQuery = true)
+    List<Day> getSundayToSaturday();
 }
+
