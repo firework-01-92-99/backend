@@ -64,7 +64,7 @@ public class PostingController {
         return repoPosting.selectEmployerByPostingId(idPosting);
     }
 
-    @PostMapping("/main/createPosting")
+    @PostMapping("/emp/createPosting")
     public Posting createPosting(@RequestBody Posting posting,@RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.getById(idEmployer);
         Status status = repoStatus.findById(1L).orElse(null);
@@ -86,7 +86,7 @@ public class PostingController {
         return newPosting;
     }
 
-    @PutMapping("/main/editPosting")
+    @PutMapping("/emp/editPosting")
     public Posting editPosting(@RequestBody Posting NewPosting){
         Posting OldPosting = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);
         Posting NewPosting1 = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);
