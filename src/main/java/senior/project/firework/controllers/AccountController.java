@@ -96,7 +96,7 @@ public class AccountController {
         Random random = new Random();
         int randomWithNextInt = random.nextInt(999999);
         String otp = String.format("%06d", randomWithNextInt);
-        emailBusiness.sendActivateUserEmail(account.getEmail(), account.getWorker().getFirstName(), otp);
+        emailBusiness.sendActivateUserEmail(account.getEmail(), account.getEmployer().getEntrepreneurfName(), otp);
 
         OTP newOTP = new OTP(randomWithNextInt,newAccount);
         repoOTP.save(newOTP);

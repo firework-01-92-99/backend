@@ -60,7 +60,7 @@ public class PostingController {
         return repoPosting.selectEmployerByPostingId(idPosting);
     }
 
-    @PostMapping("/main/createPosting")
+    @PostMapping("/emp/createPosting")
     public Posting createPosting(@RequestBody Posting posting,@RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.getById(idEmployer);
         Status status = repoStatus.findById(1L).orElse(null);
