@@ -153,6 +153,21 @@ public class AccountController {
         throw new AccountException(ExceptionRepo.ERROR_CODE.OTP_INCORRECT,"OTP incorrect!");
     }
 
+    @PostMapping("/main/sendOTPAgain")
+    public String sendOTPAgain(@RequestParam(name = "email") String email) throws Exception {
+        Account account = repoAccount.findByEmail(email);
+
+        Random random = new Random();
+        int randomWithNextInt = random.nextInt(999999);
+        String otp = String.format("%06d", randomWithNextInt);
+        emailBusiness.sendActivateUserEmail(account.getEmail(), account.getWorker().getFirstName(), otp);
+
+        OTP newOTP = new OTP(randomWithNextInt,account);
+        repoOTP.save(newOTP);
+
+        return "Sent OTP again already.";
+    }
+
     //อย่ายุ่งอันนี้นะ
     @GetMapping("/main/getMyMaxOTP")
     public long getMyMaxOTP(@RequestParam(name = "idAccount") long idAccount){

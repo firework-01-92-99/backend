@@ -46,7 +46,7 @@ public class AdminController {
     }
 
     @PutMapping(value = "/admin/editApprove")
-    public Approve Editapprove(@RequestParam(name = "idApprove") long idApprove){
+    public Approve editApprove(@RequestParam(name = "idApprove") long idApprove){
         Approve approve = repoApprove.findById(idApprove).orElse(null);
         return repoApprove.save(approve);
     }

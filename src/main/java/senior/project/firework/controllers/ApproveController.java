@@ -61,7 +61,6 @@ public class ApproveController {
                     }
                 }
             }
-
         }
         return whoInApproveList;
     }
@@ -74,7 +73,7 @@ public class ApproveController {
             whoInApprove.setWorkOrEmp("Employer");
             whoInApprove.setNationlity(approve.getAccount().getEmployer().getNationality().getNationality_name());
             whoInApprove.setStatus(approve.getStatus().getStatusName());
-            whoInApprove.setIdEmpOrWork(approve.getAccount().getEmployer().getIdEmployer());
+            whoInApprove.setIdEmployer(approve.getAccount().getEmployer().getIdEmployer());
         }else if(approve.getAccount().getRole().getIdRole() == 3 /* Worker */){
             whoInApprove.setCount(count);
             whoInApprove.setIdApprove(approve.getIdApprove());
@@ -87,7 +86,7 @@ public class ApproveController {
             whoInApprove.setWorkOrEmp("Worker");
             whoInApprove.setNationlity(approve.getAccount().getWorker().getNationality().getNationality_name());
             whoInApprove.setStatus(approve.getStatus().getStatusName());
-            whoInApprove.setIdEmpOrWork(approve.getAccount().getWorker().getIdWorker());
+            whoInApprove.setIdWorker(approve.getAccount().getWorker().getIdWorker());
         }
         return whoInApprove;
     }
