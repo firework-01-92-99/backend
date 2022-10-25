@@ -7,6 +7,7 @@ import senior.project.firework.exceptions.ExceptionRepo;
 import senior.project.firework.frontendmodel.StatusApplication;
 import senior.project.firework.frontendmodel.HowManyApplication;
 import senior.project.firework.frontendmodel.WhoApplication;
+import senior.project.firework.frontendmodel.PoNameAndEstName;
 import senior.project.firework.models.*;
 import senior.project.firework.repositories.repoApplication;
 import senior.project.firework.repositories.repoWorker;
@@ -35,6 +36,12 @@ public class ApplicationController {
     @Autowired
     private repoApplicationHasComment repoApplicationHasComment;
 
+    @GetMapping("/admin_worker/getPositionNameAndEstablishmentNameByIdApplication")
+    public PoNameAndEstName getPositionNameAndEstablishmentNameByIdApplication(@RequestParam(name = "idApplication") long idApplication){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        PoNameAndEstName poNameAndEstName = new PoNameAndEstName(idApplication,application.getPosting().getPosition().getPositionName(),application.getPosting().getEmployer().getEstablishmentName());
+        return poNameAndEstName;
+    }
 
     @GetMapping("/admin/allApplication")
     public List<Application> allApplication(){
