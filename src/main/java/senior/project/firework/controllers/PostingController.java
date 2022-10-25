@@ -132,21 +132,21 @@ public class PostingController {
 
     @GetMapping("/main/getPostingActiveByIdEmployer")
     public Page<Posting> getPostingActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
-                                                        @RequestParam(name = "idEmployer") long idEmployer){
+                                                      @RequestParam(name = "idEmployer") long idEmployer){
         Pageable pageable = PageRequest.of(pageNo,3);
         return repoPosting.findAllActiveByEmployerId(idEmployer,pageable);
     }
 
     @GetMapping("/main/getPostingInActiveByIdEmployer")
     public Page<Posting> getPostingInActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
-            @RequestParam(name = "idEmployer") long idEmployer){
+                                                        @RequestParam(name = "idEmployer") long idEmployer){
         Pageable pageable = PageRequest.of(pageNo,3);
         return repoPosting.findAllInActiveByEmployerId(idEmployer,pageable);
     }
 
     @GetMapping("/main/getAllPostingByIdEmployer")
     public Page<Posting> getAllPostingByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
-                                                        @RequestParam(name = "idEmployer") long idEmployer){
+                                                   @RequestParam(name = "idEmployer") long idEmployer){
         Pageable pageable = PageRequest.of(pageNo,3);
         return repoPosting.findAllPostingByEmployerId(idEmployer,pageable);
     }

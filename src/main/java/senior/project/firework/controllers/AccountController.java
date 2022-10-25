@@ -164,7 +164,9 @@ public class AccountController {
 
         OTP newOTP = new OTP(randomWithNextInt,account);
         repoOTP.save(newOTP);
-
+        System.out.println(email);
+        System.out.println(account);
+        System.out.println(otp);
         return "Sent OTP again already.";
     }
 

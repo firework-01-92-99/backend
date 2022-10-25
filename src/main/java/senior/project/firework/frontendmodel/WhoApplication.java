@@ -17,8 +17,9 @@ public class WhoApplication {
     private WorkerType workerType;
     private Nationality nationality;
     private String statusName;
+    private String comment;
 
-    public WhoApplication(long count, long applicationId, long workerId, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, String statusName) {
+    public WhoApplication(long count, long applicationId, long workerId, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, String statusName, String comment) {
         this.count = count;
         this.applicationId = applicationId;
         this.workerId = workerId;
@@ -32,6 +33,7 @@ public class WhoApplication {
         this.workerType = workerType;
         this.nationality = nationality;
         this.statusName = statusName;
+        this.comment = comment;
     }
 
     public long getApplicationId() {
@@ -136,5 +138,13 @@ public class WhoApplication {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        comment = comment;
     }
 }
