@@ -1,13 +1,16 @@
 package senior.project.firework.controllers;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import senior.project.firework.exceptions.ExceptionRepo;
 import senior.project.firework.models.*;
 import senior.project.firework.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import senior.project.firework.services.StorageService;
 
 import senior.project.firework.exceptions.AccountException;
 import senior.project.firework.services.EmailBusiness;
@@ -48,6 +51,8 @@ public class AccountController {
     private EmailBusiness emailBusiness;
     @Autowired
     private repoOTP repoOTP;
+    @Autowired
+    StorageService storageService;
 
     @GetMapping("/main/allAccount")
     public List<Account> allAccount(){
@@ -59,20 +64,23 @@ public class AccountController {
         return repoAccount.findById(idAccount);
     }
 
-    @PostMapping("/main/register")
-    public void RegisAccount(@RequestBody Account account) throws Exception {
+    @PostMapping(value = "/main/register",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void RegisAccount(@RequestParam(value = "image",required = false) MultipartFile imageFile,@RequestPart Account account) throws Exception {
         if(repoAccount.findByEmail(account.getEmail()) != null){
             throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_EMAIL_HAVE_ALREADY,"Email have already!");
+        }else if(imageFile == null){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_IMAGE_IS_NULL,"Can't add Image");
         }
         String encodedpassword = passwordEncoder.encode(account.getPassword());
         if(account.getRole().getIdRole() == 2){
-            RegisAccountForEmployer(account,encodedpassword);
+            RegisAccountForEmployer(account,encodedpassword,imageFile);
         }else if(account.getRole().getIdRole() == 3){
-            RegisAccountForWorker(account,encodedpassword);
+            RegisAccountForWorker(account,encodedpassword,imageFile);
         }
     }
 
-    public void RegisAccountForEmployer(Account account,String encodedpassword) throws Exception {
+    public void RegisAccountForEmployer(Account account,String encodedpassword,MultipartFile imageFile) throws Exception {
+        account.getEmployer().setProfile(storageService.store(imageFile,account.getIdAccount()));
         Status status = repoStatus.findById(10L).orElse(null);
         Approve approve = new Approve(status);
         repoApprove.save(approve);
@@ -102,7 +110,8 @@ public class AccountController {
         repoOTP.save(newOTP);
     }
 
-    public void RegisAccountForWorker(Account account,String encodedpassword) throws Exception {
+    public void RegisAccountForWorker(Account account,String encodedpassword,MultipartFile imageFile) throws Exception {
+        account.getWorker().setVerifyPic(storageService.store(imageFile,account.getIdAccount()));
         Status status = repoStatus.findById(10L).orElse(null);
         Approve approve = new Approve(status);
         repoApprove.save(approve);
