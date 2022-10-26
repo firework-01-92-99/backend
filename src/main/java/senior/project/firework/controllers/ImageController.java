@@ -25,7 +25,7 @@ public class ImageController {
         this.storageService = storageService;
     }
 
-    @PostMapping("/emp/upload")
+    @PostMapping("/main/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile image) {
         String message;
         Random rand = new Random();

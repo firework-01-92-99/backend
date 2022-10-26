@@ -115,13 +115,19 @@ public class ApplicationController {
             for(Application applicationPerLine : applicationList){
                 count = getCount(whoApplicationList, count, applicationPerLine);
             }
-        }else if(idStatus == 4){
+        }else if(idStatus == 11){
             for(Application applicationPerLine : applicationList){
                 if(applicationPerLine.getStatus().getIdStatus() == idStatus){
                     count = getCount(whoApplicationList, count, applicationPerLine);
                 }
             }
-        }else if(idStatus == 5){
+        }else if(idStatus == 12){
+            for(Application applicationPerLine : applicationList){
+                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                    count = getCount(whoApplicationList, count, applicationPerLine);
+                }
+            }
+        }else if(idStatus == 13){
             for(Application applicationPerLine : applicationList){
                 if(applicationPerLine.getStatus().getIdStatus() == idStatus){
                     count = getCount(whoApplicationList, count, applicationPerLine);
