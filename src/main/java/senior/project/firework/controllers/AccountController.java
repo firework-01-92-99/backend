@@ -179,14 +179,6 @@ public class AccountController {
         return "Sent OTP again already.";
     }
 
-    //อย่ายุ่งอันนี้นะ
-    @GetMapping("/main/getMyMaxOTP")
-    public long getMyMaxOTP(@RequestParam(name = "idAccount") long idAccount){
-        long maxIdOTP = repoOTP.getMaxIdOTP(idAccount);
-        long maxOTP = repoOTP.findById(maxIdOTP).orElse(null).getOtpNo();
-        return maxOTP;
-    }
-
     @PostMapping("/main/forgetPassword")
     public String forgetPassword(@RequestParam(name = "email") String email) throws Exception {
         List<Account> ListAccount = repoAccount.findAll();
@@ -212,8 +204,8 @@ public class AccountController {
     @PostMapping("/main/editPassword")
     public String editPassword(@RequestParam(name = "currentPassword") String currentPassword,
                              @RequestParam(name = "newPassword") String newPassword,
-                             @RequestParam(name = "idAccount") long idAccount) throws Exception {
-        Account account = repoAccount.findById(idAccount).orElse(null);
+                             @RequestParam(name = "email") String email) throws Exception {
+        Account account = repoAccount.findByEmail(email);
         if(!passwordEncoder.matches(currentPassword,account.getPassword())){
             throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"You current Password incorrect!!");
         }
@@ -221,6 +213,16 @@ public class AccountController {
         account.setPassword(newPasswordEncoder);
         repoAccount.save(account);
         return "Edit Success!";
+    }
+
+    @PostMapping("/main/newPassword")
+    public String newPassword(@RequestParam(name = "newPassword") String newPassword,
+                              @RequestParam(name = "email") String email) throws Exception {
+        Account account = repoAccount.findByEmail(email);
+        String newPasswordEncoder = passwordEncoder.encode(newPassword);
+        account.setPassword(newPasswordEncoder);
+        repoAccount.save(account);
+        return "New password Success!";
     }
 
     @GetMapping(value = "/allroles/me")
@@ -246,5 +248,13 @@ public class AccountController {
         Account account = repoAccount.findByEmail(username);
         Admin admin = repoAdmin.findByEmail(account.getEmail());
         return admin;
+    }
+
+    //อย่ายุ่งอันนี้นะ
+    @GetMapping("/main/getMyMaxOTP")
+    public long getMyMaxOTP(@RequestParam(name = "idAccount") long idAccount){
+        long maxIdOTP = repoOTP.getMaxIdOTP(idAccount);
+        long maxOTP = repoOTP.findById(maxIdOTP).orElse(null).getOtpNo();
+        return maxOTP;
     }
 }
