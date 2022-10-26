@@ -7,28 +7,38 @@ public class WhoInApprove {
     private String workOrEmp;
     private String nationlity;
     private String status;
-    private long idEmpOrWork;
+    private long idWorker;
+    private long idEmployer;
 
     public WhoInApprove(){
 
     }
 
-    public WhoInApprove(long count, long idApprove, String name, String workOrEmp, String nationlity, String status, long idEmpOrWork) {
+    public WhoInApprove(long count, long idApprove, String name, String workOrEmp, String nationlity, String status, long idWorker, long idEmployer) {
         this.count = count;
         this.idApprove = idApprove;
         this.name = name;
         this.workOrEmp = workOrEmp;
         this.nationlity = nationlity;
         this.status = status;
-        this.idEmpOrWork = idEmpOrWork;
+        this.idWorker = idWorker;
+        this.idEmployer = idEmployer;
     }
 
-    public long getIdEmpOrWork() {
-        return idEmpOrWork;
+    public long getIdWorker() {
+        return idWorker;
     }
 
-    public void setIdEmpOrWork(long idEmpOrWork) {
-        this.idEmpOrWork = idEmpOrWork;
+    public void setIdWorker(long idWorker) {
+        this.idWorker = idWorker;
+    }
+
+    public long getIdEmployer() {
+        return idEmployer;
+    }
+
+    public void setIdEmployer(long idEmployer) {
+        this.idEmployer = idEmployer;
     }
 
     public long getIdApprove() {

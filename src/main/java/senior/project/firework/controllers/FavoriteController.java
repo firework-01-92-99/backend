@@ -72,4 +72,12 @@ public class FavoriteController {
         repoFavorite.delete(favorite);
     }
 
+    @GetMapping("/worker/getPostingAndEmployerByIdFavorite")
+    public WhatFavorite getPostingAndEmployerByIdFavorite(@RequestParam(name = "idFavorite") long idFavorite){
+        Favorite favorite = repoFavorite.findById(idFavorite).orElse(null);
+        Employer employer = repoEmployer.findById(favorite.getPosting().getIdEmployer()).orElse(null);
+        WhatFavorite whatFavorite = new WhatFavorite(favorite.getIdFavorite(), favorite.getWorker(), favorite.getPosting(),employer);
+        return whatFavorite;
+    }
+
 }

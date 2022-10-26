@@ -7,10 +7,12 @@ import senior.project.firework.models.Employer;
 import senior.project.firework.models.Posting;
 import senior.project.firework.models.Status;
 import senior.project.firework.models.PostingHasDay;
+import senior.project.firework.models.Position;
 import senior.project.firework.repositories.repoPosting;
 import senior.project.firework.repositories.repoEmployer;
 import senior.project.firework.repositories.repoStatus;
 import senior.project.firework.repositories.repoPostingHasDay;
+import senior.project.firework.repositories.repoPosition;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,8 @@ public class PostingController {
     private repoStatus repoStatus;
     @Autowired
     private repoPostingHasDay repoPostingHasDay;
+    @Autowired
+    private repoPosition repoPosition;
 
     @GetMapping("/main/posting")
     public List<Posting> allPosting(){
@@ -68,6 +72,11 @@ public class PostingController {
                 posting.getMinSalary(),posting.getMaxSalary(),posting.getOvertimePayment(),posting.getStartTime(),posting.getEndTime(),
                 posting.getProperties(),posting.getWelfare(),posting.getHiringType(),employer,status,
                 posting.getWorkerType(),posting.getPosition());
+
+        Position position = new Position(posting.getPosition().getPositionName(),employer);
+        repoPosition.save(position);
+
+        newPosting.setPosition(position);
         repoPosting.save(newPosting);
         List<PostingHasDay> postingHasDayList = posting.getPostingHasDayList();
         for(PostingHasDay postingHasDayPerLine:postingHasDayList){
@@ -77,9 +86,32 @@ public class PostingController {
         return newPosting;
     }
 
-    @PutMapping("/main/editPosting")
-    public Posting editPosting(@RequestBody Posting posting){
-        return repoPosting.save(posting);
+    @PutMapping("/emp/editPosting")
+    public Posting editPosting(@RequestBody Posting NewPosting){
+        Posting OldPosting = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);
+        Posting NewPosting1 = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);
+        Employer employer = repoEmployer.getById(NewPosting1.getIdEmployer());
+        long idOldPosition = OldPosting.getPosition().getIdposition();
+        NewPosting.setEmployer(employer);
+
+        List<PostingHasDay> postingHasDayListOld = OldPosting.getPostingHasDayList();
+        for(PostingHasDay postingHasDayPerLine:postingHasDayListOld){
+            repoPostingHasDay.delete(postingHasDayPerLine);
+        }
+        List<PostingHasDay> postingHasDayListNew = NewPosting.getPostingHasDayList();
+        for(PostingHasDay postingHasDayPerLine:postingHasDayListNew){
+            PostingHasDay newPostingHasDay = new PostingHasDay(postingHasDayPerLine.getDay(),NewPosting);
+            repoPostingHasDay.save(newPostingHasDay);
+        }
+
+        Position NewPosition = new Position(NewPosting.getPosition().getPositionName(),employer);
+        Position NewPosition1 = repoPosition.save(NewPosition);
+        NewPosting.setPosition(NewPosition1);
+        repoPosting.save(NewPosting);
+
+        repoPosition.deleteById(idOldPosition);
+        return NewPosting;
+
     }
 
     @PutMapping("/emp/ActivePosting")
@@ -100,21 +132,21 @@ public class PostingController {
 
     @GetMapping("/main/getPostingActiveByIdEmployer")
     public Page<Posting> getPostingActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
-                                                        @RequestParam(name = "idEmployer") long idEmployer){
+                                                      @RequestParam(name = "idEmployer") long idEmployer){
         Pageable pageable = PageRequest.of(pageNo,3);
         return repoPosting.findAllActiveByEmployerId(idEmployer,pageable);
     }
 
     @GetMapping("/main/getPostingInActiveByIdEmployer")
     public Page<Posting> getPostingInActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
-            @RequestParam(name = "idEmployer") long idEmployer){
+                                                        @RequestParam(name = "idEmployer") long idEmployer){
         Pageable pageable = PageRequest.of(pageNo,3);
         return repoPosting.findAllInActiveByEmployerId(idEmployer,pageable);
     }
 
     @GetMapping("/main/getAllPostingByIdEmployer")
     public Page<Posting> getAllPostingByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
-                                                        @RequestParam(name = "idEmployer") long idEmployer){
+                                                   @RequestParam(name = "idEmployer") long idEmployer){
         Pageable pageable = PageRequest.of(pageNo,3);
         return repoPosting.findAllPostingByEmployerId(idEmployer,pageable);
     }

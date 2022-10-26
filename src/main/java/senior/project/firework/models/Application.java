@@ -29,8 +29,7 @@ public class Application {
   @JsonIgnore
   @JoinColumn(name = "admin_idAdmin")
   private Admin admin;
-  @ManyToOne
-  @JsonIgnore
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "application_has_comment_idHasComment")
   private ApplicationHasComment applicationHasComment;
   @ManyToOne

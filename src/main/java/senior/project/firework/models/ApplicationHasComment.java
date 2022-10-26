@@ -14,9 +14,18 @@ public class ApplicationHasComment {
   private long idHasComment;
   @Column(name = "description")
   private String description;
-  @OneToMany(mappedBy = "applicationHasComment")
+  @OneToOne(mappedBy = "applicationHasComment")
   @JsonIgnore
-  private List<Application> applicationList;
+  private Application application;
+
+  public ApplicationHasComment(){
+
+  }
+
+  public ApplicationHasComment(String description, Application application) {
+    this.description = description;
+    this.application = application;
+  }
 
   public long getIdHasComment() {
     return idHasComment;
@@ -34,11 +43,11 @@ public class ApplicationHasComment {
     this.description = description;
   }
 
-  public List<Application> getApplicationList() {
-    return applicationList;
+  public Application getApplication() {
+    return application;
   }
 
-  public void setApplicationList(List<Application> applicationList) {
-    this.applicationList = applicationList;
+  public void setApplication(Application application) {
+    this.application = application;
   }
 }
