@@ -139,10 +139,16 @@ public class ApplicationController {
     }
 
     public long getCount(List<WhoApplication> whoApplicationList, long count, Application applicationPerLine) {
+        String application_has_comment;
+        if(applicationPerLine.getApplicationHasComment() == null){
+            application_has_comment = "";
+        }else{
+            application_has_comment = applicationPerLine.getApplicationHasComment().getDescription();
+        }
         Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
         WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),worker.getIdWorker(),worker.getIdentificationNumber(),
                 worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
-                worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getStatusName(),applicationPerLine.getApplicationHasComment().getDescription());
+                worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getStatusName(),application_has_comment);
         whoApplicationList.add(whoApplication);
         count++;
         return count;
