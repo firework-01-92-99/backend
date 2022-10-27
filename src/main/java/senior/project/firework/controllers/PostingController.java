@@ -130,6 +130,14 @@ public class PostingController {
         repoPosting.save(posting);
     }
 
+    @PutMapping("/emp/deletePosting")
+    public void deletePosting(@RequestParam(name = "idPosting") long idPosting){
+        Status status = repoStatus.findById(9L).orElse(null);
+        Posting posting = repoPosting.findById(idPosting).orElse(null);
+        posting.setStatus(status);
+        repoPosting.save(posting);
+    }
+
     @GetMapping("/main/getPostingActiveByIdEmployer")
     public Page<Posting> getPostingActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
                                                       @RequestParam(name = "idEmployer") long idEmployer){

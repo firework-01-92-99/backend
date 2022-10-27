@@ -1,6 +1,9 @@
 package senior.project.firework.controllers;
 
+import javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import senior.project.firework.exceptions.AccountException;
 import senior.project.firework.exceptions.ExceptionRepo;
@@ -12,7 +15,10 @@ import senior.project.firework.repositories.repoEditEmployer;
 import senior.project.firework.repositories.repoProvince;
 import senior.project.firework.repositories.repoSubDistrict;
 import senior.project.firework.repositories.repoDistrict;
+import senior.project.firework.services.StorageService;
 
+import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +38,8 @@ public class EmployerController {
     private repoDistrict repoDistrict;
     @Autowired
     private repoSubDistrict repoSubDistrict;
+    @Autowired
+    private StorageService storageService;
 
 
     @GetMapping("/main/allEmployer")
@@ -157,5 +165,23 @@ public class EmployerController {
         repoEditEmployer.deleteById(idEditEmployer);
         account.getApprove().setStatus(status);
         repoAccount.save(account);
+    }
+
+    @GetMapping(value = "/main/getImageByIdEmployer", produces = MediaType.IMAGE_PNG_VALUE)
+    public Resource getImageByIdEmployer(@RequestParam(name = "idEmployer") long idEmployer) throws MalformedURLException {
+        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
+        return storageService.loadAsResource(employer.getProfile());
+    }
+
+    //อย่าหาลองใช้ตัวนี้
+    @GetMapping(value = "/main/getImageEveryEmployer", produces = MediaType.IMAGE_PNG_VALUE)
+    public List<Resource> getImageEveryEmployer() throws MalformedURLException {
+        List<Resource> resourceList = new ArrayList<Resource>();
+        List<Employer> employerList = repoEmployer.findAll();
+        for(Employer employerPerLine:employerList){
+            Employer employer = repoEmployer.findById(employerPerLine.getIdEmployer()).orElse(null);
+            resourceList.add(storageService.loadAsResource(employer.getProfile()));
+        }
+        return resourceList;
     }
 }
