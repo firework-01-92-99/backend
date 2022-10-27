@@ -16,6 +16,7 @@ import senior.project.firework.repositories.repoProvince;
 import senior.project.firework.repositories.repoSubDistrict;
 import senior.project.firework.repositories.repoDistrict;
 import senior.project.firework.services.StorageService;
+import senior.project.firework.frontendmodel.EmployerWithImageName;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -173,15 +174,15 @@ public class EmployerController {
         return employer.getProfile();
     }
 
-    //อย่าหาลองใช้ตัวนี้
-    @GetMapping(value = "/main/getImageEveryEmployer", produces = MediaType.IMAGE_PNG_VALUE)
-    public List<Resource> getImageEveryEmployer() throws MalformedURLException {
-        List<Resource> resourceList = new ArrayList<Resource>();
+    @GetMapping(value = "/main/getImageEveryEmployer")
+    public List<EmployerWithImageName> getImageEveryEmployer(){
+        List<EmployerWithImageName> employerWithImageNameList = new ArrayList<EmployerWithImageName>();
         List<Employer> employerList = repoEmployer.findAll();
         for(Employer employerPerLine:employerList){
             Employer employer = repoEmployer.findById(employerPerLine.getIdEmployer()).orElse(null);
-            resourceList.add(storageService.loadAsResource(employer.getProfile()));
+            EmployerWithImageName employerWithImageName = new EmployerWithImageName(employer.getIdEmployer(),employer.getProfile());
+            employerWithImageNameList.add(employerWithImageName);
         }
-        return resourceList;
+        return employerWithImageNameList;
     }
 }
