@@ -168,9 +168,9 @@ public class EmployerController {
     }
 
     @GetMapping(value = "/main/getImageByIdEmployer", produces = MediaType.IMAGE_PNG_VALUE)
-    public Resource getImageByIdEmployer(@RequestParam(name = "idEmployer") long idEmployer) throws MalformedURLException {
+    public String getImageByIdEmployer(@RequestParam(name = "idEmployer") long idEmployer) throws MalformedURLException {
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
-        return storageService.loadAsResource(employer.getProfile());
+        return employer.getProfile();
     }
 
     //อย่าหาลองใช้ตัวนี้
