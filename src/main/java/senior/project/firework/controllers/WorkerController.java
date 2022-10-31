@@ -31,7 +31,7 @@ public class WorkerController {
         return repoWorker.findAll();
     }
 
-    @GetMapping("/admin/selectWorker")
+    @GetMapping("/admin_emp/selectWorker")
     public Worker selectWorker(@RequestParam(name = "idWorker") long idWorker){
         return repoWorker.findById(idWorker).orElse(null);
     }
