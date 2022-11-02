@@ -43,12 +43,12 @@ public class EmployerController {
     private StorageService storageService;
 
 
-    @GetMapping("/main/allEmployer")
+    @GetMapping("/admin/allEmployer")
     public List<Employer> allEmployer(){
         return repoEmployer.findAll();
     }
 
-    @GetMapping("/main/selectEmployer")
+    @GetMapping("/admin/selectEmployer")
     public Optional<Employer> selectEmployer(@RequestParam(name = "idEmployer") long idEmployer){
         return repoEmployer.findById(idEmployer);
     }
@@ -81,7 +81,7 @@ public class EmployerController {
         }
         account.getApprove().setStatus(status);
         EditEmployer editEmployer = new EditEmployer(employer.getEstablishmentName(),employer.getEntrepreneurfName(),employer.getEntrepreneurlName(),
-                employer.getAddress(),employer.getTel(),employer.getPhone(),employer.getTel(),employer.getLineId(),employer.getProfile(),
+                employer.getAddress(),employer.getTel(),employer.getPhone(),employer.getLineId(),employer.getProfile(),
                 employer.getProvince().getProvinceName(),employer.getDistrict().getDistrictName(),employer.getSubDistrict().getSubDistrict(),
                 employer.getSubDistrict().getPostcode(),employer);
         repoEditEmployer.save(editEmployer);
@@ -102,7 +102,6 @@ public class EmployerController {
         String newText4 = editEmployer.getAddress();
         String newText5 = editEmployer.getTel();
         String newText6 = editEmployer.getPhone();
-        String newText7 = editEmployer.getEmail();
         String newText8 = editEmployer.getLineId();
         String newText9 = editEmployer.getProfile();
         Province newText10 = repoProvince.findByProvinceName(editEmployer.getProvinceName());
@@ -129,7 +128,6 @@ public class EmployerController {
         editEmployer.setAddress(oldText4);
         editEmployer.setTel(oldText5);
         editEmployer.setTel(oldText6);
-        editEmployer.setEmail(oldText7);
         editEmployer.setLineId(oldText8);
         editEmployer.setProfile(oldText9);
         editEmployer.setProvinceName(oldText10.getProvinceName());
@@ -144,7 +142,6 @@ public class EmployerController {
         employer.setAddress(newText4);
         employer.setTel(newText5);
         employer.setTel(newText6);
-        employer.setEmail(newText7);
         employer.setLineId(newText8);
         employer.setProfile(newText9);
         employer.setProvince(newText10);

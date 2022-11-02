@@ -143,7 +143,7 @@ public class ApplicationController {
         if(applicationPerLine.getApplicationHasComment() == null){
             application_has_comment = "";
         }else{
-            application_has_comment = applicationPerLine.getApplicationHasComment().getDescription();
+            application_has_comment = applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb();//Edit sometime
         }
         Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
         WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),worker.getIdWorker(),worker.getIdentificationNumber(),
@@ -153,24 +153,70 @@ public class ApplicationController {
         count++;
         return count;
     }
-
-    @PutMapping("/emp/employerAcceptOnWeb")
+    //-------------------------------------------------------------------------------------------------
+    @PutMapping("/emp/employerAcceptOnWeb")//Employer---------------------------------------------
     public Application employerAcceptOnWeb(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(12L).orElse(null);
+        Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
         application.setStatus(status);
         return repoApplication.save(application);
     }
 
-    @PutMapping("/emp/employerRejectOnWeb")
+    @PutMapping("/emp/employerRejectOnWeb")//Employer---------------------------------------------
     public Application employerRejectOnWeb(@RequestBody ApplicationHasComment applicationHasComment,
                                            @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(13L).orElse(null);
+        Status status = repoStatus.findById(13L).orElse(null);//Reject_EmployerOnWeb
         application.setStatus(status);
-        ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(applicationHasComment.getDescription(),application);
+        ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
+        newApplicationHasComment.setDescriptionRejectOnWeb(applicationHasComment.getDescriptionRejectOnWeb());
         repoApplicationHasComment.save(newApplicationHasComment);
         application.setApplicationHasComment(newApplicationHasComment);
         return repoApplication.save(application);
     }
+    //-------------------------------------------------------------------------------------------------
+    @PutMapping("/main/employerAcceptOnSite")//Employer--------------------------------------------- Process
+    public Application employerAcceptOnSite(@RequestParam(value = "idApplication") long idApplication){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        Status status = repoStatus.findById(21L).orElse(null);//Wating_WorkerFinishJob
+        application.setIdStatusAdmin(17L);//Wating_AdminSent
+        application.setStatus(status);
+        return repoApplication.save(application);
+    }
+
+    @PutMapping("/main/employerRejectOnSite")//Employer--------------------------------------------- Process
+    public Application employerRejectOnSite(@RequestBody ApplicationHasComment applicationHasComment,
+                                           @RequestParam(value = "idApplication") long idApplication){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        Status status = repoStatus.findById(20L).orElse(null);//Done
+        application.setIdStatusAdmin(17L);//Wating_AdminSent
+        application.setStatus(status);
+        ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
+        newApplicationHasComment.setDescriptionRejectOnSite(applicationHasComment.getDescriptionRejectOnSite());
+        repoApplicationHasComment.save(newApplicationHasComment);
+        application.setApplicationHasComment(newApplicationHasComment);
+        return repoApplication.save(application);
+    }
+    //-------------------------------------------------------------------------------------------------
+    @PutMapping("/main/employerFinishJob")//Employer--------------------------------------------- Process
+    public Application employerFinishJob(@RequestParam(value = "idApplication") long idApplication){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        Status status = repoStatus.findById(3L).orElse(null);//Waiting
+        application.setStatus(status);
+        return repoApplication.save(application);
+    }
+
+    @PutMapping("/main/employerBreakShort")//Employer--------------------------------------------- Process
+    public Application employerBreakShort(@RequestBody ApplicationHasComment applicationHasComment,
+                                            @RequestParam(value = "idApplication") long idApplication){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        Status status = repoStatus.findById(3L).orElse(null);//Waiting
+        application.setStatus(status);
+        ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
+        newApplicationHasComment.setDescriptionBreakShort(applicationHasComment.getDescriptionBreakShort());
+        repoApplicationHasComment.save(newApplicationHasComment);
+        application.setApplicationHasComment(newApplicationHasComment);
+        return repoApplication.save(application);
+    }
+    //-------------------------------------------------------------------------------------------------
 }

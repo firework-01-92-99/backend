@@ -12,8 +12,12 @@ public class ApplicationHasComment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "idHasComment")
   private long idHasComment;
-  @Column(name = "description")
-  private String description;
+  @Column(name = "descriptionRejectOnWeb")
+  private String descriptionRejectOnWeb;
+  @Column(name = "descriptionRejectOnSite")
+  private String descriptionRejectOnSite;
+  @Column(name = "descriptionBreakShort")
+  private String descriptionBreakShort;
   @OneToOne(mappedBy = "applicationHasComment")
   @JsonIgnore
   private Application application;
@@ -22,9 +26,16 @@ public class ApplicationHasComment {
 
   }
 
-  public ApplicationHasComment(String description, Application application) {
-    this.description = description;
+  public ApplicationHasComment(Application application) {
     this.application = application;
+  }
+
+  public String getDescriptionRejectOnSite() {
+    return descriptionRejectOnSite;
+  }
+
+  public void setDescriptionRejectOnSite(String descriptionRejectOnSite) {
+    this.descriptionRejectOnSite = descriptionRejectOnSite;
   }
 
   public long getIdHasComment() {
@@ -35,12 +46,20 @@ public class ApplicationHasComment {
     this.idHasComment = idHasComment;
   }
 
-  public String getDescription() {
-    return description;
+  public String getDescriptionRejectOnWeb() {
+    return descriptionRejectOnWeb;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescriptionRejectOnWeb(String descriptionRejectOnWeb) {
+    this.descriptionRejectOnWeb = descriptionRejectOnWeb;
+  }
+
+  public String getDescriptionBreakShort() {
+    return descriptionBreakShort;
+  }
+
+  public void setDescriptionBreakShort(String descriptionBreakShort) {
+    this.descriptionBreakShort = descriptionBreakShort;
   }
 
   public Application getApplication() {
