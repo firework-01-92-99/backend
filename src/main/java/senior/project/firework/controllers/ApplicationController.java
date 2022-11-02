@@ -56,7 +56,7 @@ public class ApplicationController {
         return poNameAndEstName;
     }
 
-    @GetMapping("/main/allApplication")
+    @GetMapping("/admin/allApplication")
     public List<Application> allApplication(){
         return repoApplication.findAll();
     }
@@ -115,7 +115,7 @@ public class ApplicationController {
         return statusApplicationList;
     }
 
-    @GetMapping("/main/showAllWorker")
+    @GetMapping("/emp/showAllWorker")
     public HowManyApplication showAllWorker(@RequestParam(name = "idPosting") long idPosting,@RequestParam(name = "idStatus") long idStatus){
         return setAllWorker(idPosting,idStatus);
     }
@@ -168,7 +168,7 @@ public class ApplicationController {
         return count;
     }
     //-------------------------------------------------------------------------------------------------
-    @PutMapping("/main/employerAcceptOnWeb")//Employer--------------------------------------------- Done
+    @PutMapping("/emp/employerAcceptOnWeb")//Employer--------------------------------------------- Done
     public Application employerAcceptOnWeb(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
@@ -176,7 +176,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
 
-    @PutMapping("/main/employerRejectOnWeb")//Employer--------------------------------------------- Done
+    @PutMapping("/emp/employerRejectOnWeb")//Employer--------------------------------------------- Done
     public Application employerRejectOnWeb(@RequestBody ApplicationHasComment applicationHasComment,
                                            @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
@@ -189,7 +189,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
-    @PutMapping("/main/employerAcceptOnSite")//Employer--------------------------------------------- Done
+    @PutMapping("/emp/employerAcceptOnSite")//Employer--------------------------------------------- Done
     public Application employerAcceptOnSite(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(21L).orElse(null);//Wating_WorkerFinishJob
@@ -198,7 +198,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
 
-    @PutMapping("/main/employerRejectOnSite")//Employer--------------------------------------------- Done
+    @PutMapping("/emp/employerRejectOnSite")//Employer--------------------------------------------- Done
     public Application employerRejectOnSite(@RequestBody ApplicationHasComment applicationHasComment,
                                             @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
@@ -212,7 +212,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
-    @PutMapping("/main/employerFinishJob")//Employer--------------------------------------------- Done
+    @PutMapping("/emp/employerFinishJob")//Employer--------------------------------------------- Done
     public Application employerFinishJob(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(24L).orElse(null);//Waiting_Rating
@@ -220,7 +220,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
 
-    @PutMapping("/main/employerBreakShort")//Employer--------------------------------------------- Done
+    @PutMapping("/emp/employerBreakShort")//Employer--------------------------------------------- Done
     public Application employerBreakShort(@RequestBody ApplicationHasComment applicationHasComment,
                                           @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
@@ -233,7 +233,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
-    @PutMapping("/main/adminComfirm")//Admin--------------------------------------------- Done
+    @PutMapping("/admin/adminComfirm")//Admin--------------------------------------------- Done
     public Application adminComfirm(@RequestBody ActToRegister actToRegister,
                                     @RequestParam(value = "idApplication") long idApplication,
                                     @RequestParam(value = "idAdmin") long idAdmin){
@@ -252,7 +252,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
 
-    @PutMapping("/main/adminCancel")//Admin--------------------------------------------- Done
+    @PutMapping("/admin/adminCancel")//Admin--------------------------------------------- Done
     public Application adminCancel(@RequestBody ActToRegister actToRegister,
                                    @RequestParam(value = "idApplication") long idApplication,
                                    @RequestParam(value = "idAdmin") long idAdmin){
@@ -265,7 +265,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
-    @PutMapping("/main/employerGiveScoreToWorker")//Employer--------------------------------------------- Done
+    @PutMapping("/emp/employerGiveScoreToWorker")//Employer--------------------------------------------- Done
     public String employerGiveScoreToWorker(@RequestParam(value = "idApplication") long idApplication,
                                             @RequestBody Ratings ratings){
         Application application = repoApplication.findById(idApplication).orElse(null);
@@ -286,7 +286,7 @@ public class ApplicationController {
         return "Score = " + ratings.getRate();
     }
 
-    @PutMapping("/main/workerGiveScoreToEmployer")//Worker--------------------------------------------- Done
+    @PutMapping("/worker/workerGiveScoreToEmployer")//Worker--------------------------------------------- Done
     public String workerGiveScoreToEmployer(@RequestParam(value = "idApplication") long idApplication,
                                             @RequestBody Ratings ratings){
         Application application = repoApplication.findById(idApplication).orElse(null);
