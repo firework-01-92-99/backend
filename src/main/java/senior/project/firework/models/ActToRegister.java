@@ -24,6 +24,21 @@ public class ActToRegister {
     @JoinColumn(name = "admin_idAdmin")
     private Admin admin;
 
+    public ActToRegister(){
+
+    }
+
+    public ActToRegister(String act_name, String description, Admin admin) {
+        this.act_name = act_name;
+        this.description = description;
+        this.admin = admin;
+    }
+
+    public ActToRegister(String act_name, Admin admin) {
+        this.act_name = act_name;
+        this.admin = admin;
+    }
+
     public long getIdaction() {
         return idaction;
     }

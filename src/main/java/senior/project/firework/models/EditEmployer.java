@@ -23,8 +23,6 @@ public class EditEmployer {
     private String tel;
     @Column(name = "phone")
     private String phone;
-    @Column(name = "email")
-    private String email;
     @Column(name = "lineId")
     private String lineId;
     @Column(name = "profile")
@@ -46,14 +44,13 @@ public class EditEmployer {
 
     }
 
-    public EditEmployer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String email, String lineId, String profile, String provinceName, String districtName, String subDistrict, String postcode, Employer employer) {
+    public EditEmployer(String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String tel, String phone, String lineId, String profile, String provinceName, String districtName, String subDistrict, String postcode, Employer employer) {
         this.establishmentName = establishmentName;
         this.entrepreneurfName = entrepreneurfName;
         this.entrepreneurlName = entrepreneurlName;
         this.address = address;
         this.tel = tel;
         this.phone = phone;
-        this.email = email;
         this.lineId = lineId;
         this.profile = profile;
         this.provinceName = provinceName;
@@ -117,14 +114,6 @@ public class EditEmployer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getLineId() {

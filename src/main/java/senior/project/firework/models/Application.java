@@ -17,6 +17,8 @@ public class Application {
   private long idWorker;
   @Column(name = "status_idStatus" , updatable = false , insertable = false)
   private long idStatus;
+  @Column(name = "idStatusAdmin")
+  private long idStatusAdmin;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "worker_idWorker")
@@ -37,7 +39,6 @@ public class Application {
   @JoinColumn(name = "status_idStatus")
   private Status status;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "act_to_registrar_idaction")
   private ActToRegister actToRegister;
 
@@ -49,6 +50,14 @@ public class Application {
     this.worker = worker;
     this.posting = posting;
     this.status = status;
+  }
+
+  public long getIdStatusAdmin() {
+    return idStatusAdmin;
+  }
+
+  public void setIdStatusAdmin(long idStatusAdmin) {
+    this.idStatusAdmin = idStatusAdmin;
   }
 
   public long getIdPosting() {
