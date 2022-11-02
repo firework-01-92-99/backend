@@ -34,6 +34,11 @@ public class ActToRegister {
         this.admin = admin;
     }
 
+    public ActToRegister(String act_name, Admin admin) {
+        this.act_name = act_name;
+        this.admin = admin;
+    }
+
     public long getIdaction() {
         return idaction;
     }

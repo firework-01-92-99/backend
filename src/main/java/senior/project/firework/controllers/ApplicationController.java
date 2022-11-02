@@ -15,7 +15,12 @@ import senior.project.firework.repositories.repoPosting;
 import senior.project.firework.repositories.repoStatus;
 import senior.project.firework.repositories.repoEmployer;
 import senior.project.firework.repositories.repoApplicationHasComment;
+import senior.project.firework.repositories.repoAdmin;
+import senior.project.firework.repositories.repoActToRegister;
+import senior.project.firework.repositories.repoRole;
+import senior.project.firework.repositories.repoRatings;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +40,14 @@ public class ApplicationController {
     private repoEmployer repoEmployer;
     @Autowired
     private repoApplicationHasComment repoApplicationHasComment;
+    @Autowired
+    private repoAdmin repoAdmin;
+    @Autowired
+    private repoActToRegister repoActToRegister;
+    @Autowired
+    private repoRole repoRole;
+    @Autowired
+    private repoRatings repoRatings;
 
     @GetMapping("/admin_worker/getPositionNameAndEstablishmentNameByIdApplication")
     public PoNameAndEstName getPositionNameAndEstablishmentNameByIdApplication(@RequestParam(name = "idApplication") long idApplication){
@@ -43,7 +56,7 @@ public class ApplicationController {
         return poNameAndEstName;
     }
 
-    @GetMapping("/admin/allApplication")
+    @GetMapping("/main/allApplication")
     public List<Application> allApplication(){
         return repoApplication.findAll();
     }
@@ -55,6 +68,7 @@ public class ApplicationController {
         Posting post = repoPosting.findById(idPosting).orElse(null);
         Status status = repoStatus.findById(11L).orElse(null);
         Application newApplication = new Application(worker,post,status);
+        newApplication.setIdStatusAdmin(0L);
         return repoApplication.save(newApplication);
     }
 
@@ -154,7 +168,7 @@ public class ApplicationController {
         return count;
     }
     //-------------------------------------------------------------------------------------------------
-    @PutMapping("/emp/employerAcceptOnWeb")//Employer---------------------------------------------
+    @PutMapping("/main/employerAcceptOnWeb")//Employer--------------------------------------------- Done
     public Application employerAcceptOnWeb(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
@@ -162,7 +176,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
 
-    @PutMapping("/emp/employerRejectOnWeb")//Employer---------------------------------------------
+    @PutMapping("/main/employerRejectOnWeb")//Employer--------------------------------------------- Done
     public Application employerRejectOnWeb(@RequestBody ApplicationHasComment applicationHasComment,
                                            @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
@@ -175,7 +189,7 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
-    @PutMapping("/main/employerAcceptOnSite")//Employer--------------------------------------------- Process
+    @PutMapping("/main/employerAcceptOnSite")//Employer--------------------------------------------- Done
     public Application employerAcceptOnSite(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(21L).orElse(null);//Wating_WorkerFinishJob
@@ -184,9 +198,9 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
 
-    @PutMapping("/main/employerRejectOnSite")//Employer--------------------------------------------- Process
+    @PutMapping("/main/employerRejectOnSite")//Employer--------------------------------------------- Done
     public Application employerRejectOnSite(@RequestBody ApplicationHasComment applicationHasComment,
-                                           @RequestParam(value = "idApplication") long idApplication){
+                                            @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(20L).orElse(null);//Done
         application.setIdStatusAdmin(17L);//Wating_AdminSent
@@ -198,25 +212,99 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
-    @PutMapping("/main/employerFinishJob")//Employer--------------------------------------------- Process
+    @PutMapping("/main/employerFinishJob")//Employer--------------------------------------------- Done
     public Application employerFinishJob(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(3L).orElse(null);//Waiting
+        Status status = repoStatus.findById(24L).orElse(null);//Waiting_Rating
         application.setStatus(status);
         return repoApplication.save(application);
     }
 
-    @PutMapping("/main/employerBreakShort")//Employer--------------------------------------------- Process
+    @PutMapping("/main/employerBreakShort")//Employer--------------------------------------------- Done
     public Application employerBreakShort(@RequestBody ApplicationHasComment applicationHasComment,
-                                            @RequestParam(value = "idApplication") long idApplication){
+                                          @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(3L).orElse(null);//Waiting
+        Status status = repoStatus.findById(24L).orElse(null);//Waiting_Rating
         application.setStatus(status);
         ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
         newApplicationHasComment.setDescriptionBreakShort(applicationHasComment.getDescriptionBreakShort());
         repoApplicationHasComment.save(newApplicationHasComment);
         application.setApplicationHasComment(newApplicationHasComment);
         return repoApplication.save(application);
+    }
+    //-------------------------------------------------------------------------------------------------
+    @PutMapping("/main/adminComfirm")//Admin--------------------------------------------- Done
+    public Application adminComfirm(@RequestBody ActToRegister actToRegister,
+                                    @RequestParam(value = "idApplication") long idApplication,
+                                    @RequestParam(value = "idAdmin") long idAdmin){
+        Admin admin = repoAdmin.findById(idAdmin).orElse(null);
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        application.setIdStatusAdmin(18L);//Admin_Confirm
+        if(actToRegister.getDescription() == null || actToRegister.getDescription() == ""){
+            ActToRegister newActToRegister = new ActToRegister(actToRegister.getAct_name(),admin);
+            repoActToRegister.save(newActToRegister);
+            application.setActToRegister(newActToRegister);
+        }else{
+            ActToRegister newActToRegister = new ActToRegister(actToRegister.getAct_name(),actToRegister.getDescription(),admin);
+            repoActToRegister.save(newActToRegister);
+            application.setActToRegister(newActToRegister);
+        }
+        return repoApplication.save(application);
+    }
+
+    @PutMapping("/main/adminCancel")//Admin--------------------------------------------- Done
+    public Application adminCancel(@RequestBody ActToRegister actToRegister,
+                                   @RequestParam(value = "idApplication") long idApplication,
+                                   @RequestParam(value = "idAdmin") long idAdmin){
+        Admin admin = repoAdmin.findById(idAdmin).orElse(null);
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        application.setIdStatusAdmin(19L);//Admin_Cancel
+        ActToRegister newActToRegister = new ActToRegister(actToRegister.getAct_name(),application.getApplicationHasComment().getDescriptionRejectOnSite(),admin);
+        repoActToRegister.save(newActToRegister);
+        application.setActToRegister(newActToRegister);
+        return repoApplication.save(application);
+    }
+    //-------------------------------------------------------------------------------------------------
+    @PutMapping("/main/employerGiveScoreToWorker")//Employer--------------------------------------------- Done
+    public String employerGiveScoreToWorker(@RequestParam(value = "idApplication") long idApplication,
+                                            @RequestBody Ratings ratings){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        Role roleEmployer = repoRole.findById(2L).orElse(null);//Employer
+        Role roleWorker = repoRole.findById(3L).orElse(null);//Worker
+        LocalDate date = LocalDate.now();
+        Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleWorker.getRoleName(),application.getPosting().getEmployer(),application.getWorker());
+        if( repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null ){
+            return "You give score already.";
+        }
+        repoRatings.save(newRating);
+        if(repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null &&
+                repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null){
+            Status status = repoStatus.findById(20L).orElse(null);//Done
+            application.setStatus(status);
+            repoApplication.save(application);
+        }
+        return "Score = " + ratings.getRate();
+    }
+
+    @PutMapping("/main/workerGiveScoreToEmployer")//Worker--------------------------------------------- Done
+    public String workerGiveScoreToEmployer(@RequestParam(value = "idApplication") long idApplication,
+                                            @RequestBody Ratings ratings){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        Role roleEmployer = repoRole.findById(2L).orElse(null);//Employer
+        Role roleWorker = repoRole.findById(3L).orElse(null);//Worker
+        LocalDate date = LocalDate.now();
+        Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleEmployer.getRoleName(),application.getPosting().getEmployer(),application.getWorker());
+        if( repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null ){
+            return "You give score already.";
+        }
+        repoRatings.save(newRating);
+        if(repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null &&
+                repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null){
+            Status status = repoStatus.findById(20L).orElse(null);//Done
+            application.setStatus(status);
+            repoApplication.save(application);
+        }
+        return "Score = " + ratings.getRate();
     }
     //-------------------------------------------------------------------------------------------------
 }

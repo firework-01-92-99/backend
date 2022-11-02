@@ -38,37 +38,6 @@ public class RatingsController {
         return date;
     }
 
-    @PostMapping("/emp_worker/giveScore")
-    public String GiveScore(@RequestParam(name = "idWorker") long idWorker,
-                            @RequestParam(name = "idEmployer") long idEmployer,
-                            @RequestParam(name = "rate") long rate,
-                            @RequestParam(name = "comment") String comment,
-                            @RequestParam(name = "idRole") long idRole){
-        Worker worker = repoWorker.findById(idWorker).orElse(null);
-        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
-        Role role = repoRole.findById(idRole).orElse(null);
-        if( repoRatings.findByWorkerAndEmployerAndForwho(worker, employer, role.getRoleName() ) !=null ){
-            return "You give score already.";
-        }
-        LocalDate date = LocalDate.now();
-        Ratings ratings = new Ratings(rate,comment,date, role.getRoleName(), employer,worker);
-        repoRatings.save(ratings);
-        return "Score = " + ratings.getRate();
-    }
-
-    @PutMapping("/emp_worker/editScore")
-    public String EditScore(@RequestBody Ratings ratings){
-        LocalDate date = LocalDate.now();
-        ratings.setTimestamp(date);
-        repoRatings.save(ratings);
-        return "Score = " + ratings.getRate();
-    }
-
-    @DeleteMapping("/emp_worker/cancelScore")
-    public void cancelScore(@RequestParam(name = "idRating") long idRating){
-        repoRatings.deleteById(idRating);
-    }
-
     @GetMapping("/emp_worker/getMyTotalScore")
     public Double getMyTotalScore(@RequestParam(name = "idWorkerOrEmployer") long idWorkerOrEmployer,@RequestParam(name = "idRole") long idRole){
         Role role = repoRole.findById(idRole).orElse(null);

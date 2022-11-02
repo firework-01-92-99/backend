@@ -39,7 +39,6 @@ public class Application {
   @JoinColumn(name = "status_idStatus")
   private Status status;
   @ManyToOne
-  @JsonIgnore
   @JoinColumn(name = "act_to_registrar_idaction")
   private ActToRegister actToRegister;
 
