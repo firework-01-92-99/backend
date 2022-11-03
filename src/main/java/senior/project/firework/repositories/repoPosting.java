@@ -30,7 +30,9 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
             "ORDER BY   (case when :sortSalary='DESC' then ps.maxSalary end ) DESC " +
             "           ,(case when :sortSalary='ASC' then ps.minSalary end) ASC " +
             "           ,(case when :sortSalary='' then ps.idPosting end) DESC ",nativeQuery = true)
-    Page<Posting> searchPosting(String establishmentAndpositionName, String idHiringtype, String sortSalary, String idProvince,Pageable pageable );
+    Page<Posting> searchPosting(String establishmentAndpositionName, String idHiringtype,
+                                String sortSalary, String idProvince,
+                                Pageable pageable );
 
     @Query(value =  "SELECT p FROM Posting p, Status s " +
             "WHERE p.status.idStatus = s.idStatus " +

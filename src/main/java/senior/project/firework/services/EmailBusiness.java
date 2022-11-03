@@ -41,6 +41,51 @@ public class EmailBusiness {
         emailService.send(email, subject, html);
     }
 
+    public void sendApproveAlready(String email, String name) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("account-approve.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+
+        String subject = "";
+        emailService.send(email, subject, html);
+    }
+
+    public void sendReject(String email, String name) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("account-reject.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+
+        String subject = "";
+        emailService.send(email, subject, html);
+    }
+
+    public void sendAccountCantDelete(String email, String name) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("account-cannotdelete.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+
+        String subject = "";
+        emailService.send(email, subject, html);
+    }
+
     private String readEmailTemplate(String filename) throws IOException {
         Resource resource = resourceLoader.getResource("classpath:email/" + filename);
 

@@ -12,6 +12,7 @@ import senior.project.firework.repositories.repoWorker;
 import senior.project.firework.repositories.repoStatus;
 import senior.project.firework.repositories.repoAccount;
 import senior.project.firework.repositories.repoEditWorker;
+import senior.project.firework.services.EmailBusiness;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class WorkerController {
     private repoAccount repoAccount;
     @Autowired
     private repoEditWorker repoEditWorker;
+    @Autowired
+    private EmailBusiness emailBusiness;
 
     @GetMapping("/admin/allWorker")
     public List<Worker> allWorker(){
@@ -42,6 +45,7 @@ public class WorkerController {
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         Account account = repoAccount.findById(worker.getAccount().getIdAccount()).orElse(null);
         account.getApprove().setStatus(status);
+        account.setEmail("-");
         repoAccount.save(account);
     }
 
@@ -110,7 +114,7 @@ public class WorkerController {
     }
 
     @DeleteMapping("/admin/youCanNotEditWorker")
-    public void youCanNotEditWorker(@RequestParam(name = "idWorker") long idWorker){
+    public void youCanNotEditWorker(@RequestParam(name = "idWorker") long idWorker) throws Exception {
         Status status = repoStatus.findById(4L).orElse(null);
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         long idEditWorker = repoEditWorker.getMaxIdWorkerByWorker(worker);
@@ -118,5 +122,6 @@ public class WorkerController {
         repoEditWorker.deleteById(idEditWorker);
         account.getApprove().setStatus(status);
         repoAccount.save(account);
+        emailBusiness.sendAccountCantDelete(worker.getAccount().getEmail(),worker.getFirstName());
     }
 }

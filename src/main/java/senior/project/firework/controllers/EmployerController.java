@@ -15,6 +15,7 @@ import senior.project.firework.repositories.repoEditEmployer;
 import senior.project.firework.repositories.repoProvince;
 import senior.project.firework.repositories.repoSubDistrict;
 import senior.project.firework.repositories.repoDistrict;
+import senior.project.firework.services.EmailBusiness;
 import senior.project.firework.services.StorageService;
 import senior.project.firework.frontendmodel.EmployerWithImageName;
 
@@ -41,6 +42,8 @@ public class EmployerController {
     private repoSubDistrict repoSubDistrict;
     @Autowired
     private StorageService storageService;
+    @Autowired
+    private EmailBusiness emailBusiness;
 
 
     @GetMapping("/main/allEmployer")
@@ -68,6 +71,7 @@ public class EmployerController {
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
         Account account = repoAccount.findById(employer.getAccount().getIdAccount()).orElse(null);
         account.getApprove().setStatus(status);
+        account.setEmail("-");
         repoAccount.save(account);
     }
 
@@ -155,7 +159,7 @@ public class EmployerController {
     }
 
     @DeleteMapping("/admin/youCanNotEditEmployer")
-    public void youCanNotEditEmployer(@RequestParam(name = "idEmployer") long idEmployer){
+    public void youCanNotEditEmployer(@RequestParam(name = "idEmployer") long idEmployer) throws Exception {
         Status status = repoStatus.findById(4L).orElse(null);
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
         long idEditEmployer = repoEditEmployer.getMaxIdEmployerByEmployer(employer);
@@ -163,6 +167,7 @@ public class EmployerController {
         repoEditEmployer.deleteById(idEditEmployer);
         account.getApprove().setStatus(status);
         repoAccount.save(account);
+        emailBusiness.sendAccountCantDelete(employer.getAccount().getEmail(),employer.getEstablishmentName());
     }
 
     @GetMapping(value = "/main/getImageByIdEmployer", produces = MediaType.IMAGE_PNG_VALUE)

@@ -166,7 +166,6 @@ public class ApplicationController {
                 }
             }
         }
-
         HowManyApplication howManyApplication = new HowManyApplication(idPosting,whoApplicationList);
         return howManyApplication;
     }
