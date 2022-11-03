@@ -147,7 +147,26 @@ public class ApplicationController {
                     count = getCount(whoApplicationList, count, applicationPerLine);
                 }
             }
+        }else if(idStatus == 14){
+            for(Application applicationPerLine : applicationList){
+                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                    count = getCount(whoApplicationList, count, applicationPerLine);
+                }
+            }
+        }else if(idStatus == 21){
+            for(Application applicationPerLine : applicationList){
+                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                    count = getCount(whoApplicationList, count, applicationPerLine);
+                }
+            }
+        }else if(idStatus == 24){
+            for(Application applicationPerLine : applicationList){
+                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                    count = getCount(whoApplicationList, count, applicationPerLine);
+                }
+            }
         }
+
         HowManyApplication howManyApplication = new HowManyApplication(idPosting,whoApplicationList);
         return howManyApplication;
     }
@@ -282,6 +301,10 @@ public class ApplicationController {
             Status status = repoStatus.findById(20L).orElse(null);//Done
             application.setStatus(status);
             repoApplication.save(application);
+        }else{
+            Status status = repoStatus.findById(26L).orElse(null);//empRated
+            application.setStatus(status);
+            repoApplication.save(application);
         }
         return "Score = " + ratings.getRate();
     }
@@ -301,6 +324,10 @@ public class ApplicationController {
         if(repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null &&
                 repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null){
             Status status = repoStatus.findById(20L).orElse(null);//Done
+            application.setStatus(status);
+            repoApplication.save(application);
+        }else{
+            Status status = repoStatus.findById(25L).orElse(null);//workerRated
             application.setStatus(status);
             repoApplication.save(application);
         }

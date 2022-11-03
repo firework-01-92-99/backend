@@ -43,12 +43,12 @@ public class EmployerController {
     private StorageService storageService;
 
 
-    @GetMapping("/admin/allEmployer")
+    @GetMapping("/main/allEmployer")
     public List<Employer> allEmployer(){
         return repoEmployer.findAll();
     }
 
-    @GetMapping("/admin/selectEmployer")
+    @GetMapping("/main/selectEmployer")
     public Optional<Employer> selectEmployer(@RequestParam(name = "idEmployer") long idEmployer){
         return repoEmployer.findById(idEmployer);
     }
