@@ -187,4 +187,14 @@ public class EmployerController {
         }
         return employerWithImageNameList;
     }
+
+    @GetMapping("/admin/getAllEditEmployer")
+    public List<EditEmployer> getAllEditEmployer(){
+        return repoEditEmployer.findAll();
+    }
+
+    @GetMapping("/admin/getEditEmployerByIdEmployer")
+    public List<EditEmployer> getEditEmployerByIdApprove(@RequestParam(name = "idEmployer") long idEmployer){
+        return repoEditEmployer.getEditEmployerByIdEmployer(idEmployer);
+    }
 }

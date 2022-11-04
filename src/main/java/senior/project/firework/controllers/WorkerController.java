@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import senior.project.firework.exceptions.AccountException;
 import senior.project.firework.exceptions.ExceptionRepo;
-import senior.project.firework.models.EditWorker;
-import senior.project.firework.models.Status;
-import senior.project.firework.models.Worker;
-import senior.project.firework.models.Account;
+import senior.project.firework.models.*;
 import senior.project.firework.repositories.repoWorker;
 import senior.project.firework.repositories.repoStatus;
 import senior.project.firework.repositories.repoAccount;
@@ -123,5 +120,15 @@ public class WorkerController {
         account.getApprove().setStatus(status);
         repoAccount.save(account);
         emailBusiness.sendAccountCantDelete(worker.getAccount().getEmail(),worker.getFirstName());
+    }
+
+    @GetMapping("/admin/getAllEditWorker")
+    public List<EditWorker> getAllEditWorker(){
+        return repoEditWorker.findAll();
+    }
+
+    @GetMapping("/admin/getEditWorkerByIdWorker")
+    public List<EditWorker> getEditWorkerByIdWorker(@RequestParam(name = "idWorker") long idWorker){
+        return repoEditWorker.getEditWorkerByIdWorker(idWorker);
     }
 }

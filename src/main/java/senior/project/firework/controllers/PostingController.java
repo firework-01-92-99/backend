@@ -49,8 +49,18 @@ public class PostingController {
                                        @RequestParam(defaultValue = "" , name = "idHiringtype") String idHiringtype,
                                        @RequestParam(defaultValue = "" , name = "sortSalary")  String sortSalary,// DESC = High to Low - ASC = Low to High
                                        @RequestParam(defaultValue = "" , name = "idProvince") String idProvince,
+                                       @RequestParam(defaultValue = "0" , name = "minSalary") long minSalary,
+                                       @RequestParam(defaultValue = "100000" , name = "maxSalary") long maxSalary,
                                        @RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo){
         Pageable pageable = PageRequest.of(pageNo,3);
+        if(minSalary > maxSalary){
+            long newMinSalary = maxSalary;
+            long newMaxSalary = minSalary;
+            minSalary = newMinSalary;
+            maxSalary = newMaxSalary;
+        }else if(minSalary == maxSalary){
+            maxSalary = 100000;
+        }
         return repoPosting.searchPosting(establishmentAndpositionName,idHiringtype,sortSalary,idProvince,pageable);
     }
 
