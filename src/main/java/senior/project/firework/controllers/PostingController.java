@@ -39,8 +39,8 @@ public class PostingController {
     }
 
     @GetMapping("/main/allPosting")
-    public Page<Posting> allPosting(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo){
-        Pageable pageable = PageRequest.of(pageNo,3);
+    public Page<Posting> allPosting(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,@RequestParam(defaultValue = "3",name = "size") Integer size){
+        Pageable pageable = PageRequest.of(pageNo,size);
         return repoPosting.findAllActive(pageable);
     }
 
@@ -150,8 +150,9 @@ public class PostingController {
 
     @GetMapping("/main/getPostingActiveByIdEmployer")
     public Page<Posting> getPostingActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
-                                                      @RequestParam(name = "idEmployer") long idEmployer){
-        Pageable pageable = PageRequest.of(pageNo,3);
+                                                      @RequestParam(name = "idEmployer") long idEmployer,
+                                                      @RequestParam(defaultValue = "3",name = "size") Integer size){
+        Pageable pageable = PageRequest.of(pageNo,size);
         return repoPosting.findAllActiveByEmployerId(idEmployer,pageable);
     }
 
