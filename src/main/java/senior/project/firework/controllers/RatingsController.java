@@ -53,6 +53,20 @@ public class RatingsController {
         return null;
     }
 
+    @GetMapping("/emp/getEmpTotalScore")
+    public Double getEmpTotalScore(@RequestParam(name = "idEmployer") long idEmployer){
+        Employer employer = repoEmployer.getById(idEmployer);
+        List<Ratings> ratingsList = repoRatings.findByEmployerAndForwho(employer,employer.getAccount().getRole().getRoleName());
+        return returnScoreDouble(ratingsList);
+    }
+
+    @GetMapping("/worker/getWorkerTotalScore")
+    public Double getWorkerTotalScore(@RequestParam(name = "idWorker") long idWorker){
+        Worker worker = repoWorker.getById(idWorker);
+        List<Ratings> ratingsList = repoRatings.findByWorkerAndForwho(worker,worker.getAccount().getRole().getRoleName());
+        return returnScoreDouble(ratingsList);
+    }
+
     public Double returnScoreDouble(List<Ratings> ratingsList){
         double totalScore = 0;
         double count = 0;
