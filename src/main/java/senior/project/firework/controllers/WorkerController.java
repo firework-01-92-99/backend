@@ -1,7 +1,9 @@
 package senior.project.firework.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import senior.project.firework.exceptions.AccountException;
 import senior.project.firework.exceptions.ExceptionRepo;
 import senior.project.firework.models.*;
@@ -10,6 +12,7 @@ import senior.project.firework.repositories.repoStatus;
 import senior.project.firework.repositories.repoAccount;
 import senior.project.firework.repositories.repoEditWorker;
 import senior.project.firework.services.EmailBusiness;
+import senior.project.firework.services.StorageService;
 
 import java.util.List;
 
@@ -25,6 +28,8 @@ public class WorkerController {
     private repoEditWorker repoEditWorker;
     @Autowired
     private EmailBusiness emailBusiness;
+    @Autowired
+    StorageService storageService;
 
     @GetMapping("/admin/allWorker")
     public List<Worker> allWorker(){
@@ -56,8 +61,8 @@ public class WorkerController {
     }
 
 
-    @PostMapping("/worker/editMyWorker")
-    public void editMyWorker(@RequestBody Worker worker){
+    @PostMapping(value = "/worker/editMyWorker",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void editMyWorker(@RequestParam(value = "image",required = false) MultipartFile imageFile, @RequestPart Worker worker) throws Exception {
         Status status = repoStatus.findById(7L).orElse(null);
         Worker workerForAccount = repoWorker.findById(worker.getIdWorker()).orElse(null);
         Account account = repoAccount.findById(workerForAccount.getAccount().getIdAccount()).orElse(null);
@@ -67,6 +72,7 @@ public class WorkerController {
         account.getApprove().setStatus(status);
         EditWorker editWorker = new EditWorker(worker.getVerifyPic(), worker.getFirstName(),
                 worker.getMiddleName(), worker.getLastName(), worker.getPhone(),worker);
+        editWorker.setVerifyPic(storageService.store(imageFile,account.getIdAccount()));
         repoEditWorker.save(editWorker);
         repoAccount.save(account);
     }

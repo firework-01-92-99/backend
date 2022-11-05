@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import senior.project.firework.exceptions.AccountException;
 import senior.project.firework.exceptions.ExceptionRepo;
 import senior.project.firework.models.*;
@@ -75,8 +76,8 @@ public class EmployerController {
         repoAccount.save(account);
     }
 
-    @PostMapping("/emp/editMyEmployer")
-    public void editMyEmployer(@RequestBody Employer employer){
+    @PostMapping(value = "/emp/editMyEmployer",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void editMyEmployer(@RequestParam(value = "image",required = false) MultipartFile imageFile, @RequestPart Employer employer){
         Status status = repoStatus.findById(7L).orElse(null);
         Employer employerForAccount = repoEmployer.findById(employer.getIdEmployer()).orElse(null);
         Account account = repoAccount.findById(employerForAccount.getAccount().getIdAccount()).orElse(null);
@@ -88,6 +89,7 @@ public class EmployerController {
                 employer.getAddress(),employer.getTel(),employer.getPhone(),employer.getLineId(),employer.getProfile(),
                 employer.getProvince().getProvinceName(),employer.getDistrict().getDistrictName(),employer.getSubDistrict().getSubDistrict(),
                 employer.getSubDistrict().getPostcode(),employer);
+        editEmployer.setProfile(storageService.store(imageFile,account.getIdAccount()));
         repoEditEmployer.save(editEmployer);
         repoAccount.save(account);
     }
@@ -110,7 +112,7 @@ public class EmployerController {
         String newText9 = editEmployer.getProfile();
         Province newText10 = repoProvince.findByProvinceName(editEmployer.getProvinceName());
         District newText11 = repoDistrict.findByDistrictName(editEmployer.getDistrictName());
-        SubDistrict newText12 = repoSubDistrict.findByPostcode(editEmployer.getPostcode());
+        SubDistrict newText12 = repoSubDistrict.getSubDistrictBySubDistrictAndPostcode(editEmployer.getSubDistrict(), editEmployer.getPostcode());
 
         String oldText1 = employer.getEstablishmentName();
         String oldText2 = employer.getEntrepreneurfName();
@@ -118,7 +120,6 @@ public class EmployerController {
         String oldText4 = employer.getAddress();
         String oldText5 = employer.getTel();
         String oldText6 = employer.getPhone();
-        String oldText7 = employer.getEmail();
         String oldText8 = employer.getLineId();
         String oldText9 = employer.getProfile();
         Province oldText10 = employer.getProvince();
@@ -155,7 +156,6 @@ public class EmployerController {
 
         account.getApprove().setStatus(status);
         repoAccount.save(account);
-
     }
 
     @DeleteMapping("/admin/youCanNotEditEmployer")

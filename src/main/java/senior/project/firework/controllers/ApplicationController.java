@@ -120,6 +120,11 @@ public class ApplicationController {
         return setAllWorker(idPosting,idStatus);
     }
 
+    @GetMapping("/emp/showAllWorkerByIdPostingAllStatus")
+    public HowManyApplication showAllWorkerByIdPostingAllStatus(@RequestParam(name = "idPosting") long idPosting){
+        return setAllWorker(idPosting,0);
+    }
+
     public HowManyApplication setAllWorker(long idPosting,long idStatus){
         List<WhoApplication> whoApplicationList = new ArrayList<>();
         Posting posting = repoPosting.findById(idPosting).orElse(null);

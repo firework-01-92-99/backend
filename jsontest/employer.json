@@ -1,0 +1,1297 @@
+ {
+        "idEmployer": 1,
+        "establishmentName": "123",
+        "entrepreneurfName": "123",
+        "entrepreneurlName": "123",
+        "address": "123",
+        "tel": "1122",
+        "phone": "22222222",
+        "lineId": "333333",
+        "province": {
+            "idProvince": "10",
+            "provinceName": "กรุงเทพมหานคร",
+            "districtList": [
+                {
+                    "idDistrict": "1001",
+                    "districtName": "เขตพระนคร",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100101",
+                            "subDistrict": "แขวงพระบรมมหาราชวัง",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100102",
+                            "subDistrict": "แขวงวังบูรพาภิรมย์",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100103",
+                            "subDistrict": "แขวงวัดราชบพิธ",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100104",
+                            "subDistrict": "แขวงสำราญราษฎร์",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100105",
+                            "subDistrict": "แขวงศาลเจ้าพ่อเสือ",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100106",
+                            "subDistrict": "แขวงเสาชิงช้า",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100107",
+                            "subDistrict": "แขวงบวรนิเวศ",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100108",
+                            "subDistrict": "แขวงตลาดยอด",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100109",
+                            "subDistrict": "แขวงชนะสงคราม",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100110",
+                            "subDistrict": "แขวงบ้านพานถม",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100111",
+                            "subDistrict": "แขวงบางขุนพรหม",
+                            "postcode": "10200"
+                        },
+                        {
+                            "idSubdistrict": "100112",
+                            "subDistrict": "แขวงวัดสามพระยา",
+                            "postcode": "10200"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1002",
+                    "districtName": "เขตดุสิต",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100201",
+                            "subDistrict": "แขวงดุสิต",
+                            "postcode": "10300"
+                        },
+                        {
+                            "idSubdistrict": "100202",
+                            "subDistrict": "แขวงวชิรพยาบาล",
+                            "postcode": "10300"
+                        },
+                        {
+                            "idSubdistrict": "100203",
+                            "subDistrict": "แขวงสวนจิตรลดา",
+                            "postcode": "10300"
+                        },
+                        {
+                            "idSubdistrict": "100204",
+                            "subDistrict": "แขวงสี่แยกมหานาค",
+                            "postcode": "10300"
+                        },
+                        {
+                            "idSubdistrict": "100206",
+                            "subDistrict": "แขวงถนนนครไชยศรี",
+                            "postcode": "10300"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1003",
+                    "districtName": "เขตหนองจอก",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100301",
+                            "subDistrict": "แขวงกระทุ่มราย",
+                            "postcode": "10530"
+                        },
+                        {
+                            "idSubdistrict": "100302",
+                            "subDistrict": "แขวงหนองจอก",
+                            "postcode": "10530"
+                        },
+                        {
+                            "idSubdistrict": "100303",
+                            "subDistrict": "แขวงคลองสิบ",
+                            "postcode": "10530"
+                        },
+                        {
+                            "idSubdistrict": "100304",
+                            "subDistrict": "แขวงคลองสิบสอง",
+                            "postcode": "10530"
+                        },
+                        {
+                            "idSubdistrict": "100305",
+                            "subDistrict": "แขวงโคกแฝด",
+                            "postcode": "10530"
+                        },
+                        {
+                            "idSubdistrict": "100306",
+                            "subDistrict": "แขวงคู้ฝั่งเหนือ",
+                            "postcode": "10530"
+                        },
+                        {
+                            "idSubdistrict": "100307",
+                            "subDistrict": "แขวงลำผักชี",
+                            "postcode": "10530"
+                        },
+                        {
+                            "idSubdistrict": "100308",
+                            "subDistrict": "แขวงลำต้อยติ่ง",
+                            "postcode": "10530"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1004",
+                    "districtName": "เขตบางรัก",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100401",
+                            "subDistrict": "แขวงมหาพฤฒาราม",
+                            "postcode": "10500"
+                        },
+                        {
+                            "idSubdistrict": "100402",
+                            "subDistrict": "แขวงสีลม",
+                            "postcode": "10500"
+                        },
+                        {
+                            "idSubdistrict": "100403",
+                            "subDistrict": "แขวงสุริยวงศ์",
+                            "postcode": "10500"
+                        },
+                        {
+                            "idSubdistrict": "100404",
+                            "subDistrict": "แขวงบางรัก",
+                            "postcode": "10500"
+                        },
+                        {
+                            "idSubdistrict": "100405",
+                            "subDistrict": "แขวงสี่พระยา",
+                            "postcode": "10500"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1005",
+                    "districtName": "เขตบางเขน",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100502",
+                            "subDistrict": "แขวงอนุสาวรีย์",
+                            "postcode": "10220"
+                        },
+                        {
+                            "idSubdistrict": "100508",
+                            "subDistrict": "แขวงท่าแร้ง",
+                            "postcode": "10220"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1006",
+                    "districtName": "เขตบางกะปิ",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100601",
+                            "subDistrict": "แขวงคลองจั่น",
+                            "postcode": "10240"
+                        },
+                        {
+                            "idSubdistrict": "100608",
+                            "subDistrict": "แขวงหัวหมาก",
+                            "postcode": "10240"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1007",
+                    "districtName": "เขตปทุมวัน",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100701",
+                            "subDistrict": "แขวงรองเมือง",
+                            "postcode": "10330"
+                        },
+                        {
+                            "idSubdistrict": "100702",
+                            "subDistrict": "แขวงวังใหม่",
+                            "postcode": "10330"
+                        },
+                        {
+                            "idSubdistrict": "100703",
+                            "subDistrict": "แขวงปทุมวัน",
+                            "postcode": "10330"
+                        },
+                        {
+                            "idSubdistrict": "100704",
+                            "subDistrict": "แขวงลุมพินี",
+                            "postcode": "10330"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1008",
+                    "districtName": "เขตป้อมปราบศัตรูพ่าย",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100801",
+                            "subDistrict": "แขวงป้อมปราบ",
+                            "postcode": "10100"
+                        },
+                        {
+                            "idSubdistrict": "100802",
+                            "subDistrict": "แขวงวัดเทพศิรินทร์",
+                            "postcode": "10100"
+                        },
+                        {
+                            "idSubdistrict": "100803",
+                            "subDistrict": "แขวงคลองมหานาค",
+                            "postcode": "10100"
+                        },
+                        {
+                            "idSubdistrict": "100804",
+                            "subDistrict": "แขวงบ้านบาตร",
+                            "postcode": "10100"
+                        },
+                        {
+                            "idSubdistrict": "100805",
+                            "subDistrict": "แขวงวัดโสมนัส",
+                            "postcode": "10100"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1009",
+                    "districtName": "เขตพระโขนง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "100905",
+                            "subDistrict": "แขวงบางจาก",
+                            "postcode": "10260"
+                        },
+                        {
+                            "idSubdistrict": "100910",
+                            "subDistrict": "แขวงพระโขนงใต้",
+                            "postcode": "10260"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1010",
+                    "districtName": "เขตมีนบุรี",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101001",
+                            "subDistrict": "แขวงมีนบุรี",
+                            "postcode": "10510"
+                        },
+                        {
+                            "idSubdistrict": "101002",
+                            "subDistrict": "แขวงแสนแสบ",
+                            "postcode": "10510"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1011",
+                    "districtName": "เขตลาดกระบัง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101101",
+                            "subDistrict": "แขวงลาดกระบัง",
+                            "postcode": "10520"
+                        },
+                        {
+                            "idSubdistrict": "101102",
+                            "subDistrict": "แขวงคลองสองต้นนุ่น",
+                            "postcode": "10520"
+                        },
+                        {
+                            "idSubdistrict": "101103",
+                            "subDistrict": "แขวงคลองสามประเวศ",
+                            "postcode": "10520"
+                        },
+                        {
+                            "idSubdistrict": "101104",
+                            "subDistrict": "แขวงลำปลาทิว",
+                            "postcode": "10520"
+                        },
+                        {
+                            "idSubdistrict": "101105",
+                            "subDistrict": "แขวงทับยาว",
+                            "postcode": "10520"
+                        },
+                        {
+                            "idSubdistrict": "101106",
+                            "subDistrict": "แขวงขุมทอง",
+                            "postcode": "10520"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1012",
+                    "districtName": "เขตยานนาวา",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101203",
+                            "subDistrict": "แขวงช่องนนทรี",
+                            "postcode": "10120"
+                        },
+                        {
+                            "idSubdistrict": "101204",
+                            "subDistrict": "แขวงบางโพงพาง",
+                            "postcode": "10120"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1013",
+                    "districtName": "เขตสัมพันธวงศ์",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101301",
+                            "subDistrict": "แขวงจักรวรรดิ",
+                            "postcode": "10100"
+                        },
+                        {
+                            "idSubdistrict": "101302",
+                            "subDistrict": "แขวงสัมพันธวงศ์",
+                            "postcode": "10100"
+                        },
+                        {
+                            "idSubdistrict": "101303",
+                            "subDistrict": "แขวงตลาดน้อย",
+                            "postcode": "10100"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1014",
+                    "districtName": "เขตพญาไท",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101401",
+                            "subDistrict": "แขวงสามเสนใน",
+                            "postcode": "10400"
+                        },
+                        {
+                            "idSubdistrict": "101406",
+                            "subDistrict": "แขวงพญาไท",
+                            "postcode": "10400"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1015",
+                    "districtName": "เขตธนบุรี",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101501",
+                            "subDistrict": "แขวงวัดกัลยาณ์",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101502",
+                            "subDistrict": "แขวงหิรัญรูจี",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101503",
+                            "subDistrict": "แขวงบางยี่เรือ",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101504",
+                            "subDistrict": "แขวงบุคคโล",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101505",
+                            "subDistrict": "แขวงตลาดพลู",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101506",
+                            "subDistrict": "แขวงดาวคะนอง",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101507",
+                            "subDistrict": "แขวงสำเหร่",
+                            "postcode": "10600"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1016",
+                    "districtName": "เขตบางกอกใหญ่",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101601",
+                            "subDistrict": "แขวงวัดอรุณ",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101602",
+                            "subDistrict": "แขวงวัดท่าพระ",
+                            "postcode": "10600"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1017",
+                    "districtName": "เขตห้วยขวาง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101701",
+                            "subDistrict": "แขวงห้วยขวาง",
+                            "postcode": "10310"
+                        },
+                        {
+                            "idSubdistrict": "101702",
+                            "subDistrict": "แขวงบางกะปิ",
+                            "postcode": "10310"
+                        },
+                        {
+                            "idSubdistrict": "101704",
+                            "subDistrict": "แขวงสามเสนนอก",
+                            "postcode": "10310"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1018",
+                    "districtName": "เขตคลองสาน",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101801",
+                            "subDistrict": "แขวงสมเด็จเจ้าพระยา",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101802",
+                            "subDistrict": "แขวงคลองสาน",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101803",
+                            "subDistrict": "แขวงบางลำภูล่าง",
+                            "postcode": "10600"
+                        },
+                        {
+                            "idSubdistrict": "101804",
+                            "subDistrict": "แขวงคลองต้นไทร",
+                            "postcode": "10600"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1019",
+                    "districtName": "เขตตลิ่งชัน",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "101901",
+                            "subDistrict": "แขวงคลองชักพระ",
+                            "postcode": "10170"
+                        },
+                        {
+                            "idSubdistrict": "101902",
+                            "subDistrict": "แขวงตลิ่งชัน",
+                            "postcode": "10170"
+                        },
+                        {
+                            "idSubdistrict": "101903",
+                            "subDistrict": "แขวงฉิมพลี",
+                            "postcode": "10170"
+                        },
+                        {
+                            "idSubdistrict": "101904",
+                            "subDistrict": "แขวงบางพรม",
+                            "postcode": "10170"
+                        },
+                        {
+                            "idSubdistrict": "101905",
+                            "subDistrict": "แขวงบางระมาด",
+                            "postcode": "10170"
+                        },
+                        {
+                            "idSubdistrict": "101907",
+                            "subDistrict": "แขวงบางเชือกหนัง",
+                            "postcode": "10170"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1020",
+                    "districtName": "เขตบางกอกน้อย",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102004",
+                            "subDistrict": "แขวงศิริราช",
+                            "postcode": "10700"
+                        },
+                        {
+                            "idSubdistrict": "102005",
+                            "subDistrict": "แขวงบ้านช่างหล่อ",
+                            "postcode": "10700"
+                        },
+                        {
+                            "idSubdistrict": "102006",
+                            "subDistrict": "แขวงบางขุนนนท์",
+                            "postcode": "10700"
+                        },
+                        {
+                            "idSubdistrict": "102007",
+                            "subDistrict": "แขวงบางขุนศรี",
+                            "postcode": "10700"
+                        },
+                        {
+                            "idSubdistrict": "102009",
+                            "subDistrict": "แขวงอรุณอมรินทร์",
+                            "postcode": "10700"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1021",
+                    "districtName": "เขตบางขุนเทียน",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102105",
+                            "subDistrict": "แขวงท่าข้าม",
+                            "postcode": "10150"
+                        },
+                        {
+                            "idSubdistrict": "102107",
+                            "subDistrict": "แขวงแสมดำ",
+                            "postcode": "10150"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1022",
+                    "districtName": "เขตภาษีเจริญ",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102201",
+                            "subDistrict": "แขวงบางหว้า",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "102202",
+                            "subDistrict": "แขวงบางด้วน",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "102206",
+                            "subDistrict": "แขวงบางจาก",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "102207",
+                            "subDistrict": "แขวงบางแวก",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "102208",
+                            "subDistrict": "แขวงคลองขวาง",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "102209",
+                            "subDistrict": "แขวงปากคลองภาษีเจริญ",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "102210",
+                            "subDistrict": "แขวงคูหาสวรรค์",
+                            "postcode": "10160"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1023",
+                    "districtName": "เขตหนองแขม",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102302",
+                            "subDistrict": "แขวงหนองแขม",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "102303",
+                            "subDistrict": "แขวงหนองค้างพลู",
+                            "postcode": "10160"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1024",
+                    "districtName": "เขตราษฎร์บูรณะ",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102401",
+                            "subDistrict": "แขวงราษฎร์บูรณะ",
+                            "postcode": "10140"
+                        },
+                        {
+                            "idSubdistrict": "102402",
+                            "subDistrict": "แขวงบางปะกอก",
+                            "postcode": "10140"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1025",
+                    "districtName": "เขตบางพลัด",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102501",
+                            "subDistrict": "แขวงบางพลัด",
+                            "postcode": "10700"
+                        },
+                        {
+                            "idSubdistrict": "102502",
+                            "subDistrict": "แขวงบางอ้อ",
+                            "postcode": "10700"
+                        },
+                        {
+                            "idSubdistrict": "102503",
+                            "subDistrict": "แขวงบางบำหรุ",
+                            "postcode": "10700"
+                        },
+                        {
+                            "idSubdistrict": "102504",
+                            "subDistrict": "แขวงบางยี่ขัน",
+                            "postcode": "10700"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1026",
+                    "districtName": "เขตดินแดง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102601",
+                            "subDistrict": "แขวงดินแดง",
+                            "postcode": "10400"
+                        },
+                        {
+                            "idSubdistrict": "102602",
+                            "subDistrict": "แขวงรัชดาภิเษก",
+                            "postcode": "10400"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1027",
+                    "districtName": "เขตบึงกุ่ม",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102701",
+                            "subDistrict": "แขวงคลองกุ่ม",
+                            "postcode": "10240"
+                        },
+                        {
+                            "idSubdistrict": "102704",
+                            "subDistrict": "แขวงนวมินทร์",
+                            "postcode": "10240"
+                        },
+                        {
+                            "idSubdistrict": "102705",
+                            "subDistrict": "แขวงนวลจันทร์",
+                            "postcode": "10230"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1028",
+                    "districtName": "เขตสาทร",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102801",
+                            "subDistrict": "แขวงทุ่งวัดดอน",
+                            "postcode": "10120"
+                        },
+                        {
+                            "idSubdistrict": "102802",
+                            "subDistrict": "แขวงยานนาวา",
+                            "postcode": "10120"
+                        },
+                        {
+                            "idSubdistrict": "102803",
+                            "subDistrict": "แขวงทุ่งมหาเมฆ",
+                            "postcode": "10120"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1029",
+                    "districtName": "เขตบางซื่อ",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "102901",
+                            "subDistrict": "แขวงบางซื่อ",
+                            "postcode": "10800"
+                        },
+                        {
+                            "idSubdistrict": "102902",
+                            "subDistrict": "แขวงวงศ์สว่าง",
+                            "postcode": "10800"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1030",
+                    "districtName": "เขตจตุจักร",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103001",
+                            "subDistrict": "แขวงลาดยาว",
+                            "postcode": "10900"
+                        },
+                        {
+                            "idSubdistrict": "103002",
+                            "subDistrict": "แขวงเสนานิคม",
+                            "postcode": "10900"
+                        },
+                        {
+                            "idSubdistrict": "103003",
+                            "subDistrict": "แขวงจันทรเกษม",
+                            "postcode": "10900"
+                        },
+                        {
+                            "idSubdistrict": "103004",
+                            "subDistrict": "แขวงจอมพล",
+                            "postcode": "10900"
+                        },
+                        {
+                            "idSubdistrict": "103005",
+                            "subDistrict": "แขวงจตุจักร",
+                            "postcode": "10900"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1031",
+                    "districtName": "เขตบางคอแหลม",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103101",
+                            "subDistrict": "แขวงบางคอแหลม",
+                            "postcode": "10120"
+                        },
+                        {
+                            "idSubdistrict": "103102",
+                            "subDistrict": "แขวงวัดพระยาไกร",
+                            "postcode": "10120"
+                        },
+                        {
+                            "idSubdistrict": "103103",
+                            "subDistrict": "แขวงบางโคล่",
+                            "postcode": "10120"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1032",
+                    "districtName": "เขตประเวศ",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103201",
+                            "subDistrict": "แขวงประเวศ",
+                            "postcode": "10250"
+                        },
+                        {
+                            "idSubdistrict": "103202",
+                            "subDistrict": "แขวงหนองบอน",
+                            "postcode": "10250"
+                        },
+                        {
+                            "idSubdistrict": "103203",
+                            "subDistrict": "แขวงดอกไม้",
+                            "postcode": "10250"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1033",
+                    "districtName": "เขตคลองเตย",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103301",
+                            "subDistrict": "แขวงคลองเตย",
+                            "postcode": "10110"
+                        },
+                        {
+                            "idSubdistrict": "103302",
+                            "subDistrict": "แขวงคลองตัน",
+                            "postcode": "10110"
+                        },
+                        {
+                            "idSubdistrict": "103303",
+                            "subDistrict": "แขวงพระโขนง",
+                            "postcode": "10110"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1034",
+                    "districtName": "เขตสวนหลวง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103401",
+                            "subDistrict": "แขวงสวนหลวง",
+                            "postcode": "10250"
+                        },
+                        {
+                            "idSubdistrict": "103402",
+                            "subDistrict": "แขวงอ่อนนุช",
+                            "postcode": "10250"
+                        },
+                        {
+                            "idSubdistrict": "103403",
+                            "subDistrict": "แขวงพัฒนาการ",
+                            "postcode": "10250"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1035",
+                    "districtName": "เขตจอมทอง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103501",
+                            "subDistrict": "แขวงบางขุนเทียน",
+                            "postcode": "10150"
+                        },
+                        {
+                            "idSubdistrict": "103502",
+                            "subDistrict": "แขวงบางค้อ",
+                            "postcode": "10150"
+                        },
+                        {
+                            "idSubdistrict": "103503",
+                            "subDistrict": "แขวงบางมด",
+                            "postcode": "10150"
+                        },
+                        {
+                            "idSubdistrict": "103504",
+                            "subDistrict": "แขวงจอมทอง",
+                            "postcode": "10150"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1036",
+                    "districtName": "เขตดอนเมือง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103602",
+                            "subDistrict": "แขวงสีกัน",
+                            "postcode": "10210"
+                        },
+                        {
+                            "idSubdistrict": "103604",
+                            "subDistrict": "แขวงดอนเมือง",
+                            "postcode": "10210"
+                        },
+                        {
+                            "idSubdistrict": "103605",
+                            "subDistrict": "แขวงสนามบิน",
+                            "postcode": "10210"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1037",
+                    "districtName": "เขตราชเทวี",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103701",
+                            "subDistrict": "แขวงทุ่งพญาไท",
+                            "postcode": "10400"
+                        },
+                        {
+                            "idSubdistrict": "103702",
+                            "subDistrict": "แขวงถนนพญาไท",
+                            "postcode": "10400"
+                        },
+                        {
+                            "idSubdistrict": "103703",
+                            "subDistrict": "แขวงถนนเพชรบุรี",
+                            "postcode": "10400"
+                        },
+                        {
+                            "idSubdistrict": "103704",
+                            "subDistrict": "แขวงมักกะสัน",
+                            "postcode": "10400"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1038",
+                    "districtName": "เขตลาดพร้าว",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103801",
+                            "subDistrict": "แขวงลาดพร้าว",
+                            "postcode": "10230"
+                        },
+                        {
+                            "idSubdistrict": "103802",
+                            "subDistrict": "แขวงจรเข้บัว",
+                            "postcode": "10230"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1039",
+                    "districtName": "เขตวัฒนา",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "103901",
+                            "subDistrict": "แขวงคลองเตยเหนือ",
+                            "postcode": "10110"
+                        },
+                        {
+                            "idSubdistrict": "103902",
+                            "subDistrict": "แขวงคลองตันเหนือ",
+                            "postcode": "10110"
+                        },
+                        {
+                            "idSubdistrict": "103903",
+                            "subDistrict": "แขวงพระโขนงเหนือ",
+                            "postcode": "10110"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1040",
+                    "districtName": "เขตบางแค",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104001",
+                            "subDistrict": "แขวงบางแค",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "104002",
+                            "subDistrict": "แขวงบางแคเหนือ",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "104003",
+                            "subDistrict": "แขวงบางไผ่",
+                            "postcode": "10160"
+                        },
+                        {
+                            "idSubdistrict": "104004",
+                            "subDistrict": "แขวงหลักสอง",
+                            "postcode": "10160"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1041",
+                    "districtName": "เขตหลักสี่",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104101",
+                            "subDistrict": "แขวงทุ่งสองห้อง",
+                            "postcode": "10210"
+                        },
+                        {
+                            "idSubdistrict": "104102",
+                            "subDistrict": "แขวงตลาดบางเขน",
+                            "postcode": "10210"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1042",
+                    "districtName": "เขตสายไหม",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104201",
+                            "subDistrict": "แขวงสายไหม",
+                            "postcode": "10220"
+                        },
+                        {
+                            "idSubdistrict": "104202",
+                            "subDistrict": "แขวงออเงิน",
+                            "postcode": "10220"
+                        },
+                        {
+                            "idSubdistrict": "104203",
+                            "subDistrict": "แขวงคลองถนน",
+                            "postcode": "10220"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1043",
+                    "districtName": "เขตคันนายาว",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104301",
+                            "subDistrict": "แขวงคันนายาว",
+                            "postcode": "10230"
+                        },
+                        {
+                            "idSubdistrict": "104302",
+                            "subDistrict": "แขวงรามอินทรา",
+                            "postcode": "10230"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1044",
+                    "districtName": "เขตสะพานสูง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104401",
+                            "subDistrict": "แขวงสะพานสูง",
+                            "postcode": "10240"
+                        },
+                        {
+                            "idSubdistrict": "104402",
+                            "subDistrict": "แขวงราษฎร์พัฒนา",
+                            "postcode": "10240"
+                        },
+                        {
+                            "idSubdistrict": "104403",
+                            "subDistrict": "แขวงทับช้าง",
+                            "postcode": "10250"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1045",
+                    "districtName": "เขตวังทองหลาง",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104501",
+                            "subDistrict": "แขวงวังทองหลาง",
+                            "postcode": "10310"
+                        },
+                        {
+                            "idSubdistrict": "104502",
+                            "subDistrict": "แขวงสะพานสอง",
+                            "postcode": "10310"
+                        },
+                        {
+                            "idSubdistrict": "104503",
+                            "subDistrict": "แขวงคลองเจ้าคุณสิงห์",
+                            "postcode": "10310"
+                        },
+                        {
+                            "idSubdistrict": "104504",
+                            "subDistrict": "แขวงพลับพลา",
+                            "postcode": "10310"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1046",
+                    "districtName": "เขตคลองสามวา",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104601",
+                            "subDistrict": "แขวงสามวาตะวันตก",
+                            "postcode": "10510"
+                        },
+                        {
+                            "idSubdistrict": "104602",
+                            "subDistrict": "แขวงสามวาตะวันออก",
+                            "postcode": "10510"
+                        },
+                        {
+                            "idSubdistrict": "104603",
+                            "subDistrict": "แขวงบางชัน",
+                            "postcode": "10510"
+                        },
+                        {
+                            "idSubdistrict": "104604",
+                            "subDistrict": "แขวงทรายกองดิน",
+                            "postcode": "10510"
+                        },
+                        {
+                            "idSubdistrict": "104605",
+                            "subDistrict": "แขวงทรายกองดินใต้",
+                            "postcode": "10510"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1047",
+                    "districtName": "เขตบางนา",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104702",
+                            "subDistrict": "แขวงบางนาเหนือ",
+                            "postcode": "10260"
+                        },
+                        {
+                            "idSubdistrict": "104703",
+                            "subDistrict": "แขวงบางนาใต้",
+                            "postcode": "10260"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1048",
+                    "districtName": "เขตทวีวัฒนา",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104801",
+                            "subDistrict": "แขวงทวีวัฒนา",
+                            "postcode": "10170"
+                        },
+                        {
+                            "idSubdistrict": "104802",
+                            "subDistrict": "แขวงศาลาธรรมสพน์",
+                            "postcode": "10170"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1049",
+                    "districtName": "เขตทุ่งครุ",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "104901",
+                            "subDistrict": "แขวงบางมด",
+                            "postcode": "10140"
+                        },
+                        {
+                            "idSubdistrict": "104902",
+                            "subDistrict": "แขวงทุ่งครุ",
+                            "postcode": "10140"
+                        }
+                    ]
+                },
+                {
+                    "idDistrict": "1050",
+                    "districtName": "เขตบางบอน",
+                    "subDistrictList": [
+                        {
+                            "idSubdistrict": "105002",
+                            "subDistrict": "แขวงบางบอนเหนือ",
+                            "postcode": "10150"
+                        },
+                        {
+                            "idSubdistrict": "105003",
+                            "subDistrict": "แขวงบางบอนใต้",
+                            "postcode": "10150"
+                        },
+                        {
+                            "idSubdistrict": "105004",
+                            "subDistrict": "แขวงคลองบางพราน",
+                            "postcode": "10150"
+                        },
+                        {
+                            "idSubdistrict": "105005",
+                            "subDistrict": "แขวงคลองบางบอน",
+                            "postcode": "10150"
+                        }
+                    ]
+                }
+            ]
+        },
+        "district": {
+            "idDistrict": "1001",
+            "districtName": "เขตพระนคร",
+            "subDistrictList": [
+                {
+                    "idSubdistrict": "100101",
+                    "subDistrict": "แขวงพระบรมมหาราชวัง",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100102",
+                    "subDistrict": "แขวงวังบูรพาภิรมย์",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100103",
+                    "subDistrict": "แขวงวัดราชบพิธ",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100104",
+                    "subDistrict": "แขวงสำราญราษฎร์",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100105",
+                    "subDistrict": "แขวงศาลเจ้าพ่อเสือ",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100106",
+                    "subDistrict": "แขวงเสาชิงช้า",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100107",
+                    "subDistrict": "แขวงบวรนิเวศ",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100108",
+                    "subDistrict": "แขวงตลาดยอด",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100109",
+                    "subDistrict": "แขวงชนะสงคราม",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100110",
+                    "subDistrict": "แขวงบ้านพานถม",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100111",
+                    "subDistrict": "แขวงบางขุนพรหม",
+                    "postcode": "10200"
+                },
+                {
+                    "idSubdistrict": "100112",
+                    "subDistrict": "แขวงวัดสามพระยา",
+                    "postcode": "10200"
+                }
+            ]
+        },
+        "subDistrict": {
+            "idSubdistrict": "100101",
+            "subDistrict": "แขวงพระบรมมหาราชวัง",
+            "postcode": "10200"
+        },
+        "locationPicList": [
+            {
+                "idPic": 1,
+                "locPic": "test.jpg"
+            }
+        ],
+        "nationality": {
+            "idnationality": 1,
+            "nationality_name": "Thai"
+        }
+    }
