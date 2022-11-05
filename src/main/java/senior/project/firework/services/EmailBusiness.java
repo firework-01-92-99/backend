@@ -37,7 +37,7 @@ public class EmailBusiness {
         html = html.replace("${P_NAME}", name);
         html = html.replace("${OTP}", otp);
 
-        String subject = "";
+        String subject = "Please, Identity verification.";
         emailService.send(email, subject, html);
     }
 
@@ -52,7 +52,7 @@ public class EmailBusiness {
 
         html = html.replace("${P_NAME}", name);
 
-        String subject = "";
+        String subject = "Your account was approved.";
         emailService.send(email, subject, html);
     }
 
@@ -67,7 +67,7 @@ public class EmailBusiness {
 
         html = html.replace("${P_NAME}", name);
 
-        String subject = "";
+        String subject = "Your account was disapproved.";
         emailService.send(email, subject, html);
     }
 
@@ -82,7 +82,7 @@ public class EmailBusiness {
 
         html = html.replace("${P_NAME}", name);
 
-        String subject = "";
+        String subject = "You can not delete account.";
         emailService.send(email, subject, html);
     }
 
