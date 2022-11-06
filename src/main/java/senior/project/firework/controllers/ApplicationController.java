@@ -183,7 +183,7 @@ public class ApplicationController {
             application_has_comment = applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb();//Edit sometime
         }
         Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
-        WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),worker.getIdWorker(),worker.getIdentificationNumber(),
+        WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),worker.getIdWorker(),worker.getRate(),worker.getIdentificationNumber(),
                 worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
                 worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getIdStatus(),applicationPerLine.getStatus().getStatusName(),application_has_comment);
         whoApplicationList.add(whoApplication);

@@ -7,6 +7,7 @@ public class WhoApplication {
     private long count;
     private long applicationId;
     private long workerId;
+    private Double rate;
     private String identificationNumber;
     private String verifyPic;
     private String sex;
@@ -20,10 +21,11 @@ public class WhoApplication {
     private String statusName;
     private String comment;
 
-    public WhoApplication(long count, long applicationId, long workerId, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, String comment) {
+    public WhoApplication(long count, long applicationId, long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, String comment) {
         this.count = count;
         this.applicationId = applicationId;
         this.workerId = workerId;
+        this.rate = rate;
         this.identificationNumber = identificationNumber;
         this.verifyPic = verifyPic;
         this.sex = sex;
@@ -36,6 +38,14 @@ public class WhoApplication {
         this.idStatus = idStatus;
         this.statusName = statusName;
         this.comment = comment;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 
     public long getCount() {
