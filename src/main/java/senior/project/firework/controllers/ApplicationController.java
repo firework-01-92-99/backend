@@ -185,7 +185,7 @@ public class ApplicationController {
         Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
         WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),worker.getIdWorker(),worker.getIdentificationNumber(),
                 worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
-                worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getStatusName(),application_has_comment);
+                worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getIdStatus(),applicationPerLine.getStatus().getStatusName(),application_has_comment);
         whoApplicationList.add(whoApplication);
         count++;
         return count;

@@ -16,10 +16,11 @@ public class WhoApplication {
     private String phone;
     private WorkerType workerType;
     private Nationality nationality;
+    private long idStatus;
     private String statusName;
     private String comment;
 
-    public WhoApplication(long count, long applicationId, long workerId, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, String statusName, String comment) {
+    public WhoApplication(long count, long applicationId, long workerId, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, String comment) {
         this.count = count;
         this.applicationId = applicationId;
         this.workerId = workerId;
@@ -32,16 +33,9 @@ public class WhoApplication {
         this.phone = phone;
         this.workerType = workerType;
         this.nationality = nationality;
+        this.idStatus = idStatus;
         this.statusName = statusName;
         this.comment = comment;
-    }
-
-    public long getApplicationId() {
-        return applicationId;
-    }
-
-    public void setApplicationId(long applicationId) {
-        this.applicationId = applicationId;
     }
 
     public long getCount() {
@@ -50,6 +44,14 @@ public class WhoApplication {
 
     public void setCount(long count) {
         this.count = count;
+    }
+
+    public long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public long getWorkerId() {
@@ -132,6 +134,14 @@ public class WhoApplication {
         this.nationality = nationality;
     }
 
+    public long getIdStatus() {
+        return idStatus;
+    }
+
+    public void setIdStatus(long idStatus) {
+        this.idStatus = idStatus;
+    }
+
     public String getStatusName() {
         return statusName;
     }
@@ -145,6 +155,6 @@ public class WhoApplication {
     }
 
     public void setComment(String comment) {
-        comment = comment;
+        this.comment = comment;
     }
 }

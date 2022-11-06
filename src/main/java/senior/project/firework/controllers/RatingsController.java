@@ -10,10 +10,10 @@ import senior.project.firework.repositories.repoWorker;
 import senior.project.firework.models.Ratings;
 import senior.project.firework.models.Worker;
 import senior.project.firework.models.Role;
+import senior.project.firework.frontendmodel.MyRatingsWithEmployerOrWorker;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -94,16 +94,30 @@ public class RatingsController {
     }
 
     @GetMapping("/emp/getEmployerScoreList")
-    public List<Ratings> getEmployerScoreList(@RequestParam(name = "idEmployer") long idEmployer){
+    public List<MyRatingsWithEmployerOrWorker> getEmployerScoreList(@RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.getById(idEmployer);
         List<Ratings> ratingsList = repoRatings.findByEmployerAndForwho(employer,employer.getAccount().getRole().getRoleName());
-        return ratingsList;
+        List<MyRatingsWithEmployerOrWorker> myRatingsWithEmployerOrWorkerList = new ArrayList<>();
+        for(Ratings ratingPerLine:ratingsList){
+            MyRatingsWithEmployerOrWorker new1 = new MyRatingsWithEmployerOrWorker(ratingPerLine.getIdRating(),
+                    ratingPerLine.getRate(),ratingPerLine.getComment(),ratingPerLine.getTimestamp(),
+                    ratingPerLine.getWorker().getFirstName()+" "+ratingPerLine.getWorker().getLastName());
+            myRatingsWithEmployerOrWorkerList.add(new1);
+        }
+        return myRatingsWithEmployerOrWorkerList;
     }
 
     @GetMapping("/worker/getWorkerScoreList")
-    public List<Ratings> getWorkerScoreList(@RequestParam(name = "idWorker") long idWorker){
+    public List<MyRatingsWithEmployerOrWorker> getWorkerScoreList(@RequestParam(name = "idWorker") long idWorker){
         Worker worker = repoWorker.getById(idWorker);
         List<Ratings> ratingsList = repoRatings.findByWorkerAndForwho(worker,worker.getAccount().getRole().getRoleName());
-        return ratingsList;
+        List<MyRatingsWithEmployerOrWorker> myRatingsWithEmployerOrWorkerList = new ArrayList<>();
+        for(Ratings ratingPerLine:ratingsList){
+            MyRatingsWithEmployerOrWorker new1 = new MyRatingsWithEmployerOrWorker(ratingPerLine.getIdRating(),
+                    ratingPerLine.getRate(),ratingPerLine.getComment(),ratingPerLine.getTimestamp(),
+                    ratingPerLine.getEmployer().getEstablishmentName());
+            myRatingsWithEmployerOrWorkerList.add(new1);
+        }
+        return myRatingsWithEmployerOrWorkerList;
     }
 }
