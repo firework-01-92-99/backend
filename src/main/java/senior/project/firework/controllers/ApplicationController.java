@@ -310,6 +310,10 @@ public class ApplicationController {
             application.setStatus(status);
             repoApplication.save(application);
         }
+        Worker worker = repoWorker.findById(application.getWorker().getIdWorker()).orElse(null);
+        List<Ratings> ratingsList = repoRatings.findByWorkerAndForwho(worker,worker.getAccount().getRole().getRoleName());
+        worker.setRate(returnScoreDouble(ratingsList));
+        repoWorker.save(worker);
         return "Score = " + ratings.getRate();
     }
 
@@ -335,7 +339,21 @@ public class ApplicationController {
             application.setStatus(status);
             repoApplication.save(application);
         }
+        Employer employer = repoEmployer.findById(application.getPosting().getEmployer().getIdEmployer()).orElse(null);
+        List<Ratings> ratingsList = repoRatings.findByEmployerAndForwho(employer,employer.getAccount().getRole().getRoleName());
+        employer.setRate(returnScoreDouble(ratingsList));
+        repoEmployer.save(employer);
         return "Score = " + ratings.getRate();
     }
     //-------------------------------------------------------------------------------------------------
+    public Double returnScoreDouble(List<Ratings> ratingsList){
+        double totalScore = 0;
+        double count = 0;
+        for (Ratings ratingPerLine : ratingsList) {
+            totalScore += ratingPerLine.getRate();
+            count++;
+        }
+        double realScore = totalScore/count;
+        return realScore;
+    }
 }

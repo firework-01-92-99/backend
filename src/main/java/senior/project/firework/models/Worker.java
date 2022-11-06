@@ -27,6 +27,8 @@ public class Worker {
   private String lastName;
   @Column(name = "phone")
   private String phone;
+  @Column(name = "rate")
+  private Double rate;
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "account_idAccount")
   @JsonIgnore
@@ -61,6 +63,14 @@ public class Worker {
 
   public Worker() {
 
+  }
+
+  public Double getRate() {
+    return rate;
+  }
+
+  public void setRate(Double rate) {
+    this.rate = rate;
   }
 
   public List<EditWorker> getEditWorkerList() {

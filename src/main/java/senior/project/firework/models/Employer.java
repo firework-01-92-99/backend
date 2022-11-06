@@ -30,6 +30,8 @@ public class Employer {
   private String lineId;
   @Column(name = "profile")
   private String profile;
+  @Column(name = "rate")
+  private Double rate;
   @ManyToOne
   @JoinColumn(name = "businessType_idBusinessType")
   private Businesstype businesstype;
@@ -83,6 +85,14 @@ public class Employer {
 
   public Employer() {
 
+  }
+
+  public Double getRate() {
+    return rate;
+  }
+
+  public void setRate(Double rate) {
+    this.rate = rate;
   }
 
   public List<EditEmployer> getEditEmployerList() {
