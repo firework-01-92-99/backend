@@ -9,16 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 import senior.project.firework.exceptions.AccountException;
 import senior.project.firework.exceptions.ExceptionRepo;
 import senior.project.firework.models.*;
-import senior.project.firework.repositories.repoEmployer;
-import senior.project.firework.repositories.repoStatus;
-import senior.project.firework.repositories.repoAccount;
-import senior.project.firework.repositories.repoEditEmployer;
-import senior.project.firework.repositories.repoProvince;
-import senior.project.firework.repositories.repoSubDistrict;
-import senior.project.firework.repositories.repoDistrict;
+import senior.project.firework.repositories.*;
 import senior.project.firework.services.EmailBusiness;
 import senior.project.firework.services.StorageService;
 import senior.project.firework.frontendmodel.EmployerWithImageName;
+import senior.project.firework.repositories.repoPosting;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -45,7 +40,8 @@ public class EmployerController {
     private StorageService storageService;
     @Autowired
     private EmailBusiness emailBusiness;
-
+    @Autowired
+    private repoPosting repoPosting;
 
     @GetMapping("/main/allEmployer")
     public List<Employer> allEmployer(){
@@ -74,6 +70,11 @@ public class EmployerController {
         account.getApprove().setStatus(status);
         account.setEmail("-");
         repoAccount.save(account);
+        List<Posting> postingList = repoPosting.findByEmployer(employer);
+        for(Posting postingPerLine:postingList){
+            postingPerLine.setStatus(status);
+            repoPosting.save(postingPerLine);
+        }
     }
 
     @PostMapping(value = "/emp/editMyEmployer",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

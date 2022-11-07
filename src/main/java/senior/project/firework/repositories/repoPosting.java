@@ -66,4 +66,6 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
     List<Posting> findByPosition(Position position);
 
     List<Posting> findByEmployerAndStatus(Employer employer,Status status);
+
+    List<Posting> findByEmployer(Employer employer);
 }

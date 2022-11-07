@@ -47,7 +47,6 @@ public class WorkerController {
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         Account account = repoAccount.findById(worker.getAccount().getIdAccount()).orElse(null);
         account.getApprove().setStatus(status);
-        account.setEmail("-");
         repoAccount.save(account);
     }
 
@@ -57,6 +56,7 @@ public class WorkerController {
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         Account account = repoAccount.findById(worker.getAccount().getIdAccount()).orElse(null);
         account.getApprove().setStatus(status);
+        account.setEmail("-");
         repoAccount.save(account);
     }
 
