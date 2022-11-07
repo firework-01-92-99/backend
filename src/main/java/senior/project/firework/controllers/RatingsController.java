@@ -53,14 +53,14 @@ public class RatingsController {
         return null;
     }
 
-    @GetMapping("/emp/getEmpTotalScore")
+    @GetMapping("/main/getEmpTotalScore")
     public Double getEmpTotalScore(@RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.getById(idEmployer);
         List<Ratings> ratingsList = repoRatings.findByEmployerAndForwho(employer,employer.getAccount().getRole().getRoleName());
         return returnScoreDouble(ratingsList);
     }
 
-    @GetMapping("/worker/getWorkerTotalScore")
+    @GetMapping("/main/getWorkerTotalScore")
     public Double getWorkerTotalScore(@RequestParam(name = "idWorker") long idWorker){
         Worker worker = repoWorker.getById(idWorker);
         List<Ratings> ratingsList = repoRatings.findByWorkerAndForwho(worker,worker.getAccount().getRole().getRoleName());
@@ -93,7 +93,7 @@ public class RatingsController {
         return null;
     }
 
-    @GetMapping("/emp/getEmployerScoreList")
+    @GetMapping("/main/getEmployerScoreList")
     public List<MyRatingsWithEmployerOrWorker> getEmployerScoreList(@RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.getById(idEmployer);
         List<Ratings> ratingsList = repoRatings.findByEmployerAndForwho(employer,employer.getAccount().getRole().getRoleName());
@@ -107,7 +107,7 @@ public class RatingsController {
         return myRatingsWithEmployerOrWorkerList;
     }
 
-    @GetMapping("/worker/getWorkerScoreList")
+    @GetMapping("/main/getWorkerScoreList")
     public List<MyRatingsWithEmployerOrWorker> getWorkerScoreList(@RequestParam(name = "idWorker") long idWorker){
         Worker worker = repoWorker.getById(idWorker);
         List<Ratings> ratingsList = repoRatings.findByWorkerAndForwho(worker,worker.getAccount().getRole().getRoleName());
