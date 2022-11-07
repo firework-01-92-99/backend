@@ -95,6 +95,23 @@ public class EmployerController {
         repoAccount.save(account);
     }
 
+    @PostMapping(value = "/emp/editMyEmployerWithOutImage")
+    public void editMyEmployerWithOutImage(@RequestPart Employer employer){
+        Status status = repoStatus.findById(7L).orElse(null);
+        Employer employerForAccount = repoEmployer.findById(employer.getIdEmployer()).orElse(null);
+        Account account = repoAccount.findById(employerForAccount.getAccount().getIdAccount()).orElse(null);
+        if(account.getApprove().getStatus() == status){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.STATUS_ACCOUNT_WAIT_EDIT, "Can't edit because your Account wait Edit!");
+        }
+        account.getApprove().setStatus(status);
+        EditEmployer editEmployer = new EditEmployer(employer.getEstablishmentName(),employer.getEntrepreneurfName(),employer.getEntrepreneurlName(),
+                employer.getAddress(),employer.getTel(),employer.getPhone(),employer.getLineId(),employer.getProfile(),
+                employer.getProvince().getProvinceName(),employer.getDistrict().getDistrictName(),employer.getSubDistrict().getSubDistrict(),
+                employer.getSubDistrict().getPostcode(),employer);
+        repoEditEmployer.save(editEmployer);
+        repoAccount.save(account);
+    }
+
     @PutMapping("/admin/youCanEditEmployer")
     public void youCanEditEmployer(@RequestParam(name = "idEmployer") long idEmployer){
         Status status = repoStatus.findById(4L).orElse(null);

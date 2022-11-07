@@ -77,6 +77,21 @@ public class WorkerController {
         repoAccount.save(account);
     }
 
+    @PostMapping(value = "/worker/editMyWorkerWithOutImage")
+    public void editMyWorkerWithOutImage(@RequestPart Worker worker) throws Exception {
+        Status status = repoStatus.findById(7L).orElse(null);
+        Worker workerForAccount = repoWorker.findById(worker.getIdWorker()).orElse(null);
+        Account account = repoAccount.findById(workerForAccount.getAccount().getIdAccount()).orElse(null);
+        if(account.getApprove().getStatus() == status){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.STATUS_ACCOUNT_WAIT_EDIT, "Can't edit because your Account wait Edit!");
+        }
+        account.getApprove().setStatus(status);
+        EditWorker editWorker = new EditWorker(worker.getVerifyPic(), worker.getFirstName(),
+                worker.getMiddleName(), worker.getLastName(), worker.getPhone(),worker);
+        repoEditWorker.save(editWorker);
+        repoAccount.save(account);
+    }
+
     @PutMapping("/admin/youCanEditWorker")
     public void youCanEditWorker(@RequestParam(name = "idWorker") long idWorker){
         Status status = repoStatus.findById(4L).orElse(null);
