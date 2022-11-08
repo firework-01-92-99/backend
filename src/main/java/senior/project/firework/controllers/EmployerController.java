@@ -62,14 +62,26 @@ public class EmployerController {
         repoAccount.save(account);
     }
 
-    @PutMapping("/admin/deleteEmployer")
-    public void deleteEmployer(@RequestParam(name = "idEmployer") long idEmployer){
+    @PutMapping("/main/deleteEmployer")
+    public void deleteEmployer(@RequestParam(name = "idEmployer") long idEmployer) throws Exception {
         Status status = repoStatus.findById(9L).orElse(null);
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
         Account account = repoAccount.findById(employer.getAccount().getIdAccount()).orElse(null);
+        emailBusiness.sendAccountDeleted(account.getEmail(),employer.getEstablishmentName());
         account.getApprove().setStatus(status);
         account.setEmail("-");
         repoAccount.save(account);
+        List<Posting> postingList = repoPosting.findByEmployer(employer);
+        for(Posting postingPerLine:postingList){
+            postingPerLine.setStatus(status);
+            repoPosting.save(postingPerLine);
+        }
+    }
+
+    @PutMapping("/main/testChangePosting")
+    public void testChangePosting(@RequestParam(name = "idEmployer") long idEmployer) throws Exception {
+        Status status = repoStatus.findById(9L).orElse(null);
+        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
         List<Posting> postingList = repoPosting.findByEmployer(employer);
         for(Posting postingPerLine:postingList){
             postingPerLine.setStatus(status);
@@ -113,7 +125,7 @@ public class EmployerController {
     }
 
     @PutMapping("/admin/youCanEditEmployer")
-    public void youCanEditEmployer(@RequestParam(name = "idEmployer") long idEmployer){
+    public void youCanEditEmployer(@RequestParam(name = "idEmployer") long idEmployer) throws Exception {
         Status status = repoStatus.findById(4L).orElse(null);
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
         long idEditEmployer = repoEditEmployer.getMaxIdEmployerByEmployer(employer);
@@ -174,6 +186,7 @@ public class EmployerController {
 
         account.getApprove().setStatus(status);
         repoAccount.save(account);
+        emailBusiness.sendAccountEdited(account.getEmail(),employer.getEstablishmentName());
     }
 
     @DeleteMapping("/admin/youCanNotEditEmployer")

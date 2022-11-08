@@ -169,7 +169,13 @@ public class AccountController {
         Random random = new Random();
         int randomWithNextInt = random.nextInt(999999);
         String otp = String.format("%06d", randomWithNextInt);
-        emailBusiness.sendActivateUserEmail(account.getEmail(), account.getWorker().getFirstName(), otp);
+        String name;
+        if(account.getWorker() == null){
+            name = account.getEmployer().getEstablishmentName();
+        }else{
+            name = account.getWorker().getFirstName() + " " + account.getWorker().getLastName();
+        }
+        emailBusiness.sendOTPAgain(account.getEmail(), name , otp);
 
         OTP newOTP = new OTP(randomWithNextInt,account);
         repoOTP.save(newOTP);
@@ -201,17 +207,35 @@ public class AccountController {
         throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_EMAIL_INCORRECT,"Not have this Email!");
     }
 
-    @PostMapping("/main/editPassword")
-    public String editPassword(@RequestParam(name = "currentPassword") String currentPassword,
-                             @RequestParam(name = "newPassword") String newPassword,
-                             @RequestParam(name = "email") String email) throws Exception {
-        Account account = repoAccount.findByEmail(email);
+    @PostMapping("/main/editPasswordWorker")
+    public String editPasswordWorker(@RequestParam(name = "currentPassword") String currentPassword,
+                               @RequestParam(name = "newPassword") String newPassword,
+                               @RequestParam(defaultValue = "0",name = "idWorker") long idWorker) throws Exception {
+        Worker worker = repoWorker.findById(idWorker).orElse(null);
+        Account account = repoAccount.findByWorker(worker);
         if(!passwordEncoder.matches(currentPassword,account.getPassword())){
             throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"You current Password incorrect!!");
         }
         String newPasswordEncoder = passwordEncoder.encode(newPassword);
         account.setPassword(newPasswordEncoder);
         repoAccount.save(account);
+        emailBusiness.sendAccountChangePassword(account.getEmail(),worker.getFirstName() + " " + worker.getLastName());
+        return "Edit Success!";
+    }
+
+    @PostMapping("/main/editPasswordEmployer")
+    public String editPasswordEmployer(@RequestParam(name = "currentPassword") String currentPassword,
+                               @RequestParam(name = "newPassword") String newPassword,
+                               @RequestParam(defaultValue = "0",name = "idEmployer") long idEmployer) throws Exception {
+        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
+        Account account = repoAccount.findByEmployer(employer);
+        if(!passwordEncoder.matches(currentPassword,account.getPassword())){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"You current Password incorrect!!");
+        }
+        String newPasswordEncoder = passwordEncoder.encode(newPassword);
+        account.setPassword(newPasswordEncoder);
+        repoAccount.save(account);
+        emailBusiness.sendAccountChangePassword(account.getEmail(),employer.getEstablishmentName());
         return "Edit Success!";
     }
 

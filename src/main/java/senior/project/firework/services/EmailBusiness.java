@@ -86,6 +86,82 @@ public class EmailBusiness {
         emailService.send(email, subject, html);
     }
 
+    public void sendAccountCantEdit(String email, String name) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("account-cantedit.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+
+        String subject = "Your account cant edit.";
+        emailService.send(email, subject, html);
+    }
+
+    public void sendAccountDeleted(String email, String name) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("account-deleted.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+
+        String subject = "Your account deleted.";
+        emailService.send(email, subject, html);
+    }
+
+    public void sendAccountEdited(String email, String name) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("account-edited.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+
+        String subject = "Your account edited already.";
+        emailService.send(email, subject, html);
+    }
+
+    public void sendOTPAgain(String email, String name, String otp) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("otp-again.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+        html = html.replace("${OTP}", otp);
+
+        String subject = "Please, Identity verification.";
+        emailService.send(email, subject, html);
+    }
+
+    public void sendAccountChangePassword(String email, String name) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("account-changepassword.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+
+        String subject = "Please, Identity verification.";
+        emailService.send(email, subject, html);
+    }
+
     private String readEmailTemplate(String filename) throws IOException {
         Resource resource = resourceLoader.getResource("classpath:email/" + filename);
 

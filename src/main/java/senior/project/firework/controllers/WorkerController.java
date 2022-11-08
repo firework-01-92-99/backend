@@ -51,10 +51,11 @@ public class WorkerController {
     }
 
     @PutMapping("/admin/DeleteWorker")
-    public void DeleteWorker(@RequestParam(name = "idWorker") long idWorker){
+    public void DeleteWorker(@RequestParam(name = "idWorker") long idWorker) throws Exception {
         Status status = repoStatus.findById(9L).orElse(null);
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         Account account = repoAccount.findById(worker.getAccount().getIdAccount()).orElse(null);
+        emailBusiness.sendAccountDeleted(account.getEmail(), worker.getFirstName()+" "+worker.getLastName());
         account.getApprove().setStatus(status);
         account.setEmail("-");
         repoAccount.save(account);
@@ -93,7 +94,7 @@ public class WorkerController {
     }
 
     @PutMapping("/admin/youCanEditWorker")
-    public void youCanEditWorker(@RequestParam(name = "idWorker") long idWorker){
+    public void youCanEditWorker(@RequestParam(name = "idWorker") long idWorker) throws Exception {
         Status status = repoStatus.findById(4L).orElse(null);
         Worker Worker1 = repoWorker.findById(idWorker).orElse(null);
         long idEditWorker = repoEditWorker.getMaxIdWorkerByWorker(Worker1);
@@ -128,7 +129,7 @@ public class WorkerController {
 
         account.getApprove().setStatus(status);
         repoAccount.save(account);
-
+        emailBusiness.sendAccountEdited(account.getEmail(),Worker1.getFirstName() + " " + Worker1.getLastName());
     }
 
     @DeleteMapping("/admin/youCanNotEditWorker")
@@ -141,6 +142,7 @@ public class WorkerController {
         account.getApprove().setStatus(status);
         repoAccount.save(account);
         emailBusiness.sendAccountCantDelete(worker.getAccount().getEmail(),worker.getFirstName());
+        emailBusiness.sendAccountCantEdit(account.getEmail(), worker.getFirstName() + " " + worker.getLastName());
     }
 
     @GetMapping("/admin/getAllEditWorker")
