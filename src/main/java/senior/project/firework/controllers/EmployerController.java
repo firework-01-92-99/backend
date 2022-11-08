@@ -62,7 +62,7 @@ public class EmployerController {
         repoAccount.save(account);
     }
 
-    @PutMapping("/main/deleteEmployer")
+    @PutMapping("/admin/deleteEmployer")
     public void deleteEmployer(@RequestParam(name = "idEmployer") long idEmployer) throws Exception {
         Status status = repoStatus.findById(9L).orElse(null);
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
