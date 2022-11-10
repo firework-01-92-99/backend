@@ -97,7 +97,7 @@ public class EmailBusiness {
 
         html = html.replace("${P_NAME}", name);
 
-        String subject = "Your account cant edit.";
+        String subject = "Your account can not edit.";
         emailService.send(email, subject, html);
     }
 
@@ -143,7 +143,7 @@ public class EmailBusiness {
         html = html.replace("${P_NAME}", name);
         html = html.replace("${OTP}", otp);
 
-        String subject = "Please, Identity verification.";
+        String subject = "Resend OTP.";
         emailService.send(email, subject, html);
     }
 
@@ -158,7 +158,7 @@ public class EmailBusiness {
 
         html = html.replace("${P_NAME}", name);
 
-        String subject = "Please, Identity verification.";
+        String subject = "Please, Identity verification for reset password.";
         emailService.send(email, subject, html);
     }
 
