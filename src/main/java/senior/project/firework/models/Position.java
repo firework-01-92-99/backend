@@ -18,17 +18,16 @@ public class Position {
   @JsonIgnore
   private List<Posting> posting;
   @ManyToOne
-  @JsonIgnore
-  @JoinColumn(name = "employer_idEmployer")
-  private Employer employer;
+  @JoinColumn(name = "status_idStatus")
+  private Status status;
 
   public Position(){
 
   }
 
-  public Position(String positionName, Employer employer) {
+  public Position(String positionName, Status status) {
     this.positionName = positionName;
-    this.employer = employer;
+    this.status = status;
   }
 
   public long getIdposition() {
@@ -47,19 +46,19 @@ public class Position {
     this.positionName = positionName;
   }
 
-  public Employer getEmployer() {
-    return employer;
-  }
-
-  public void setEmployer(Employer employer) {
-    this.employer = employer;
-  }
-
   public List<Posting> getPosting() {
     return posting;
   }
 
   public void setPosting(List<Posting> posting) {
     this.posting = posting;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
   }
 }

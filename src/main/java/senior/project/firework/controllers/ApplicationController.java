@@ -67,7 +67,8 @@ public class ApplicationController {
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         Posting post = repoPosting.findById(idPosting).orElse(null);
         Status status = repoStatus.findById(11L).orElse(null);
-        Application newApplication = new Application(worker,post,status);
+        LocalDate date = LocalDate.now();
+        Application newApplication = new Application(worker,post,status,date);
         newApplication.setIdStatusAdmin(0L);
         return repoApplication.save(newApplication);
     }
@@ -295,7 +296,7 @@ public class ApplicationController {
         Role roleEmployer = repoRole.findById(2L).orElse(null);//Employer
         Role roleWorker = repoRole.findById(3L).orElse(null);//Worker
         LocalDate date = LocalDate.now();
-        Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleWorker.getRoleName(),application.getPosting().getEmployer(),application.getWorker());
+        Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleWorker.getRoleName(),application.getPosting().getEmployer(),application.getWorker(),application.getPosting());
         if( repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null ){
             return "You give score already.";
         }
@@ -324,7 +325,7 @@ public class ApplicationController {
         Role roleEmployer = repoRole.findById(2L).orElse(null);//Employer
         Role roleWorker = repoRole.findById(3L).orElse(null);//Worker
         LocalDate date = LocalDate.now();
-        Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleEmployer.getRoleName(),application.getPosting().getEmployer(),application.getWorker());
+        Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleEmployer.getRoleName(),application.getPosting().getEmployer(),application.getWorker(), application.getPosting());
         if( repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null ){
             return "You give score already.";
         }

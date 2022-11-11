@@ -7,5 +7,5 @@ import senior.project.firework.models.Position;
 import java.util.List;
 
 public interface repoPosition extends JpaRepository<Position,Long> {
-    List<Position> findByEmployer(Employer employer);
+    List<Position> findByPositionName(String positionName);
 }

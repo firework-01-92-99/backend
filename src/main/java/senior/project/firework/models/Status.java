@@ -23,6 +23,9 @@ public class Status {
   @OneToMany(mappedBy = "status")
   @JsonIgnore
   private List<Posting> postingList;
+  @OneToMany(mappedBy = "status")
+  @JsonIgnore
+  private List<Position> positionList;
 
   public Status() {
 
@@ -66,5 +69,13 @@ public class Status {
 
   public void setPostingList(List<Posting> postingList) {
     this.postingList = postingList;
+  }
+
+  public List<Position> getPositionList() {
+    return positionList;
+  }
+
+  public void setPositionList(List<Position> positionList) {
+    this.positionList = positionList;
   }
 }

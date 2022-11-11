@@ -3,6 +3,7 @@ package senior.project.firework.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -34,6 +35,8 @@ public class Posting {
   private String properties;
   @Column(name = "welfare")
   private String welfare;
+  @Column(name = "date")
+  private LocalDate date;
   @ManyToOne
   @JoinColumn(name = "hiring_type_idHiringtype")
   private HiringType hiringType;
@@ -59,12 +62,15 @@ public class Posting {
   @OneToMany(mappedBy = "posting")
   @JsonIgnore
   private List<Favorite> favoriteList;
+  @OneToMany(mappedBy = "posting")
+  @JsonIgnore
+  private List<Ratings> ratingsList;
 
   public Posting(){
 
   }
 
-  public Posting(String sex, String workDescription, long minAge, long maxAge, long minSalary, long maxSalary, String overtimePayment, String startTime, String endTime, String properties, String welfare, HiringType hiringType, Employer employer, Status status, WorkerType workerType,Position position) {
+  public Posting(String sex, String workDescription, long minAge, long maxAge, long minSalary, long maxSalary, String overtimePayment, String startTime, String endTime, String properties, String welfare, LocalDate date,HiringType hiringType, Employer employer, Status status, WorkerType workerType,Position position) {
     this.sex = sex;
     this.workDescription = workDescription;
     this.minAge = minAge;
@@ -76,6 +82,7 @@ public class Posting {
     this.endTime = endTime;
     this.properties = properties;
     this.welfare = welfare;
+    this.date = date;
     this.hiringType = hiringType;
     this.employer = employer;
     this.status = status;
@@ -249,5 +256,21 @@ public class Posting {
 
   public void setIdEmployer(long idEmployer) {
     this.idEmployer = idEmployer;
+  }
+
+  public List<Ratings> getRatingsList() {
+    return ratingsList;
+  }
+
+  public void setRatingsList(List<Ratings> ratingsList) {
+    this.ratingsList = ratingsList;
+  }
+
+  public LocalDate getDate() {
+    return date;
+  }
+
+  public void setDate(LocalDate date) {
+    this.date = date;
   }
 }

@@ -3,6 +3,7 @@ package senior.project.firework.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "application")
@@ -19,6 +20,8 @@ public class Application {
   private long idStatus;
   @Column(name = "idStatusAdmin")
   private long idStatusAdmin;
+  @Column(name = "date")
+  private LocalDate date;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "worker_idWorker")
@@ -46,10 +49,11 @@ public class Application {
 
   }
 
-  public Application(Worker worker, Posting posting,Status status) {
+  public Application(Worker worker, Posting posting,Status status,LocalDate date) {
     this.worker = worker;
     this.posting = posting;
     this.status = status;
+    this.date = date;
   }
 
   public long getIdStatusAdmin() {
@@ -138,5 +142,13 @@ public class Application {
 
   public void setActToRegister(ActToRegister actToRegister) {
     this.actToRegister = actToRegister;
+  }
+
+  public LocalDate getDate() {
+    return date;
+  }
+
+  public void setDate(LocalDate date) {
+    this.date = date;
   }
 }

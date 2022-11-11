@@ -17,6 +17,7 @@ import senior.project.firework.repositories.repoPosition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,15 +79,12 @@ public class PostingController {
     public Posting createPosting(@RequestBody Posting posting,@RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.getById(idEmployer);
         Status status = repoStatus.findById(1L).orElse(null);
+        LocalDate date = LocalDate.now();
         Posting newPosting = new Posting(posting.getSex(),posting.getWorkDescription(),posting.getMinAge(),posting.getMaxAge(),
                 posting.getMinSalary(),posting.getMaxSalary(),posting.getOvertimePayment(),posting.getStartTime(),posting.getEndTime(),
-                posting.getProperties(),posting.getWelfare(),posting.getHiringType(),employer,status,
+                posting.getProperties(),posting.getWelfare(),date,posting.getHiringType(),employer,status,
                 posting.getWorkerType(),posting.getPosition());
 
-        Position position = new Position(posting.getPosition().getPositionName(),employer);
-        repoPosition.save(position);
-
-        newPosting.setPosition(position);
         repoPosting.save(newPosting);
         List<PostingHasDay> postingHasDayList = posting.getPostingHasDayList();
         for(PostingHasDay postingHasDayPerLine:postingHasDayList){
@@ -114,9 +112,6 @@ public class PostingController {
             repoPostingHasDay.save(newPostingHasDay);
         }
 
-        Position NewPosition = new Position(NewPosting.getPosition().getPositionName(),employer);
-        Position NewPosition1 = repoPosition.save(NewPosition);
-        NewPosting.setPosition(NewPosition1);
         repoPosting.save(NewPosting);
 
         repoPosition.deleteById(idOldPosition);

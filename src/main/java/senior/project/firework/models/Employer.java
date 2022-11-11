@@ -42,8 +42,6 @@ public class Employer {
   @OneToOne(mappedBy = "employer")
   private Location location;
   @OneToMany(mappedBy = "employer")
-  private List<Position> positionList;
-  @OneToMany(mappedBy = "employer")
   private List<Ratings> ratingsList;
   @OneToMany(mappedBy = "employer")
   private List<Posting> postingList;
@@ -213,14 +211,6 @@ public class Employer {
 
   public void setLocation(Location location) {
     this.location = location;
-  }
-
-  public List<Position> getPositionList() {
-    return positionList;
-  }
-
-  public void setPositionList(List<Position> positionList) {
-    this.positionList = positionList;
   }
 
   public List<Ratings> getRatingsList() {

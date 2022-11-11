@@ -29,14 +29,19 @@ public class Ratings {
   @JsonIgnore
   @JoinColumn(name = "worker_idWorker")
   private Worker worker;
+  @ManyToOne
+  @JsonIgnore
+  @JoinColumn(name = "posting_idPosting")
+  private Posting posting;
 
-  public Ratings(long rate, String comment, LocalDate timestamp, String forwho, Employer employer, Worker worker) {
+  public Ratings(long rate, String comment, LocalDate timestamp, String forwho, Employer employer, Worker worker, Posting posting) {
     this.rate = rate;
     this.comment = comment;
     this.timestamp = timestamp;
     this.forwho = forwho;
     this.employer = employer;
     this.worker = worker;
+    this.posting = posting;
   }
 
   public Ratings() {
@@ -97,5 +102,21 @@ public class Ratings {
 
   public void setWorker(Worker worker) {
     this.worker = worker;
+  }
+
+  public String getForwho() {
+    return forwho;
+  }
+
+  public void setForwho(String forwho) {
+    this.forwho = forwho;
+  }
+
+  public Posting getPosting() {
+    return posting;
+  }
+
+  public void setPosting(Posting posting) {
+    this.posting = posting;
   }
 }
