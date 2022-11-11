@@ -21,7 +21,10 @@ public class ExceptionRepo {
 
         POSITION_POSTING_NOT_NULL(3001),
 
-        OTP_INCORRECT(4001);
+        OTP_INCORRECT(4001),
+
+        POSITION_NAME(5001),
+        POSITION_USED(5002);
 
         private int errorValue;
 
