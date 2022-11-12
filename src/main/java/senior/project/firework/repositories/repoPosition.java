@@ -8,7 +8,7 @@ import senior.project.firework.models.Status;
 import java.util.List;
 
 public interface repoPosition extends JpaRepository<Position,Long> {
-    List<Position> findByPositionName(String positionName);
+    Position findByPositionName(String positionName);
 
     List<Position> findByStatus(Status status);
 }
