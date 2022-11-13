@@ -27,11 +27,14 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
             "and (e.establishmentName LIKE %:establishmentAndpositionName% or po.positionName LIKE %:establishmentAndpositionName%) " +
             "AND if(:idHiringtype !='',h.idHiringtype = :idHiringtype,h.idHiringtype is not null) " +
             "AND if(:idProvince !='',e.province_idProvince = :idProvince,e.province_idProvince is not null) " +
+            "AND ((ps.minSalary = :minSalary AND ps.maxSalary = :maxSalary) OR (:minSalary < ps.minSalary AND :maxSalary BETWEEN ps.minSalary AND ps.maxSalary) " +
+            "OR (:minSalary BETWEEN ps.minSalary AND ps.maxSalary AND :maxSalary > ps.maxSalary) OR (:minSalary < ps.minSalary AND ps.maxSalary < :maxSalary) " +
+            "OR (:minSalary BETWEEN ps.minSalary AND ps.maxSalary AND :maxSalary BETWEEN ps.minSalary AND ps.maxSalary)) " +
             "ORDER BY   (case when :sortSalary='DESC' then ps.maxSalary end ) DESC " +
             "           ,(case when :sortSalary='ASC' then ps.minSalary end) ASC " +
             "           ,(case when :sortSalary='' then ps.idPosting end) DESC ",nativeQuery = true)
     Page<Posting> searchPosting(String establishmentAndpositionName, String idHiringtype,
-                                String sortSalary, String idProvince,
+                                String sortSalary, String idProvince,long minSalary ,long maxSalary,
                                 Pageable pageable );
 
     @Query(value =  "SELECT p FROM Posting p, Status s " +
