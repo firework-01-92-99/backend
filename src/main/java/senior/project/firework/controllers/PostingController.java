@@ -95,12 +95,11 @@ public class PostingController {
         return newPosting;
     }
 
-    @PutMapping("/emp/editPosting")
+    @PutMapping("/main/editPosting")
     public Posting editPosting(@RequestBody Posting NewPosting){
         Posting OldPosting = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);
         Posting NewPosting1 = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);
         Employer employer = repoEmployer.getById(NewPosting1.getIdEmployer());
-        long idOldPosition = OldPosting.getPosition().getIdposition();
         NewPosting.setEmployer(employer);
 
         List<PostingHasDay> postingHasDayListOld = OldPosting.getPostingHasDayList();
@@ -115,7 +114,6 @@ public class PostingController {
 
         repoPosting.save(NewPosting);
 
-        repoPosition.deleteById(idOldPosition);
         return NewPosting;
 
     }
