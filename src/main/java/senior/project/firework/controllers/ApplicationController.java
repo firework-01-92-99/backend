@@ -61,6 +61,12 @@ public class ApplicationController {
         return repoApplication.findAll();
     }
 
+    @GetMapping("/admin/allApplicationByIdStatus")
+    public List<Application> allApplicationByIdStatus(@RequestParam(name = "idStatus") long idStatus){
+        Status status = repoStatus.findById(idStatus).orElse(null);
+        return repoApplication.findByStatus(status);
+    }
+
     @PostMapping("/worker/workApp")
     public Application workerApplication(@RequestParam(value = "idWorker") long idWorker,
                                          @RequestParam(value = "idPosting") long idPosting){

@@ -40,6 +40,18 @@ public class PositionController {
     }
 
 
+    @GetMapping("/admin_emp/allWaitingPosition")
+    public List<Position> allWaitingPosition(){
+        Status status = repoStatus.findById(3L).orElse(null);
+        return repoPosition.findByStatus(status);
+    }
+
+    @GetMapping("/admin_emp/allDeletePosition")
+    public List<Position> allDeletePosition(){
+        Status status = repoStatus.findById(9L).orElse(null);
+        return repoPosition.findByStatus(status);
+    }
+
     @GetMapping("/admin_emp/selectPosition")
     public Position selectPosition(@RequestParam(name = "idPosition") long idPosition){
         return repoPosition.findById(idPosition).orElse(null);
@@ -64,23 +76,20 @@ public class PositionController {
         newPosition.setPositionName(position.getPositionName());
         repoPosition.save(newPosition);
     }
-
-    @DeleteMapping("/admin/deletePosition")
-    public void deletePosition(@RequestParam(name = "idPosition") long idPosition) throws Exception {
-        if(repoPosition.findById(idPosition).orElse(null).getPosting() != null){
-            throw new AccountException(ExceptionRepo.ERROR_CODE.POSITION_USED,"This position name used already.");
-        }
-        repoPosition.deleteById(idPosition);
-    }
     //-------------------------------------------------------------------------------------------------------------
     @PostMapping("/emp/empRequestPosition")
     public void empRequestPosition(@RequestBody Position position) throws Exception {
         if(repoPosition.findByPositionName(position.getPositionName()) != null){
             throw new AccountException(ExceptionRepo.ERROR_CODE.POSITION_NAME,"This position name have already.");
         }
-        Status status = repoStatus.findById(2L).orElse(null);
+        Status status = repoStatus.findById(3L).orElse(null);
         Position newPosition = new Position(position.getPositionName(),status);
         repoPosition.save(newPosition);
+    }
+
+    @DeleteMapping("/admin/rejectEmpRequest")//กรณีที่ emp ขอมาแล้ว ไม่เอา กูให้แม่งลบหายตายจากไปเลย จะได้ไม่คาใน db
+    public void deletePosition(@RequestParam(name = "idPosition") long idPosition) throws Exception {
+        repoPosition.deleteById(idPosition);
     }
 
     @PutMapping("/admin/adminActivePosition")
@@ -91,8 +100,22 @@ public class PositionController {
         repoPosition.save(position);
     }
 
-    @DeleteMapping("/admin/adminInactivePosition")
+    @PutMapping("/admin/adminInactivePosition")
     public void adminInactivePosition(@RequestParam(name = "idPosition") long idPosition) throws Exception {
-        repoPosition.deleteById(idPosition);
+        Position position = repoPosition.findById(idPosition).orElse(null);
+        Status status = repoStatus.findById(2L).orElse(null);
+        position.setStatus(status);
+        repoPosition.save(position);
+    }
+
+    @PutMapping("/admin/adminDeletePosition")//ลบแบบยังอยู่นะ แต่สถานะเป็น deleted
+    public void adminDeletePosition(@RequestParam(name = "idPosition") long idPosition) throws Exception {
+        Position position = repoPosition.findById(idPosition).orElse(null);
+        if(position.getPosting() != null){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.POSITION_USED,"This position using,can not delete.");
+        }
+        Status status = repoStatus.findById(9L).orElse(null);
+        position.setStatus(status);
+        repoPosition.save(position);
     }
 }
