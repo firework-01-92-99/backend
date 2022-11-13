@@ -62,9 +62,15 @@ public class ApplicationController {
     }
 
     @GetMapping("/admin/allApplicationByIdStatus")
-    public List<Application> allApplicationByIdStatus(@RequestParam(name = "idStatus") long idStatus){
+    public List<StatusApplication> allApplicationByIdStatus(@RequestParam(name = "idStatus") long idStatus){
+        List<StatusApplication> statusApplicationList = new ArrayList<>();
         Status status = repoStatus.findById(idStatus).orElse(null);
-        return repoApplication.findByStatus(status);
+        List<Application> applicationList = repoApplication.findByStatus(status);
+        for(Application applicationPerLine:applicationList){
+            StatusApplication statusApplication = showStatusApplication(applicationPerLine.getIdApplication());
+            statusApplicationList.add(statusApplication);
+        }
+        return statusApplicationList;
     }
 
     @PostMapping("/worker/workApp")
@@ -101,7 +107,9 @@ public class ApplicationController {
                 employer.get().getDistrict().getDistrictName(),
                 employer.get().getSubDistrict().getSubDistrict(),
                 employer.get().getSubDistrict().getPostcode(),
-                application.get().getStatus().getStatusName());
+                application.get().getStatus().getStatusName(),
+                application.get().getDate(),
+                application.get().getActToRegister());
         return statusApplication;
     }
 

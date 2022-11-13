@@ -1,5 +1,9 @@
 package senior.project.firework.frontendmodel;
 
+import senior.project.firework.models.ActToRegister;
+
+import java.time.LocalDate;
+
 public class StatusApplication {
     private long idApplication;
     private String establishmentName;
@@ -10,8 +14,14 @@ public class StatusApplication {
     private String subDistrict;
     private String postcode;
     private String statusName;
+    private LocalDate date;
+    private ActToRegister actToRegister;
 
-    public StatusApplication(long idApplication, String establishmentName, String positionName, String address, String provinceName, String districtName, String subDistrict, String postcode, String statusName) {
+    public StatusApplication(){
+
+    }
+
+    public StatusApplication(long idApplication, String establishmentName, String positionName, String address, String provinceName, String districtName, String subDistrict, String postcode, String statusName, LocalDate date, ActToRegister actToRegister) {
         this.idApplication = idApplication;
         this.establishmentName = establishmentName;
         this.positionName = positionName;
@@ -21,6 +31,8 @@ public class StatusApplication {
         this.subDistrict = subDistrict;
         this.postcode = postcode;
         this.statusName = statusName;
+        this.date = date;
+        this.actToRegister = actToRegister;
     }
 
     public String getAddress() {
@@ -93,5 +105,21 @@ public class StatusApplication {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public ActToRegister getActToRegister() {
+        return actToRegister;
+    }
+
+    public void setActToRegister(ActToRegister actToRegister) {
+        this.actToRegister = actToRegister;
     }
 }
