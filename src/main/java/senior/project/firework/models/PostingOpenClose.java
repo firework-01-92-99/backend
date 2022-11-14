@@ -3,6 +3,7 @@ package senior.project.firework.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -13,9 +14,9 @@ public class PostingOpenClose {
     @Column(name = "idPostingOpenClose")
     private long idPostingOpenClose;
     @Column(name = "activeDate")
-    private Date activeDate;
+    private LocalDate activeDate;
     @Column(name = "inactiveDate")
-    private Date inactiveDate;
+    private LocalDate inactiveDate;
     @Column(name = "round")
     private long round;
     @ManyToOne
@@ -27,7 +28,7 @@ public class PostingOpenClose {
 
     }
 
-    public PostingOpenClose(Date activeDate, long round, Posting posting) {
+    public PostingOpenClose(LocalDate activeDate, long round, Posting posting) {
         this.activeDate = activeDate;
         this.round = round;
         this.posting = posting;
@@ -41,19 +42,19 @@ public class PostingOpenClose {
         this.idPostingOpenClose = idPostingOpenClose;
     }
 
-    public Date getActiveDate() {
+    public LocalDate getActiveDate() {
         return activeDate;
     }
 
-    public void setActiveDate(Date activeDate) {
+    public void setActiveDate(LocalDate activeDate) {
         this.activeDate = activeDate;
     }
 
-    public Date getInactiveDate() {
+    public LocalDate getInactiveDate() {
         return inactiveDate;
     }
 
-    public void setInactiveDate(Date inactiveDate) {
+    public void setInactiveDate(LocalDate inactiveDate) {
         this.inactiveDate = inactiveDate;
     }
 
