@@ -65,6 +65,8 @@ public class Posting {
   @OneToMany(mappedBy = "posting")
   @JsonIgnore
   private List<Ratings> ratingsList;
+  @OneToMany(mappedBy = "posting")
+  private List<PostingOpenClose> postingOpenCloseList;
 
   public Posting(){
 
@@ -272,5 +274,13 @@ public class Posting {
 
   public void setDate(LocalDate date) {
     this.date = date;
+  }
+
+  public List<PostingOpenClose> getPostingOpenCloseList() {
+    return postingOpenCloseList;
+  }
+
+  public void setPostingOpenCloseList(List<PostingOpenClose> postingOpenCloseList) {
+    this.postingOpenCloseList = postingOpenCloseList;
   }
 }
