@@ -94,7 +94,6 @@ public class PostingController {
         }
         return newPosting;
     }
-<<<<<<< HEAD
     /*
     @PutMapping("/main/editPosting")
 =======
