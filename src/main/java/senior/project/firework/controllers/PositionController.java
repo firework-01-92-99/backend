@@ -107,7 +107,7 @@ public class PositionController {
         repoPosition.save(position);
     }
 
-    @DeleteMapping("/main/adminDeletePosition")//ลบแบบล้างหายตายจาก
+    @DeleteMapping("/admin/adminDeletePosition")//ลบแบบล้างหายตายจาก
     public void adminDeletePosition(@RequestParam(name = "idPosition") long idPosition) throws Exception {
         Position position = repoPosition.findById(idPosition).orElse(null);
         if(!position.getPosting().isEmpty()){
