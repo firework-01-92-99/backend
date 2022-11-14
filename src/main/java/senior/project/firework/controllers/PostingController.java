@@ -94,7 +94,7 @@ public class PostingController {
         }
         return newPosting;
     }
-
+    /*
     @PutMapping("/main/editPosting")
     public Posting editPosting(@RequestBody Posting NewPosting){
         Posting OldPosting = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);
@@ -116,7 +116,7 @@ public class PostingController {
 
         return NewPosting;
 
-    }
+    }*/
 
     @PutMapping("/emp/ActivePosting")
     public void ActivePosting(@RequestParam(name = "idPosting") long idPosting){

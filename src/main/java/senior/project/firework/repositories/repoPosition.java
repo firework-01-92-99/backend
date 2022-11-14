@@ -10,5 +10,5 @@ import java.util.List;
 public interface repoPosition extends JpaRepository<Position,Long> {
     Position findByPositionName(String positionName);
 
-    List<Position> findByStatus(Status status);
+    List<Position> findByStatusOrderByPositionNameAsc(Status status);
 }

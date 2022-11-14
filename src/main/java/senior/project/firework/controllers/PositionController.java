@@ -30,26 +30,25 @@ public class PositionController {
     @GetMapping("/admin_emp/allActivePosition")
     public List<Position> allActivePosition(){
         Status status = repoStatus.findById(1L).orElse(null);
-        return repoPosition.findByStatus(status);
+        return repoPosition.findByStatusOrderByPositionNameAsc(status);
     }
 
     @GetMapping("/admin_emp/allInactivePosition")
     public List<Position> allInactivePosition(){
         Status status = repoStatus.findById(2L).orElse(null);
-        return repoPosition.findByStatus(status);
+        return repoPosition.findByStatusOrderByPositionNameAsc(status);
     }
-
 
     @GetMapping("/admin_emp/allWaitingPosition")
     public List<Position> allWaitingPosition(){
         Status status = repoStatus.findById(3L).orElse(null);
-        return repoPosition.findByStatus(status);
+        return repoPosition.findByStatusOrderByPositionNameAsc(status);
     }
 
     @GetMapping("/admin_emp/allDeletePosition")
     public List<Position> allDeletePosition(){
         Status status = repoStatus.findById(9L).orElse(null);
-        return repoPosition.findByStatus(status);
+        return repoPosition.findByStatusOrderByPositionNameAsc(status);
     }
 
     @GetMapping("/admin_emp/selectPosition")
