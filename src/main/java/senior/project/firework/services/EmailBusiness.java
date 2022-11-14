@@ -56,6 +56,21 @@ public class EmailBusiness {
         emailService.send(email, subject, html);
     }
 
+    public void sendApplicationAcceptOnWeb(String email, String name) throws Exception {
+
+        String html;
+        try {
+            html = readEmailTemplate("account-empAcceptOnWeb.html");
+        } catch (IOException e) {
+            throw EmailException.templateNotFound();
+        }
+
+        html = html.replace("${P_NAME}", name);
+
+        String subject = "Your account was approved.";
+        emailService.send(email, subject, html);
+    }
+
     public void sendReject(String email, String name) throws Exception {
 
         String html;

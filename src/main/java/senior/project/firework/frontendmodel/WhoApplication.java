@@ -6,6 +6,7 @@ import senior.project.firework.models.WorkerType;
 public class WhoApplication {
     private long count;
     private long applicationId;
+    private long round;
     private long workerId;
     private Double rate;
     private String identificationNumber;
@@ -21,9 +22,10 @@ public class WhoApplication {
     private String statusName;
     private String comment;
 
-    public WhoApplication(long count, long applicationId, long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, String comment) {
+    public WhoApplication(long count, long applicationId, long round, long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, String comment) {
         this.count = count;
         this.applicationId = applicationId;
+        this.round = round;
         this.workerId = workerId;
         this.rate = rate;
         this.identificationNumber = identificationNumber;
@@ -62,6 +64,14 @@ public class WhoApplication {
 
     public void setApplicationId(long applicationId) {
         this.applicationId = applicationId;
+    }
+
+    public long getRound() {
+        return round;
+    }
+
+    public void setRound(long round) {
+        this.round = round;
     }
 
     public long getWorkerId() {

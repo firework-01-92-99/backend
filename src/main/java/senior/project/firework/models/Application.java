@@ -22,6 +22,8 @@ public class Application {
   private long idStatusAdmin;
   @Column(name = "date")
   private LocalDate date;
+  @Column(name = "round")
+  private long round;
   @ManyToOne
   @JsonIgnore
   @JoinColumn(name = "worker_idWorker")
@@ -49,11 +51,12 @@ public class Application {
 
   }
 
-  public Application(Worker worker, Posting posting,Status status,LocalDate date) {
+  public Application(Worker worker, Posting posting,Status status,LocalDate date,long round) {
     this.worker = worker;
     this.posting = posting;
     this.status = status;
     this.date = date;
+    this.round = round;
   }
 
   public long getIdStatusAdmin() {
@@ -150,5 +153,13 @@ public class Application {
 
   public void setDate(LocalDate date) {
     this.date = date;
+  }
+
+  public long getRound() {
+    return round;
+  }
+
+  public void setRound(long round) {
+    this.round = round;
   }
 }

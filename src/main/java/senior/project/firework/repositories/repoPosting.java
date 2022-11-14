@@ -71,4 +71,5 @@ public interface repoPosting extends JpaRepository<Posting,Long> {
     List<Posting> findByEmployerAndStatus(Employer employer,Status status);
 
     List<Posting> findByEmployer(Employer employer);
+
 }

@@ -3,16 +3,13 @@ package senior.project.firework.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import senior.project.firework.models.Employer;
-import senior.project.firework.models.Posting;
-import senior.project.firework.models.Status;
-import senior.project.firework.models.PostingHasDay;
-import senior.project.firework.models.Position;
+import senior.project.firework.models.*;
 import senior.project.firework.repositories.repoPosting;
 import senior.project.firework.repositories.repoEmployer;
 import senior.project.firework.repositories.repoStatus;
 import senior.project.firework.repositories.repoPostingHasDay;
 import senior.project.firework.repositories.repoPosition;
+import senior.project.firework.repositories.repoPostingOpenClose;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +30,8 @@ public class PostingController {
     private repoPostingHasDay repoPostingHasDay;
     @Autowired
     private repoPosition repoPosition;
+    @Autowired
+    private repoPostingOpenClose repoPostingOpenClose;
 
     @GetMapping("/main/posting")
     public List<Posting> allPosting(){
@@ -92,6 +91,8 @@ public class PostingController {
             PostingHasDay newPostingHasDay = new PostingHasDay(postingHasDayPerLine.getDay(),newPosting);
             repoPostingHasDay.save(newPostingHasDay);
         }
+        PostingOpenClose newPostingOpenClose = new PostingOpenClose(date,1,newPosting);
+        repoPostingOpenClose.save(newPostingOpenClose);
         return newPosting;
     }
 
@@ -124,6 +125,12 @@ public class PostingController {
         Posting posting = repoPosting.findById(idPosting).orElse(null);
         posting.setStatus(status);
         repoPosting.save(posting);
+
+        LocalDate date = LocalDate.now();
+        long maxIdPostingOpenClose = repoPostingOpenClose.getMAXIdPostingOpenCloseByPosting(posting);
+        PostingOpenClose postingOpenClose = repoPostingOpenClose.findById(maxIdPostingOpenClose).orElse(null);
+        PostingOpenClose newPostingOpenClose = new PostingOpenClose(date,postingOpenClose.getRound()+1,posting);
+        repoPostingOpenClose.save(newPostingOpenClose);
     }
 
     @PutMapping("/emp/inActivePosting")
@@ -132,6 +139,12 @@ public class PostingController {
         Posting posting = repoPosting.findById(idPosting).orElse(null);
         posting.setStatus(status);
         repoPosting.save(posting);
+
+        long maxIdPostingOpenClose = repoPostingOpenClose.getMAXIdPostingOpenCloseByPosting(posting);
+        PostingOpenClose postingOpenClose = repoPostingOpenClose.findById(maxIdPostingOpenClose).orElse(null);
+        LocalDate date = LocalDate.now();
+        postingOpenClose.setInactiveDate(date);
+        repoPostingOpenClose.save(postingOpenClose);
     }
 
     @PutMapping("/emp/deletePosting")

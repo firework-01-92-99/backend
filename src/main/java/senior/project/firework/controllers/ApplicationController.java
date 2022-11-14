@@ -9,16 +9,9 @@ import senior.project.firework.frontendmodel.HowManyApplication;
 import senior.project.firework.frontendmodel.WhoApplication;
 import senior.project.firework.frontendmodel.PoNameAndEstName;
 import senior.project.firework.models.*;
-import senior.project.firework.repositories.repoApplication;
-import senior.project.firework.repositories.repoWorker;
-import senior.project.firework.repositories.repoPosting;
-import senior.project.firework.repositories.repoStatus;
-import senior.project.firework.repositories.repoEmployer;
-import senior.project.firework.repositories.repoApplicationHasComment;
-import senior.project.firework.repositories.repoAdmin;
-import senior.project.firework.repositories.repoActToRegister;
-import senior.project.firework.repositories.repoRole;
-import senior.project.firework.repositories.repoRatings;
+import senior.project.firework.repositories.*;
+import senior.project.firework.services.EmailBusiness;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,6 +41,10 @@ public class ApplicationController {
     private repoRole repoRole;
     @Autowired
     private repoRatings repoRatings;
+    @Autowired
+    private repoPostingOpenClose repoPostingOpenClose;
+    @Autowired
+    private EmailBusiness emailBusiness;
 
     @GetMapping("/admin_worker/getPositionNameAndEstablishmentNameByIdApplication")
     public PoNameAndEstName getPositionNameAndEstablishmentNameByIdApplication(@RequestParam(name = "idApplication") long idApplication){
@@ -80,7 +77,9 @@ public class ApplicationController {
         Posting post = repoPosting.findById(idPosting).orElse(null);
         Status status = repoStatus.findById(11L).orElse(null);
         LocalDate date = LocalDate.now();
-        Application newApplication = new Application(worker,post,status,date);
+        long getMaxIdPostOpenClose = repoPostingOpenClose.getMAXIdPostingOpenCloseByPosting(post);
+        PostingOpenClose postingOpenClose = repoPostingOpenClose.findById(getMaxIdPostOpenClose).orElse(null);
+        Application newApplication = new Application(worker,post,status,date,postingOpenClose.getRound());
         newApplication.setIdStatusAdmin(0L);
         return repoApplication.save(newApplication);
     }
@@ -131,58 +130,239 @@ public class ApplicationController {
     }
 
     @GetMapping("/emp/showAllWorker")
-    public HowManyApplication showAllWorker(@RequestParam(name = "idPosting") long idPosting,@RequestParam(name = "idStatus") long idStatus){
-        return setAllWorker(idPosting,idStatus);
+    public HowManyApplication showAllWorker(@RequestParam(name = "idPosting") long idPosting,
+                                            @RequestParam(name = "idStatus") long idStatus){
+        return setAllWorker(idPosting,idStatus,0);
+    }
+
+    @GetMapping("/admin_emp/showAllWorkerAllPostingByTwoStatusAndRound")
+    public List<HowManyApplication> showAllWorkerAllPostingByTwoStatusAndRound(@RequestParam(name = "idStatus1") long idStatus1,
+                                                                         @RequestParam(name = "idStatus2") long idStatus2,
+                                                                         @RequestParam(name = "round",defaultValue = "0") long round){
+        List<HowManyApplication> howManyApplicationList = new ArrayList<>();
+        List<Posting> AllPosting = repoPosting.findAll();
+        for(Posting postingPerLine:AllPosting){
+                HowManyApplication howManyApplication1 = setAllWorker(postingPerLine.getIdPosting(),idStatus1,round);
+                HowManyApplication howManyApplication2 = setAllWorker(postingPerLine.getIdPosting(),idStatus2,round);
+                for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
+                    howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+                }
+                if(!howManyApplication1.getWhoApplicationList().isEmpty() || !howManyApplication2.getWhoApplicationList().isEmpty()){
+                    howManyApplicationList.add(howManyApplication1);
+                }
+        }
+        return howManyApplicationList;
     }
 
     @GetMapping("/emp/showAllWorkerByIdPostingAllStatus")
     public HowManyApplication showAllWorkerByIdPostingAllStatus(@RequestParam(name = "idPosting") long idPosting){
-        return setAllWorker(idPosting,0);
+        return setAllWorker(idPosting,0,0);
     }
 
-    public HowManyApplication setAllWorker(long idPosting,long idStatus){
+    public HowManyApplication setAllWorker(long idPosting,long idStatus,long round){
         List<WhoApplication> whoApplicationList = new ArrayList<>();
         Posting posting = repoPosting.findById(idPosting).orElse(null);
         List<Application> applicationList = posting.getApplicationList();
         long count = 1;
-        if(idStatus == 0){
-            for(Application applicationPerLine : applicationList){
-                count = getCount(whoApplicationList, count, applicationPerLine);
-            }
-        }else if(idStatus == 11){
-            for(Application applicationPerLine : applicationList){
-                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+        if(round == 0){
+            if(idStatus == 0){
+                for(Application applicationPerLine : applicationList){
                     count = getCount(whoApplicationList, count, applicationPerLine);
                 }
-            }
-        }else if(idStatus == 12){
-            for(Application applicationPerLine : applicationList){
-                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                    count = getCount(whoApplicationList, count, applicationPerLine);
+            }else if(idStatus == 11){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 12){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 13){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 14){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 15){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 16){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 20){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 21){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 22){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 23){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 24){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 25){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 26){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
                 }
             }
-        }else if(idStatus == 13){
-            for(Application applicationPerLine : applicationList){
-                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                    count = getCount(whoApplicationList, count, applicationPerLine);
-                }
-            }
-        }else if(idStatus == 14){
-            for(Application applicationPerLine : applicationList){
-                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                    count = getCount(whoApplicationList, count, applicationPerLine);
-                }
-            }
-        }else if(idStatus == 21){
-            for(Application applicationPerLine : applicationList){
-                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                    count = getCount(whoApplicationList, count, applicationPerLine);
-                }
-            }
-        }else if(idStatus == 24){
-            for(Application applicationPerLine : applicationList){
-                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                    count = getCount(whoApplicationList, count, applicationPerLine);
+        }else{
+            List<PostingOpenClose> postingOpenCloseList = repoPostingOpenClose.findByPosting(posting);
+            for(PostingOpenClose postingOpenClosePerLine:postingOpenCloseList){
+                if(round == postingOpenClosePerLine.getRound()){
+                    if(idStatus == 0){
+                        for(Application applicationPerLine : applicationList){
+                            if(round == applicationPerLine.getRound()){
+                                count = getCount(whoApplicationList, count, applicationPerLine);
+                            }
+                        }
+                    }else if(idStatus == 11){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 12){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 13){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 14){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 15){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 16){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 20){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 21){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 22){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 23){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 24){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 25){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 26){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -198,7 +378,7 @@ public class ApplicationController {
             application_has_comment = applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb();//Edit sometime
         }
         Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
-        WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),worker.getIdWorker(),worker.getRate(),worker.getIdentificationNumber(),
+        WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),applicationPerLine.getRound(),worker.getIdWorker(),worker.getRate(),worker.getIdentificationNumber(),
                 worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
                 worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getIdStatus(),applicationPerLine.getStatus().getStatusName(),application_has_comment);
         whoApplicationList.add(whoApplication);
@@ -207,10 +387,11 @@ public class ApplicationController {
     }
     //-------------------------------------------------------------------------------------------------
     @PutMapping("/emp/employerAcceptOnWeb")//Employer--------------------------------------------- Done
-    public Application employerAcceptOnWeb(@RequestParam(value = "idApplication") long idApplication){
+    public Application employerAcceptOnWeb(@RequestParam(value = "idApplication") long idApplication) throws Exception {
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
         application.setStatus(status);
+        emailBusiness.sendApplicationAcceptOnWeb(application.getWorker().getAccount().getEmail(),application.getWorker().getFirstName()+" "+application.getWorker().getLastName());
         return repoApplication.save(application);
     }
 
