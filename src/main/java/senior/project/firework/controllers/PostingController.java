@@ -94,12 +94,8 @@ public class PostingController {
         }
         return newPosting;
     }
-    /*
-    @PutMapping("/main/editPosting")
-=======
 
-    @PutMapping("/emp/editPosting")
->>>>>>> 5b3aa75c0447f01450e6bb8c2505fa1e2a60da8e
+    /*@PutMapping("/emp/editPosting")
     public Posting editPosting(@RequestBody Posting NewPosting){
         Posting OldPosting = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);
         Posting NewPosting1 = repoPosting.findById(NewPosting.getIdPosting()).orElse(null);

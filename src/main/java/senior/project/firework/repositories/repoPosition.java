@@ -11,4 +11,5 @@ public interface repoPosition extends JpaRepository<Position,Long> {
     Position findByPositionName(String positionName);
 
     List<Position> findByStatusOrderByPositionNameAsc(Status status);
+
 }

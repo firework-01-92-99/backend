@@ -107,11 +107,13 @@ public class PositionController {
         repoPosition.save(position);
     }
 
-    @PutMapping("/admin/adminDeletePosition")//ลบแบบยังอยู่นะ แต่สถานะเป็น deleted
+    @DeleteMapping("/main/adminDeletePosition")//ลบแบบล้างหายตายจาก
     public void adminDeletePosition(@RequestParam(name = "idPosition") long idPosition) throws Exception {
         Position position = repoPosition.findById(idPosition).orElse(null);
-        Status status = repoStatus.findById(9L).orElse(null);
-        position.setStatus(status);
-        repoPosition.save(position);
+        if(!position.getPosting().isEmpty()){
+            throw new AccountException(ExceptionRepo.ERROR_CODE.POSITION_USED,"This position used,You can't Delete.");
+        }
+        repoPosition.deleteById(idPosition);
     }
+
 }
