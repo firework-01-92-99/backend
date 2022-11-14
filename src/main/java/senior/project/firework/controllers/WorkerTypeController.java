@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import senior.project.firework.models.WorkerType;
-import senior.project.firework.repositories.repoWorkerType;;import java.util.List;
+import senior.project.firework.repositories.repoWorkerType;
+
+import java.util.List;
 
 @RestController
 public class WorkerTypeController {
