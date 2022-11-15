@@ -3,10 +3,13 @@ package senior.project.firework.frontendmodel;
 import senior.project.firework.models.Nationality;
 import senior.project.firework.models.WorkerType;
 
+import java.time.ZonedDateTime;
+
 public class WhoApplication {
     private long count;
     private long applicationId;
     private long round;
+    private ZonedDateTime date;
     private long workerId;
     private Double rate;
     private String identificationNumber;
@@ -22,10 +25,11 @@ public class WhoApplication {
     private String statusName;
     private String comment;
 
-    public WhoApplication(long count, long applicationId, long round, long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, String comment) {
+    public WhoApplication(long count, long applicationId, long round, ZonedDateTime date,long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, String comment) {
         this.count = count;
         this.applicationId = applicationId;
         this.round = round;
+        this.date = date;
         this.workerId = workerId;
         this.rate = rate;
         this.identificationNumber = identificationNumber;
@@ -40,6 +44,14 @@ public class WhoApplication {
         this.idStatus = idStatus;
         this.statusName = statusName;
         this.comment = comment;
+    }
+
+    public ZonedDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(ZonedDateTime date) {
+        this.date = date;
     }
 
     public Double getRate() {
