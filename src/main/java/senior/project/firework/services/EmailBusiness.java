@@ -67,7 +67,7 @@ public class EmailBusiness {
 
         html = html.replace("${P_NAME}", name);
 
-        String subject = "Your account was approved.";
+        String subject = "Your application has accepted.";
         emailService.send(email, subject, html);
     }
 
