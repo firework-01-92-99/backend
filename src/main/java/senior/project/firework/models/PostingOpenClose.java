@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity
@@ -14,9 +15,9 @@ public class PostingOpenClose {
     @Column(name = "idPostingOpenClose")
     private long idPostingOpenClose;
     @Column(name = "activeDate")
-    private LocalDate activeDate;
+    private ZonedDateTime activeDate;
     @Column(name = "inactiveDate")
-    private LocalDate inactiveDate;
+    private ZonedDateTime inactiveDate;
     @Column(name = "round")
     private long round;
     @ManyToOne
@@ -28,7 +29,7 @@ public class PostingOpenClose {
 
     }
 
-    public PostingOpenClose(LocalDate activeDate, long round, Posting posting) {
+    public PostingOpenClose(ZonedDateTime activeDate, long round, Posting posting) {
         this.activeDate = activeDate;
         this.round = round;
         this.posting = posting;
@@ -42,19 +43,19 @@ public class PostingOpenClose {
         this.idPostingOpenClose = idPostingOpenClose;
     }
 
-    public LocalDate getActiveDate() {
+    public ZonedDateTime getActiveDate() {
         return activeDate;
     }
 
-    public void setActiveDate(LocalDate activeDate) {
+    public void setActiveDate(ZonedDateTime activeDate) {
         this.activeDate = activeDate;
     }
 
-    public LocalDate getInactiveDate() {
+    public ZonedDateTime getInactiveDate() {
         return inactiveDate;
     }
 
-    public void setInactiveDate(LocalDate inactiveDate) {
+    public void setInactiveDate(ZonedDateTime inactiveDate) {
         this.inactiveDate = inactiveDate;
     }
 

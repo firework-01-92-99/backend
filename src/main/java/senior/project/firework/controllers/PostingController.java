@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,7 +80,7 @@ public class PostingController {
     public Posting createPosting(@RequestBody Posting posting,@RequestParam(name = "idEmployer") long idEmployer){
         Employer employer = repoEmployer.getById(idEmployer);
         Status status = repoStatus.findById(1L).orElse(null);
-        LocalDate date = LocalDate.now();
+        ZonedDateTime date = ZonedDateTime.now();
         Posting newPosting = new Posting(posting.getSex(),posting.getWorkDescription(),posting.getMinAge(),posting.getMaxAge(),
                 posting.getMinSalary(),posting.getMaxSalary(),posting.getOvertimePayment(),posting.getStartTime(),posting.getEndTime(),
                 posting.getProperties(),posting.getWelfare(),date,posting.getHiringType(),employer,status,
@@ -126,7 +127,7 @@ public class PostingController {
         posting.setStatus(status);
         repoPosting.save(posting);
 
-        LocalDate date = LocalDate.now();
+        ZonedDateTime date = ZonedDateTime.now();
         long maxIdPostingOpenClose = repoPostingOpenClose.getMAXIdPostingOpenCloseByPosting(posting);
         PostingOpenClose postingOpenClose = repoPostingOpenClose.findById(maxIdPostingOpenClose).orElse(null);
         PostingOpenClose newPostingOpenClose = new PostingOpenClose(date,postingOpenClose.getRound()+1,posting);
@@ -142,7 +143,7 @@ public class PostingController {
 
         long maxIdPostingOpenClose = repoPostingOpenClose.getMAXIdPostingOpenCloseByPosting(posting);
         PostingOpenClose postingOpenClose = repoPostingOpenClose.findById(maxIdPostingOpenClose).orElse(null);
-        LocalDate date = LocalDate.now();
+        ZonedDateTime date = ZonedDateTime.now();
         postingOpenClose.setInactiveDate(date);
         repoPostingOpenClose.save(postingOpenClose);
     }

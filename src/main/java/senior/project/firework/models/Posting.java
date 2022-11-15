@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
@@ -36,7 +37,7 @@ public class Posting {
   @Column(name = "welfare")
   private String welfare;
   @Column(name = "date")
-  private LocalDate date;
+  private ZonedDateTime date;
   @ManyToOne
   @JoinColumn(name = "hiring_type_idHiringtype")
   private HiringType hiringType;
@@ -72,7 +73,7 @@ public class Posting {
 
   }
 
-  public Posting(String sex, String workDescription, long minAge, long maxAge, long minSalary, long maxSalary, String overtimePayment, String startTime, String endTime, String properties, String welfare, LocalDate date,HiringType hiringType, Employer employer, Status status, WorkerType workerType,Position position) {
+  public Posting(String sex, String workDescription, long minAge, long maxAge, long minSalary, long maxSalary, String overtimePayment, String startTime, String endTime, String properties, String welfare, ZonedDateTime date,HiringType hiringType, Employer employer, Status status, WorkerType workerType,Position position) {
     this.sex = sex;
     this.workDescription = workDescription;
     this.minAge = minAge;
@@ -268,11 +269,11 @@ public class Posting {
     this.ratingsList = ratingsList;
   }
 
-  public LocalDate getDate() {
+  public ZonedDateTime getDate() {
     return date;
   }
 
-  public void setDate(LocalDate date) {
+  public void setDate(ZonedDateTime date) {
     this.date = date;
   }
 

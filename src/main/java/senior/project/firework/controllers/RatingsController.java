@@ -12,7 +12,10 @@ import senior.project.firework.models.Worker;
 import senior.project.firework.models.Role;
 import senior.project.firework.frontendmodel.MyRatingsWithEmployerOrWorker;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +36,11 @@ public class RatingsController {
     }
 
     @GetMapping("/main/getDate")
-    public LocalDate getDate(){
+    public ZonedDateTime getDate(){
         LocalDate date = LocalDate.now();
-        return date;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        ZonedDateTime gmt = ZonedDateTime.now();
+        return gmt;
     }
 
     @GetMapping("/emp_worker/getMyTotalScore")

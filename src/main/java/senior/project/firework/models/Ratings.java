@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "ratings")
@@ -18,7 +19,7 @@ public class Ratings {
   @Column(name = "comment")
   private String comment;
   @Column(name = "timestamp")
-  private LocalDate timestamp;
+  private ZonedDateTime timestamp;
   @Column(name = "for_who")
   private String forwho;
   @ManyToOne
@@ -34,7 +35,7 @@ public class Ratings {
   @JoinColumn(name = "posting_idPosting")
   private Posting posting;
 
-  public Ratings(long rate, String comment, LocalDate timestamp, String forwho, Employer employer, Worker worker, Posting posting) {
+  public Ratings(long rate, String comment, ZonedDateTime timestamp, String forwho, Employer employer, Worker worker, Posting posting) {
     this.rate = rate;
     this.comment = comment;
     this.timestamp = timestamp;
@@ -80,11 +81,11 @@ public class Ratings {
     this.comment = comment;
   }
 
-  public LocalDate getTimestamp() {
+  public ZonedDateTime getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(LocalDate timestamp) {
+  public void setTimestamp(ZonedDateTime timestamp) {
     this.timestamp = timestamp;
   }
 

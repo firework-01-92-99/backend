@@ -3,6 +3,7 @@ package senior.project.firework.frontendmodel;
 import senior.project.firework.models.ActToRegister;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 public class StatusApplication {
     private long idApplication;
@@ -14,14 +15,14 @@ public class StatusApplication {
     private String subDistrict;
     private String postcode;
     private String statusName;
-    private LocalDate date;
+    private ZonedDateTime date;
     private ActToRegister actToRegister;
 
     public StatusApplication(){
 
     }
 
-    public StatusApplication(long idApplication, String establishmentName, String positionName, String address, String provinceName, String districtName, String subDistrict, String postcode, String statusName, LocalDate date, ActToRegister actToRegister) {
+    public StatusApplication(long idApplication, String establishmentName, String positionName, String address, String provinceName, String districtName, String subDistrict, String postcode, String statusName, ZonedDateTime date, ActToRegister actToRegister) {
         this.idApplication = idApplication;
         this.establishmentName = establishmentName;
         this.positionName = positionName;
@@ -107,11 +108,11 @@ public class StatusApplication {
         this.statusName = statusName;
     }
 
-    public LocalDate getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 

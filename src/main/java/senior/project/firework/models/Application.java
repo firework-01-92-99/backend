@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "application")
@@ -21,7 +22,7 @@ public class Application {
   @Column(name = "idStatusAdmin")
   private long idStatusAdmin;
   @Column(name = "date")
-  private LocalDate date;
+  private ZonedDateTime date;
   @Column(name = "round")
   private long round;
   @ManyToOne
@@ -51,7 +52,7 @@ public class Application {
 
   }
 
-  public Application(Worker worker, Posting posting,Status status,LocalDate date,long round) {
+  public Application(Worker worker, Posting posting,Status status,ZonedDateTime date,long round) {
     this.worker = worker;
     this.posting = posting;
     this.status = status;
@@ -147,11 +148,11 @@ public class Application {
     this.actToRegister = actToRegister;
   }
 
-  public LocalDate getDate() {
+  public ZonedDateTime getDate() {
     return date;
   }
 
-  public void setDate(LocalDate date) {
+  public void setDate(ZonedDateTime date) {
     this.date = date;
   }
 

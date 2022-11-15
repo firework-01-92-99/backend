@@ -1,19 +1,20 @@
 package senior.project.firework.frontendmodel;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 public class MyRatingsWithEmployerOrWorker {
     private long idRatings;
     private long rate;
     private String comment;
-    private LocalDate timestamp;
+    private ZonedDateTime timestamp;
     private String employerNameOrWorkerName;
 
     public MyRatingsWithEmployerOrWorker(){
 
     }
 
-    public MyRatingsWithEmployerOrWorker(long idRatings, long rate, String comment, LocalDate timestamp, String employerNameOrWorkerName) {
+    public MyRatingsWithEmployerOrWorker(long idRatings, long rate, String comment, ZonedDateTime timestamp, String employerNameOrWorkerName) {
         this.idRatings = idRatings;
         this.rate = rate;
         this.comment = comment;
@@ -45,11 +46,11 @@ public class MyRatingsWithEmployerOrWorker {
         this.comment = comment;
     }
 
-    public LocalDate getTimestamp() {
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDate timestamp) {
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

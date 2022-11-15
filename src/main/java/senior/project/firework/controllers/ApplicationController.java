@@ -14,6 +14,7 @@ import senior.project.firework.services.EmailBusiness;
 
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,7 +77,7 @@ public class ApplicationController {
         Worker worker = repoWorker.findById(idWorker).orElse(null);
         Posting post = repoPosting.findById(idPosting).orElse(null);
         Status status = repoStatus.findById(11L).orElse(null);
-        LocalDate date = LocalDate.now();
+        ZonedDateTime date = ZonedDateTime.now();
         long getMaxIdPostOpenClose = repoPostingOpenClose.getMAXIdPostingOpenCloseByPosting(post);
         PostingOpenClose postingOpenClose = repoPostingOpenClose.findById(getMaxIdPostOpenClose).orElse(null);
         Application newApplication = new Application(worker,post,status,date,postingOpenClose.getRound());
@@ -490,7 +491,7 @@ public class ApplicationController {
         Application application = repoApplication.findById(idApplication).orElse(null);
         Role roleEmployer = repoRole.findById(2L).orElse(null);//Employer
         Role roleWorker = repoRole.findById(3L).orElse(null);//Worker
-        LocalDate date = LocalDate.now();
+        ZonedDateTime date = ZonedDateTime.now();
         Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleWorker.getRoleName(),application.getPosting().getEmployer(),application.getWorker(),application.getPosting());
         if( repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null ){
             return "You give score already.";
@@ -519,7 +520,7 @@ public class ApplicationController {
         Application application = repoApplication.findById(idApplication).orElse(null);
         Role roleEmployer = repoRole.findById(2L).orElse(null);//Employer
         Role roleWorker = repoRole.findById(3L).orElse(null);//Worker
-        LocalDate date = LocalDate.now();
+        ZonedDateTime date = ZonedDateTime.now();
         Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleEmployer.getRoleName(),application.getPosting().getEmployer(),application.getWorker(), application.getPosting());
         if( repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null ){
             return "You give score already.";
