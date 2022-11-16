@@ -139,7 +139,7 @@ public class ApplicationController {
     @GetMapping("/admin_emp/showAllWorkerAllPostingByTwoStatusAndRound")
     public List<HowManyApplication> showAllWorkerAllPostingByTwoStatusAndRound(@RequestParam(name = "idStatus1") long idStatus1,
                                                                          @RequestParam(name = "idStatus2") long idStatus2,
-                                                                         @RequestParam(name = "round",defaultValue = "0") long round){
+                                                                         @RequestParam(name = "round",defaultValue = "1") long round){
         List<HowManyApplication> howManyApplicationList = new ArrayList<>();
         List<Posting> AllPosting = repoPosting.findAll();
         for(Posting postingPerLine:AllPosting){
@@ -391,7 +391,7 @@ public class ApplicationController {
     @PutMapping("/emp/employerAcceptOnWeb")//Employer--------------------------------------------- Done
     public Application employerAcceptOnWeb(@RequestParam(value = "idApplication") long idApplication) throws Exception {
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
+        Status status = repoStatus.findById(13L).orElse(null);//Wating_EmployerSummary
         application.setStatus(status);
         emailBusiness.sendApplicationAcceptOnWeb(application.getWorker().getAccount().getEmail(),application.getWorker().getFirstName()+" "+application.getWorker().getLastName());
         return repoApplication.save(application);
@@ -494,12 +494,12 @@ public class ApplicationController {
         Role roleWorker = repoRole.findById(3L).orElse(null);//Worker
         ZonedDateTime date = ZonedDateTime.now();
         Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleWorker.getRoleName(),application.getPosting().getEmployer(),application.getWorker(),application.getPosting());
-        if( repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null ){
+        if( repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null ){
             return "You give score already.";
         }
         repoRatings.save(newRating);
-        if(repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null &&
-                repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null){
+        if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null &&
+                repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null){
             Status status = repoStatus.findById(20L).orElse(null);//Done
             application.setStatus(status);
             repoApplication.save(application);
@@ -523,12 +523,12 @@ public class ApplicationController {
         Role roleWorker = repoRole.findById(3L).orElse(null);//Worker
         ZonedDateTime date = ZonedDateTime.now();
         Ratings newRating = new Ratings(ratings.getRate(),ratings.getComment(),date,roleEmployer.getRoleName(),application.getPosting().getEmployer(),application.getWorker(), application.getPosting());
-        if( repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null ){
+        if( repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null ){
             return "You give score already.";
         }
         repoRatings.save(newRating);
-        if(repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName() ) !=null &&
-                repoRatings.findByWorkerAndEmployerAndForwho(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName() ) !=null){
+        if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null &&
+                repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null){
             Status status = repoStatus.findById(20L).orElse(null);//Done
             application.setStatus(status);
             repoApplication.save(application);

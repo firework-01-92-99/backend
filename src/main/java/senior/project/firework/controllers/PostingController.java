@@ -156,6 +156,13 @@ public class PostingController {
         repoPosting.save(posting);
     }
 
+    @GetMapping("/main/getMaxRoundOfPosting")
+    public long getMaxRoundOfPosting(@RequestParam(name = "idPosting") long idPosting){
+        long maxIdPostingOpenClose = repoPostingOpenClose.getMAXIdPostingOpenCloseByPosting(repoPosting.findById(idPosting).orElse(null));
+        PostingOpenClose postingOpenClose = repoPostingOpenClose.findById(maxIdPostingOpenClose).orElse(null);
+        return postingOpenClose.getRound();
+    }
+
     @GetMapping("/main/getPostingActiveByIdEmployer")
     public Page<Posting> getPostingActiveByIdEmployer(@RequestParam(defaultValue = "0",name = "pageNo") Integer pageNo,
                                                       @RequestParam(name = "idEmployer") long idEmployer,
