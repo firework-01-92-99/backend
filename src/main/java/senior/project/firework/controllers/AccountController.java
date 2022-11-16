@@ -207,7 +207,7 @@ public class AccountController {
         throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_EMAIL_INCORRECT,"Not have this Email!");
     }
 
-    @PostMapping("/main/editPasswordWorker")
+    @PostMapping("/worker/editPasswordWorker")
     public String editPasswordWorker(@RequestParam(name = "currentPassword") String currentPassword,
                                @RequestParam(name = "newPassword") String newPassword,
                                @RequestParam(defaultValue = "0",name = "idWorker") long idWorker) throws Exception {
@@ -223,7 +223,7 @@ public class AccountController {
         return "Edit Success!";
     }
 
-    @PostMapping("/main/editPasswordEmployer")
+    @PostMapping("/emp/editPasswordEmployer")
     public String editPasswordEmployer(@RequestParam(name = "currentPassword") String currentPassword,
                                @RequestParam(name = "newPassword") String newPassword,
                                @RequestParam(defaultValue = "0",name = "idEmployer") long idEmployer) throws Exception {

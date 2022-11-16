@@ -78,17 +78,6 @@ public class EmployerController {
         }
     }
 
-    @PutMapping("/main/testChangePosting")
-    public void testChangePosting(@RequestParam(name = "idEmployer") long idEmployer) throws Exception {
-        Status status = repoStatus.findById(9L).orElse(null);
-        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
-        List<Posting> postingList = repoPosting.findByEmployer(employer);
-        for(Posting postingPerLine:postingList){
-            postingPerLine.setStatus(status);
-            repoPosting.save(postingPerLine);
-        }
-    }
-
     @PostMapping(value = "/emp/editMyEmployer",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void editMyEmployer(@RequestParam(value = "image",required = false) MultipartFile imageFile, @RequestPart Employer employer){
         Status status = repoStatus.findById(7L).orElse(null);
@@ -196,6 +185,16 @@ public class EmployerController {
         long idEditEmployer = repoEditEmployer.getMaxIdEmployerByEmployer(employer);
         Account account = repoAccount.findById(employer.getAccount().getIdAccount()).orElse(null);
         repoEditEmployer.deleteById(idEditEmployer);
+        account.getApprove().setStatus(status);
+        repoAccount.save(account);
+        emailBusiness.sendAccountCantEdit(employer.getAccount().getEmail(),employer.getEstablishmentName());
+    }
+
+    @PutMapping("/admin/youCanNotDeleteEmployer")
+    public void youCanNotDeleteEmployer(@RequestParam(name = "idEmployer") long idEmployer) throws Exception {
+        Status status = repoStatus.findById(4L).orElse(null);
+        Employer employer = repoEmployer.findById(idEmployer).orElse(null);
+        Account account = repoAccount.findById(employer.getAccount().getIdAccount()).orElse(null);
         account.getApprove().setStatus(status);
         repoAccount.save(account);
         emailBusiness.sendAccountCantDelete(employer.getAccount().getEmail(),employer.getEstablishmentName());

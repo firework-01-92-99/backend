@@ -132,7 +132,7 @@ public class WorkerController {
         emailBusiness.sendAccountEdited(account.getEmail(),Worker1.getFirstName() + " " + Worker1.getLastName());
     }
 
-    @DeleteMapping("/admin/youCanNotEditWorker")
+    @DeleteMapping("/worker/youCanNotEditWorker")
     public void youCanNotEditWorker(@RequestParam(name = "idWorker") long idWorker) throws Exception {
         Status status = repoStatus.findById(4L).orElse(null);
         Worker worker = repoWorker.findById(idWorker).orElse(null);
@@ -141,9 +141,19 @@ public class WorkerController {
         repoEditWorker.deleteById(idEditWorker);
         account.getApprove().setStatus(status);
         repoAccount.save(account);
-        emailBusiness.sendAccountCantDelete(worker.getAccount().getEmail(),worker.getFirstName());
         emailBusiness.sendAccountCantEdit(account.getEmail(), worker.getFirstName() + " " + worker.getLastName());
     }
+
+    @PutMapping("/worker/youCanNotDeleteWorker")
+    public void youCanNotDeleteWorker(@RequestParam(name = "idWorker") long idWorker) throws Exception {
+        Status status = repoStatus.findById(4L).orElse(null);
+        Worker worker = repoWorker.findById(idWorker).orElse(null);
+        Account account = repoAccount.findById(worker.getAccount().getIdAccount()).orElse(null);
+        account.getApprove().setStatus(status);
+        repoAccount.save(account);
+        emailBusiness.sendAccountCantDelete(account.getEmail(), worker.getFirstName() + " " + worker.getLastName());
+    }
+
 
     @GetMapping("/admin/getAllEditWorker")
     public List<EditWorker> getAllEditWorker(){

@@ -3,6 +3,8 @@ package senior.project.firework.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import senior.project.firework.exceptions.AccountException;
+import senior.project.firework.exceptions.ExceptionRepo;
 import senior.project.firework.models.*;
 import senior.project.firework.repositories.repoPosting;
 import senior.project.firework.repositories.repoEmployer;
@@ -10,6 +12,7 @@ import senior.project.firework.repositories.repoStatus;
 import senior.project.firework.repositories.repoPostingHasDay;
 import senior.project.firework.repositories.repoPosition;
 import senior.project.firework.repositories.repoPostingOpenClose;
+import senior.project.firework.repositories.repoApplication;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +36,8 @@ public class PostingController {
     private repoPosition repoPosition;
     @Autowired
     private repoPostingOpenClose repoPostingOpenClose;
+    @Autowired
+    private repoApplication repoApplication;
 
     @GetMapping("/main/posting")
     public List<Posting> allPosting(){
@@ -149,11 +154,22 @@ public class PostingController {
     }
 
     @PutMapping("/emp/deletePosting")
-    public void deletePosting(@RequestParam(name = "idPosting") long idPosting){
+    public void deletePosting(@RequestParam(name = "idPosting") long idPosting) throws Exception {
         Status status = repoStatus.findById(9L).orElse(null);
         Posting posting = repoPosting.findById(idPosting).orElse(null);
         posting.setStatus(status);
-        repoPosting.save(posting);
+        if(!posting.getApplicationList().isEmpty()){
+            List<Application> applicationList = repoApplication.findByPosting(posting);
+            for(Application applicationPerLine:applicationList){
+                if(applicationPerLine.getStatus().getIdStatus() == 13 ||
+                        applicationPerLine.getStatus().getIdStatus() == 20 ){
+                    throw new AccountException(ExceptionRepo.ERROR_CODE.POSTING_APPLICATION_NOT_FINISH,"All application not Done or RejectOnWeb");
+                }
+            }
+            repoPosting.save(posting);
+        }else{
+            repoPosting.save(posting);
+        }
     }
 
     @GetMapping("/main/getMaxRoundOfPosting")

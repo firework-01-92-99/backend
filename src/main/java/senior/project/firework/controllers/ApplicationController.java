@@ -391,7 +391,7 @@ public class ApplicationController {
     @PutMapping("/emp/employerAcceptOnWeb")//Employer--------------------------------------------- Done
     public Application employerAcceptOnWeb(@RequestParam(value = "idApplication") long idApplication) throws Exception {
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(13L).orElse(null);//Wating_EmployerSummary
+        Status status = repoStatus.findById(12L).orElse(null);//Wating_EmployerSummary
         application.setStatus(status);
         emailBusiness.sendApplicationAcceptOnWeb(application.getWorker().getAccount().getEmail(),application.getWorker().getFirstName()+" "+application.getWorker().getLastName());
         return repoApplication.save(application);
