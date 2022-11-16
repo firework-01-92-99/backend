@@ -161,8 +161,9 @@ public class PostingController {
         if(!posting.getApplicationList().isEmpty()){
             List<Application> applicationList = repoApplication.findByPosting(posting);
             for(Application applicationPerLine:applicationList){
-                if(applicationPerLine.getStatus().getIdStatus() == 13 ||
-                        applicationPerLine.getStatus().getIdStatus() == 20 ){
+                if(applicationPerLine.getStatus().getIdStatus() != 13 ||
+                        applicationPerLine.getStatus().getIdStatus() != 20 ||
+                        applicationPerLine.getStatus().getIdStatus() != 24 ){
                     throw new AccountException(ExceptionRepo.ERROR_CODE.POSTING_APPLICATION_NOT_FINISH,"All application not Done or RejectOnWeb");
                 }
             }

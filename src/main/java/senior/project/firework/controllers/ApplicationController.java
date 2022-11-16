@@ -410,6 +410,14 @@ public class ApplicationController {
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
+    @PutMapping("/admin/adminSendWorkerToEmployer")//Admin------------------------------------------
+    public Application adminSendWorkerToEmployer(@RequestParam(value = "idApplication") long idApplication){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
+        application.setStatus(status);
+        return repoApplication.save(application);
+    }
+    //-------------------------------------------------------------------------------------------------
     @PutMapping("/emp/employerAcceptOnSite")//Employer--------------------------------------------- Done
     public Application employerAcceptOnSite(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
