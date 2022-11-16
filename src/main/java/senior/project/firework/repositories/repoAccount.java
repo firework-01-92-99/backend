@@ -11,4 +11,8 @@ public interface repoAccount extends JpaRepository<Account,Long> {
     Account findByEmployer(Employer employer);
 
     Account findByWorker(Worker worker);
+
+    Account findByWorker_IdWorker(long idWorker);
+
+    Account findByEmployer_IdEmployer(long idEmployer);
 }

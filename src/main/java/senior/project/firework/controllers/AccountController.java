@@ -212,9 +212,9 @@ public class AccountController {
                                @RequestParam(name = "newPassword") String newPassword,
                                @RequestParam(defaultValue = "0",name = "idWorker") long idWorker) throws Exception {
         Worker worker = repoWorker.findById(idWorker).orElse(null);
-        Account account = repoAccount.findByWorker(worker);
+        Account account = repoAccount.findByWorker_IdWorker(idWorker);
         if(!passwordEncoder.matches(currentPassword,account.getPassword())){
-            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"You current Password incorrect!!");
+            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"Your current Password incorrect!!");
         }
         String newPasswordEncoder = passwordEncoder.encode(newPassword);
         account.setPassword(newPasswordEncoder);
@@ -228,15 +228,21 @@ public class AccountController {
                                @RequestParam(name = "newPassword") String newPassword,
                                @RequestParam(defaultValue = "0",name = "idEmployer") long idEmployer) throws Exception {
         Employer employer = repoEmployer.findById(idEmployer).orElse(null);
-        Account account = repoAccount.findByEmployer(employer);
+        Account account = repoAccount.findByEmployer_IdEmployer(idEmployer);
         if(!passwordEncoder.matches(currentPassword,account.getPassword())){
-            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"You current Password incorrect!!");
+            throw new AccountException(ExceptionRepo.ERROR_CODE.ACCOUNT_PASSWORD_INCORRECT,"Your current Password incorrect!!");
         }
         String newPasswordEncoder = passwordEncoder.encode(newPassword);
         account.setPassword(newPasswordEncoder);
         repoAccount.save(account);
         emailBusiness.sendAccountChangePassword(account.getEmail(),employer.getEstablishmentName());
         return "Edit Success!";
+    }
+
+    @GetMapping(value = "/main/passwordEncoder")
+    public String passwordEncoder(@RequestParam(name = "password") String password){
+        String newPasswordEncoder = passwordEncoder.encode(password);
+        return newPasswordEncoder;
     }
 
     @PostMapping("/main/newPassword")
