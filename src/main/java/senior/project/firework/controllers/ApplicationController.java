@@ -173,7 +173,7 @@ public class ApplicationController {
         }
     }
 
-    @GetMapping("/main/showAllWorkerByTwoAdminStatus")
+    @GetMapping("/admin_emp/showAllWorkerByTwoAdminStatus")
     public List<HowManyApplication> showAllWorkerByTwoAdminStatus(@RequestParam(name = "idStatusAdmin1") long idStatusAdmin1,
                                                                   @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2){
         if(idStatusAdmin2 == 0){
@@ -206,7 +206,7 @@ public class ApplicationController {
         }
     }
 
-    @GetMapping("/main/showAllWorkerByIdPostingAllStatus")
+    @GetMapping("/emp/showAllWorkerByIdPostingAllStatus")
     public HowManyApplication showAllWorkerByIdPostingAllStatus(@RequestParam(name = "idPosting") long idPosting){
         return setAllWorker(idPosting,0,0);
     }
