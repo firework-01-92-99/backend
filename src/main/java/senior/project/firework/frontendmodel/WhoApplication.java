@@ -23,9 +23,11 @@ public class WhoApplication {
     private Nationality nationality;
     private long idStatus;
     private String statusName;
+    private long idStatusAdmin;
+    private String statusAdminName;
     private String comment;
 
-    public WhoApplication(long count, long applicationId, long round, ZonedDateTime date,long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, String comment) {
+    public WhoApplication(long count, long applicationId, long round, ZonedDateTime date,long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, long idStatusAdmin ,String statusAdminName,String comment) {
         this.count = count;
         this.applicationId = applicationId;
         this.round = round;
@@ -43,6 +45,8 @@ public class WhoApplication {
         this.nationality = nationality;
         this.idStatus = idStatus;
         this.statusName = statusName;
+        this.idStatusAdmin = idStatusAdmin;
+        this.statusAdminName = statusAdminName;
         this.comment = comment;
     }
 
@@ -188,5 +192,21 @@ public class WhoApplication {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public long getIdStatusAdmin() {
+        return idStatusAdmin;
+    }
+
+    public String getStatusAdminName() {
+        return statusAdminName;
+    }
+
+    public void setStatusAdminName(String statusAdminName) {
+        this.statusAdminName = statusAdminName;
+    }
+
+    public void setIdStatusAdmin(long idStatusAdmin) {
+        this.idStatusAdmin = idStatusAdmin;
     }
 }

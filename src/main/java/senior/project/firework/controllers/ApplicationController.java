@@ -155,7 +155,31 @@ public class ApplicationController {
         return howManyApplicationList;
     }
 
-    @GetMapping("/emp/showAllWorkerByIdPostingAllStatus")
+    @GetMapping("/admin_emp/showAllWorkerByTwoStatusAndRound")
+    public HowManyApplication showAllWorkerByTwoStatus(@RequestParam(name = "idPosting") long idPosting,
+                                                                       @RequestParam(name = "idStatus1") long idStatus1,
+                                                                       @RequestParam(name = "idStatus2",defaultValue = "0") long idStatus2,
+                                                                       @RequestParam(name = "round",defaultValue = "1") long round){
+        if(idStatus2 == 0){
+            HowManyApplication howManyApplication = setAllWorker(idPosting,idStatus1,round);
+            return howManyApplication;
+        }else{
+            HowManyApplication howManyApplication1 = setAllWorker(idPosting,idStatus1,round);
+            HowManyApplication howManyApplication2 = setAllWorker(idPosting,idStatus2,round);
+            for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
+                howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+            }
+            return howManyApplication1;
+        }
+    }
+
+    @GetMapping("/admin_emp/showAllWorkerByTwoAdminStatus")
+    public void showAllWorkerByTwoAdminStatus(@RequestParam(name = "idStatusAdmin1") long idStatusAdmin1,
+                                              @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2){
+
+    }
+
+    @GetMapping("/main/showAllWorkerByIdPostingAllStatus")
     public HowManyApplication showAllWorkerByIdPostingAllStatus(@RequestParam(name = "idPosting") long idPosting){
         return setAllWorker(idPosting,0,0);
     }
@@ -379,10 +403,17 @@ public class ApplicationController {
             application_has_comment = applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb();//Edit sometime
         }
         Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
+        String statusAdminName = "";
+        if(repoStatus.findById(applicationPerLine.getIdStatusAdmin()).orElse(null) != null){
+            statusAdminName = repoStatus.findById(applicationPerLine.getIdStatusAdmin()).orElse(null).getStatusName();
+        }
         WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),applicationPerLine.getRound(),applicationPerLine.getDate(),
                 worker.getIdWorker(),worker.getRate(),worker.getIdentificationNumber(),
                 worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
-                worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getIdStatus(),applicationPerLine.getStatus().getStatusName(),application_has_comment);
+                worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getIdStatus(),applicationPerLine.getStatus().getStatusName(),
+                applicationPerLine.getIdStatusAdmin(),
+                statusAdminName,
+                application_has_comment);
         whoApplicationList.add(whoApplication);
         count++;
         return count;
@@ -391,8 +422,9 @@ public class ApplicationController {
     @PutMapping("/emp/employerAcceptOnWeb")//Employer--------------------------------------------- Done
     public Application employerAcceptOnWeb(@RequestParam(value = "idApplication") long idApplication) throws Exception {
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(12L).orElse(null);//Wating_EmployerSummary
+        Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
         application.setStatus(status);
+        application.setIdStatusAdmin(27);
         emailBusiness.sendApplicationAcceptOnWeb(application.getWorker().getAccount().getEmail(),application.getWorker().getFirstName()+" "+application.getWorker().getLastName());
         return repoApplication.save(application);
     }
@@ -415,6 +447,7 @@ public class ApplicationController {
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
         application.setStatus(status);
+        application.setIdStatusAdmin(28);
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
