@@ -6,6 +6,10 @@ public class HowManyApplication {
     private long idPosting;
     private List<WhoApplication> whoApplicationList;
 
+    public HowManyApplication(){
+
+    }
+
     public HowManyApplication(long idPosting, List<WhoApplication> whoApplicationList) {
         this.idPosting = idPosting;
         this.whoApplicationList = whoApplicationList;

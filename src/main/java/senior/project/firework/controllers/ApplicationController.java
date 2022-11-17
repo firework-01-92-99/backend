@@ -173,10 +173,37 @@ public class ApplicationController {
         }
     }
 
-    @GetMapping("/admin_emp/showAllWorkerByTwoAdminStatus")
-    public void showAllWorkerByTwoAdminStatus(@RequestParam(name = "idStatusAdmin1") long idStatusAdmin1,
-                                              @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2){
-
+    @GetMapping("/main/showAllWorkerByTwoAdminStatus")
+    public List<HowManyApplication> showAllWorkerByTwoAdminStatus(@RequestParam(name = "idStatusAdmin1") long idStatusAdmin1,
+                                                                  @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2){
+        if(idStatusAdmin2 == 0){
+            List<HowManyApplication> howManyApplicationList = new ArrayList<>();
+            HowManyApplication howManyApplication;
+            List<Posting> posting = repoPosting.findAll();
+            for(Posting postingPerLine:posting){
+                howManyApplication = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(),idStatusAdmin1);
+                if(!howManyApplication.getWhoApplicationList().isEmpty()){
+                    howManyApplicationList.add(howManyApplication);
+                }
+            }
+            return howManyApplicationList;
+        }else{
+            List<HowManyApplication> howManyApplicationList = new ArrayList<>();
+            HowManyApplication howManyApplication1;
+            HowManyApplication howManyApplication2;
+            List<Posting> posting = repoPosting.findAll();
+            for(Posting postingPerLine:posting) {
+                howManyApplication1 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin1);
+                howManyApplication2 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin2);
+                for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
+                    howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+                }
+                if(!howManyApplication1.getWhoApplicationList().isEmpty()){
+                    howManyApplicationList.add(howManyApplication1);
+                }
+            }
+            return howManyApplicationList;
+        }
     }
 
     @GetMapping("/main/showAllWorkerByIdPostingAllStatus")
@@ -389,6 +416,20 @@ public class ApplicationController {
                         }
                     }
                 }
+            }
+        }
+        HowManyApplication howManyApplication = new HowManyApplication(idPosting,whoApplicationList);
+        return howManyApplication;
+    }
+
+    public HowManyApplication setAllWorkerWithIdStatusAdmin(long idPosting,long idStatusAdmin){
+        List<WhoApplication> whoApplicationList = new ArrayList<>();
+        Posting posting = repoPosting.findById(idPosting).orElse(null);
+        List<Application> applicationList = posting.getApplicationList();
+        long count = 1;
+        for(Application applicationPerLine:applicationList){
+            if(applicationPerLine.getIdStatusAdmin() == idStatusAdmin){
+                count = getCount(whoApplicationList,count,applicationPerLine);
             }
         }
         HowManyApplication howManyApplication = new HowManyApplication(idPosting,whoApplicationList);
