@@ -505,7 +505,7 @@ public class ApplicationController {
     public Application employerRejectOnSite(@RequestBody ApplicationHasComment applicationHasComment,
                                             @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(20L).orElse(null);//Done
+        Status status = repoStatus.findById(16L).orElse(null);//Reject_WorkerOnSite
         application.setIdStatusAdmin(17L);//Wating_AdminSent
         application.setStatus(status);
         ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
@@ -527,7 +527,7 @@ public class ApplicationController {
     public Application employerBreakShort(@RequestBody ApplicationHasComment applicationHasComment,
                                           @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(24L).orElse(null);//Waiting_Rating
+        Status status = repoStatus.findById(23L).orElse(null);//BreakShort
         application.setStatus(status);
         ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
         newApplicationHasComment.setDescriptionBreakShort(applicationHasComment.getDescriptionBreakShort());

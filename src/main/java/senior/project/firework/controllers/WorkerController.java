@@ -154,7 +154,6 @@ public class WorkerController {
         emailBusiness.sendAccountCantDelete(account.getEmail(), worker.getFirstName() + " " + worker.getLastName());
     }
 
-
     @GetMapping("/admin/getAllEditWorker")
     public List<EditWorker> getAllEditWorker(){
         return repoEditWorker.findAll();
