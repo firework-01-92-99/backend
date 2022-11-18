@@ -46,6 +46,12 @@ public class ApplicationController {
     private repoPostingOpenClose repoPostingOpenClose;
     @Autowired
     private EmailBusiness emailBusiness;
+    @Autowired
+    private repoProvince repoProvince;
+    @Autowired
+    private repoDistrict repoDistrict;
+    @Autowired
+    private repoSubDistrict repoSubDistrict;
 
     @GetMapping("/admin_worker/getPositionNameAndEstablishmentNameByIdApplication")
     public PoNameAndEstName getPositionNameAndEstablishmentNameByIdApplication(@RequestParam(name = "idApplication") long idApplication){
@@ -437,24 +443,34 @@ public class ApplicationController {
     }
 
     public long getCount(List<WhoApplication> whoApplicationList, long count, Application applicationPerLine) {
-        String application_has_comment;
-        if(applicationPerLine.getApplicationHasComment() == null){
-            application_has_comment = "";
-        }else{
-            application_has_comment = applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb();//Edit sometime
-        }
         Worker worker = repoWorker.findById(applicationPerLine.getIdWorker()).orElse(null);
         String statusAdminName = "";
         if(repoStatus.findById(applicationPerLine.getIdStatusAdmin()).orElse(null) != null){
             statusAdminName = repoStatus.findById(applicationPerLine.getIdStatusAdmin()).orElse(null).getStatusName();
         }
-        WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),applicationPerLine.getRound(),applicationPerLine.getDate(),
+        WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),
+                applicationPerLine.getPosting().getEmployer().getEstablishmentName(),applicationPerLine.getPosting().getEmployer().getEntrepreneurfName(),
+                applicationPerLine.getPosting().getEmployer().getEntrepreneurlName(),applicationPerLine.getPosting().getEmployer().getAddress(),
+                applicationPerLine.getPosting().getEmployer().getProvince().getProvinceName(),applicationPerLine.getPosting().getEmployer().getDistrict().getDistrictName(),
+                applicationPerLine.getPosting().getEmployer().getSubDistrict().getSubDistrict(),applicationPerLine.getPosting().getEmployer().getSubDistrict().getPostcode(),
+                applicationPerLine.getRound(),applicationPerLine.getDate(),
                 worker.getIdWorker(),worker.getRate(),worker.getIdentificationNumber(),
                 worker.getVerifyPic(),worker.getSex(),worker.getFirstName(),worker.getMiddleName(),worker.getLastName(),
                 worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getIdStatus(),applicationPerLine.getStatus().getStatusName(),
                 applicationPerLine.getIdStatusAdmin(),
-                statusAdminName,
-                application_has_comment);
+                statusAdminName);
+        if(applicationPerLine.getActToRegister().getDescription()!=null){
+            whoApplication.setDescription(applicationPerLine.getActToRegister().getDescription());
+        }
+        if(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort()!=null){
+            whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort());
+        }
+        if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite()!=null){
+            whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite());
+        }
+        if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb()!=null){
+            whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb());
+        }
         whoApplicationList.add(whoApplication);
         count++;
         return count;

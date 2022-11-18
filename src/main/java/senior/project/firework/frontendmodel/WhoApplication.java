@@ -8,6 +8,14 @@ import java.time.ZonedDateTime;
 public class WhoApplication {
     private long count;
     private long applicationId;
+    private String establishmentName;
+    private String entrepreneurfName;
+    private String entrepreneurlName;
+    private String address;
+    private String provinceName;
+    private String districtName;
+    private String subDistrictName;
+    private String postcode;
     private long round;
     private ZonedDateTime date;
     private long workerId;
@@ -25,11 +33,22 @@ public class WhoApplication {
     private String statusName;
     private long idStatusAdmin;
     private String statusAdminName;
-    private String comment;
+    private String description;
+    private String descriptionRejectOnWeb;
+    private String descriptionRejectOnSite;
+    private String descriptionBreakShort;
 
-    public WhoApplication(long count, long applicationId, long round, ZonedDateTime date,long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, long idStatusAdmin ,String statusAdminName,String comment) {
+    public WhoApplication(long count, long applicationId, String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String provinceName, String districtName, String subDistrictName, String postcode, long round, ZonedDateTime date, long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, long idStatusAdmin, String statusAdminName) {
         this.count = count;
         this.applicationId = applicationId;
+        this.establishmentName = establishmentName;
+        this.entrepreneurfName = entrepreneurfName;
+        this.entrepreneurlName = entrepreneurlName;
+        this.address = address;
+        this.provinceName = provinceName;
+        this.districtName = districtName;
+        this.subDistrictName = subDistrictName;
+        this.postcode = postcode;
         this.round = round;
         this.date = date;
         this.workerId = workerId;
@@ -47,7 +66,6 @@ public class WhoApplication {
         this.statusName = statusName;
         this.idStatusAdmin = idStatusAdmin;
         this.statusAdminName = statusAdminName;
-        this.comment = comment;
     }
 
     public ZonedDateTime getDate() {
@@ -186,14 +204,6 @@ public class WhoApplication {
         this.statusName = statusName;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public long getIdStatusAdmin() {
         return idStatusAdmin;
     }
@@ -208,5 +218,101 @@ public class WhoApplication {
 
     public void setIdStatusAdmin(long idStatusAdmin) {
         this.idStatusAdmin = idStatusAdmin;
+    }
+
+    public String getEstablishmentName() {
+        return establishmentName;
+    }
+
+    public void setEstablishmentName(String establishmentName) {
+        this.establishmentName = establishmentName;
+    }
+
+    public String getEntrepreneurfName() {
+        return entrepreneurfName;
+    }
+
+    public void setEntrepreneurfName(String entrepreneurfName) {
+        this.entrepreneurfName = entrepreneurfName;
+    }
+
+    public String getEntrepreneurlName() {
+        return entrepreneurlName;
+    }
+
+    public void setEntrepreneurlName(String entrepreneurlName) {
+        this.entrepreneurlName = entrepreneurlName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
+
+    public String getSubDistrictName() {
+        return subDistrictName;
+    }
+
+    public void setSubDistrictName(String subDistrictName) {
+        this.subDistrictName = subDistrictName;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescriptionRejectOnWeb() {
+        return descriptionRejectOnWeb;
+    }
+
+    public void setDescriptionRejectOnWeb(String descriptionRejectOnWeb) {
+        this.descriptionRejectOnWeb = descriptionRejectOnWeb;
+    }
+
+    public String getDescriptionRejectOnSite() {
+        return descriptionRejectOnSite;
+    }
+
+    public void setDescriptionRejectOnSite(String descriptionRejectOnSite) {
+        this.descriptionRejectOnSite = descriptionRejectOnSite;
+    }
+
+    public String getDescriptionBreakShort() {
+        return descriptionBreakShort;
+    }
+
+    public void setDescriptionBreakShort(String descriptionBreakShort) {
+        this.descriptionBreakShort = descriptionBreakShort;
     }
 }
