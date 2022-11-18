@@ -163,7 +163,8 @@ public class PostingController {
             for(Application applicationPerLine:applicationList){
                 if(applicationPerLine.getStatus().getIdStatus() != 13 ||
                         applicationPerLine.getStatus().getIdStatus() != 20 ||
-                        applicationPerLine.getStatus().getIdStatus() != 24 ){
+                        applicationPerLine.getStatus().getIdStatus() != 24 ||
+                        applicationPerLine.getStatus().getIdStatus() != 29 ){
                     throw new AccountException(ExceptionRepo.ERROR_CODE.POSTING_APPLICATION_NOT_FINISH,"All application not Done or RejectOnWeb");
                 }
             }

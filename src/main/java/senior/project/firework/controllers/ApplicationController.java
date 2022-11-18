@@ -655,9 +655,15 @@ public class ApplicationController {
         repoRatings.save(newRating);
         if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null &&
                 repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null){
-            Status status = repoStatus.findById(20L).orElse(null);//Done
-            application.setStatus(status);
-            repoApplication.save(application);
+            if(application.getStatus().getIdStatus()==23){
+                Status status = repoStatus.findById(29L).orElse(null);//DoneBreakShort
+                application.setStatus(status);
+                repoApplication.save(application);
+            }else{
+                Status status = repoStatus.findById(20L).orElse(null);//Done
+                application.setStatus(status);
+                repoApplication.save(application);
+            }
         }else{
             Status status = repoStatus.findById(26L).orElse(null);//empRated
             application.setStatus(status);
@@ -684,9 +690,15 @@ public class ApplicationController {
         repoRatings.save(newRating);
         if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null &&
                 repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null){
-            Status status = repoStatus.findById(20L).orElse(null);//Done
-            application.setStatus(status);
-            repoApplication.save(application);
+            if(application.getStatus().getIdStatus()==23){
+                Status status = repoStatus.findById(29L).orElse(null);//DoneBreakShort
+                application.setStatus(status);
+                repoApplication.save(application);
+            }else{
+                Status status = repoStatus.findById(20L).orElse(null);//Done
+                application.setStatus(status);
+                repoApplication.save(application);
+            }
         }else{
             Status status = repoStatus.findById(25L).orElse(null);//workerRated
             application.setStatus(status);
