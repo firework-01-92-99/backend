@@ -39,6 +39,10 @@ public class WhoApplication {
     private String descriptionRejectOnWeb;
     private String descriptionRejectOnSite;
     private String descriptionBreakShort;
+    private long scoreEmpGiveWorker;
+    private String commentEmpGiveWorker;
+    private long scoreWorkerGiveEmp;
+    private String commentWorkerGiveEmp;
 
     public WhoApplication(long count, long applicationId, String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String provinceName, String districtName, String subDistrictName, String postcode, long round, ZonedDateTime date, long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, long idStatusAdmin, String statusAdminName) {
         this.count = count;
@@ -332,5 +336,37 @@ public class WhoApplication {
 
     public void setDescriptionBreakShort(String descriptionBreakShort) {
         this.descriptionBreakShort = descriptionBreakShort;
+    }
+
+    public long getScoreEmpGiveWorker() {
+        return scoreEmpGiveWorker;
+    }
+
+    public void setScoreEmpGiveWorker(long scoreEmpGiveWorker) {
+        this.scoreEmpGiveWorker = scoreEmpGiveWorker;
+    }
+
+    public String getCommentEmpGiveWorker() {
+        return commentEmpGiveWorker;
+    }
+
+    public void setCommentEmpGiveWorker(String commentEmpGiveWorker) {
+        this.commentEmpGiveWorker = commentEmpGiveWorker;
+    }
+
+    public long getScoreWorkerGiveEmp() {
+        return scoreWorkerGiveEmp;
+    }
+
+    public void setScoreWorkerGiveEmp(long scoreWorkerGiveEmp) {
+        this.scoreWorkerGiveEmp = scoreWorkerGiveEmp;
+    }
+
+    public String getCommentWorkerGiveEmp() {
+        return commentWorkerGiveEmp;
+    }
+
+    public void setCommentWorkerGiveEmp(String commentWorkerGiveEmp) {
+        this.commentWorkerGiveEmp = commentWorkerGiveEmp;
     }
 }

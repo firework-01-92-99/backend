@@ -213,6 +213,52 @@ public class ApplicationController {
         }
     }
 
+    @GetMapping("/admin_emp/showAllWorkerByTwoAdminStatusReturnEmployer")
+    public List<Employer> showAllWorkerByTwoAdminStatusReturnEmployer(@RequestParam(name = "idStatusAdmin1") long idStatusAdmin1,
+                                                                  @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2,
+                                                                  @RequestParam(name = "round",defaultValue = "1") long round){
+        if(idStatusAdmin2 == 0){
+            List<HowManyApplication> howManyApplicationList = new ArrayList<>();
+            HowManyApplication howManyApplication;
+            List<Posting> posting = repoPosting.findAll();
+            for(Posting postingPerLine:posting){
+                howManyApplication = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(),idStatusAdmin1,round);
+                if(!howManyApplication.getWhoApplicationList().isEmpty()){
+                    howManyApplicationList.add(howManyApplication);
+                }
+            }
+            List<Employer> employerList = new ArrayList<>();
+            for(HowManyApplication howManyApplicationPerLine:howManyApplicationList){
+                Posting postingEmployer = repoPosting.findById(howManyApplicationPerLine.getIdPosting()).orElse(null);
+                Employer employer = repoEmployer.findById(postingEmployer.getIdEmployer()).orElse(null);
+                employerList.add(employer);
+            }
+            return employerList;
+        }else{
+            List<HowManyApplication> howManyApplicationList = new ArrayList<>();
+            HowManyApplication howManyApplication1;
+            HowManyApplication howManyApplication2;
+            List<Posting> posting = repoPosting.findAll();
+            for(Posting postingPerLine:posting) {
+                howManyApplication1 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin1,round);
+                howManyApplication2 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin2,round);
+                for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
+                    howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+                }
+                if(!howManyApplication1.getWhoApplicationList().isEmpty()){
+                    howManyApplicationList.add(howManyApplication1);
+                }
+            }
+            List<Employer> employerList = new ArrayList<>();
+            for(HowManyApplication howManyApplicationPerLine:howManyApplicationList){
+                Posting postingEmployer = repoPosting.findById(howManyApplicationPerLine.getIdPosting()).orElse(null);
+                Employer employer = repoEmployer.findById(postingEmployer.getIdEmployer()).orElse(null);
+                employerList.add(employer);
+            }
+            return employerList;
+        }
+    }
+
     @GetMapping("/emp/showAllWorkerByIdPostingAllStatus")
     public HowManyApplication showAllWorkerByIdPostingAllStatus(@RequestParam(name = "idPosting") long idPosting){
         return setAllWorker(idPosting,0,0);
@@ -482,6 +528,19 @@ public class ApplicationController {
         if(postingOpenClose.getInactiveDate()!=null){
             whoApplication.setInActiveDate(postingOpenClose.getInactiveDate());
         }
+        if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(applicationPerLine.getWorker(),applicationPerLine.getPosting().getEmployer(),"ROLE_WORKER",posting) != null){
+            Ratings ratingEmpGiveWorker = repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(applicationPerLine.getWorker(),
+                    applicationPerLine.getPosting().getEmployer(),"ROLE_WORKER",posting);
+            whoApplication.setScoreEmpGiveWorker(ratingEmpGiveWorker.getRate());
+            whoApplication.setCommentEmpGiveWorker(ratingEmpGiveWorker.getComment());
+        }
+        if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(applicationPerLine.getWorker(),applicationPerLine.getPosting().getEmployer(),"ROLE_EMP",posting) != null){
+            Ratings ratingWorkerGiveEmp = repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(applicationPerLine.getWorker(),
+                    applicationPerLine.getPosting().getEmployer(),"ROLE_EMP",posting);
+            whoApplication.setScoreWorkerGiveEmp(ratingWorkerGiveEmp.getRate());
+            whoApplication.setCommentWorkerGiveEmp(ratingWorkerGiveEmp.getComment());
+        }
+
         whoApplicationList.add(whoApplication);
         count++;
         return count;
@@ -554,7 +613,7 @@ public class ApplicationController {
     public Application employerBreakShort(@RequestBody ApplicationHasComment applicationHasComment,
                                           @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(24L).orElse(null);//BreakShort
+        Status status = repoStatus.findById(23L).orElse(null);//BreakShort
         application.setStatus(status);
         ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
         newApplicationHasComment.setDescriptionBreakShort(applicationHasComment.getDescriptionBreakShort());
@@ -609,9 +668,15 @@ public class ApplicationController {
         repoRatings.save(newRating);
         if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null &&
                 repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null){
-            Status status = repoStatus.findById(20L).orElse(null);//Done
-            application.setStatus(status);
-            repoApplication.save(application);
+            if(application.getStatus().getIdStatus()==23){
+                Status status = repoStatus.findById(29L).orElse(null);//DoneBreakShort
+                application.setStatus(status);
+                repoApplication.save(application);
+            }else{
+                Status status = repoStatus.findById(20L).orElse(null);//Done
+                application.setStatus(status);
+                repoApplication.save(application);
+            }
         }else{
             Status status = repoStatus.findById(26L).orElse(null);//empRated
             application.setStatus(status);
@@ -638,9 +703,15 @@ public class ApplicationController {
         repoRatings.save(newRating);
         if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null &&
                 repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null){
-            Status status = repoStatus.findById(20L).orElse(null);//Done
-            application.setStatus(status);
-            repoApplication.save(application);
+            if(application.getStatus().getIdStatus()==23){
+                Status status = repoStatus.findById(29L).orElse(null);//DoneBreakShort
+                application.setStatus(status);
+                repoApplication.save(application);
+            }else{
+                Status status = repoStatus.findById(20L).orElse(null);//Done
+                application.setStatus(status);
+                repoApplication.save(application);
+            }
         }else{
             Status status = repoStatus.findById(25L).orElse(null);//workerRated
             application.setStatus(status);
