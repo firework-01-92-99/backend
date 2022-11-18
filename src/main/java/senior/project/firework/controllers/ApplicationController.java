@@ -428,7 +428,7 @@ public class ApplicationController {
         return howManyApplication;
     }
 
-    public HowManyApplication setAllWorkerWithIdStatusAdmin(long idPosting,long idStatusAdmin){
+    public HowManyApplication setAllWorkerWithIdStatusAdmin( long idPosting,long idStatusAdmin){
         List<WhoApplication> whoApplicationList = new ArrayList<>();
         Posting posting = repoPosting.findById(idPosting).orElse(null);
         List<Application> applicationList = posting.getApplicationList();
@@ -466,10 +466,10 @@ public class ApplicationController {
             whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort());
         }
         if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite()!=null){
-            whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite());
+            whoApplication.setDescriptionRejectOnSite(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite());
         }
         if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb()!=null){
-            whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb());
+            whoApplication.setDescriptionRejectOnWeb(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb());
         }
         whoApplicationList.add(whoApplication);
         count++;
