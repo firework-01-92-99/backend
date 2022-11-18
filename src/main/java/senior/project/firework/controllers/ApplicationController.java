@@ -213,6 +213,52 @@ public class ApplicationController {
         }
     }
 
+    @GetMapping("/admin_emp/showAllWorkerByTwoAdminStatusReturnEmployer")
+    public List<Employer> showAllWorkerByTwoAdminStatusReturnEmployer(@RequestParam(name = "idStatusAdmin1") long idStatusAdmin1,
+                                                                  @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2,
+                                                                  @RequestParam(name = "round",defaultValue = "1") long round){
+        if(idStatusAdmin2 == 0){
+            List<HowManyApplication> howManyApplicationList = new ArrayList<>();
+            HowManyApplication howManyApplication;
+            List<Posting> posting = repoPosting.findAll();
+            for(Posting postingPerLine:posting){
+                howManyApplication = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(),idStatusAdmin1,round);
+                if(!howManyApplication.getWhoApplicationList().isEmpty()){
+                    howManyApplicationList.add(howManyApplication);
+                }
+            }
+            List<Employer> employerList = new ArrayList<>();
+            for(HowManyApplication howManyApplicationPerLine:howManyApplicationList){
+                Posting postingEmployer = repoPosting.findById(howManyApplicationPerLine.getIdPosting()).orElse(null);
+                Employer employer = repoEmployer.findById(postingEmployer.getIdEmployer()).orElse(null);
+                employerList.add(employer);
+            }
+            return employerList;
+        }else{
+            List<HowManyApplication> howManyApplicationList = new ArrayList<>();
+            HowManyApplication howManyApplication1;
+            HowManyApplication howManyApplication2;
+            List<Posting> posting = repoPosting.findAll();
+            for(Posting postingPerLine:posting) {
+                howManyApplication1 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin1,round);
+                howManyApplication2 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin2,round);
+                for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
+                    howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+                }
+                if(!howManyApplication1.getWhoApplicationList().isEmpty()){
+                    howManyApplicationList.add(howManyApplication1);
+                }
+            }
+            List<Employer> employerList = new ArrayList<>();
+            for(HowManyApplication howManyApplicationPerLine:howManyApplicationList){
+                Posting postingEmployer = repoPosting.findById(howManyApplicationPerLine.getIdPosting()).orElse(null);
+                Employer employer = repoEmployer.findById(postingEmployer.getIdEmployer()).orElse(null);
+                employerList.add(employer);
+            }
+            return employerList;
+        }
+    }
+
     @GetMapping("/emp/showAllWorkerByIdPostingAllStatus")
     public HowManyApplication showAllWorkerByIdPostingAllStatus(@RequestParam(name = "idPosting") long idPosting){
         return setAllWorker(idPosting,0,0);
@@ -554,7 +600,7 @@ public class ApplicationController {
     public Application employerBreakShort(@RequestBody ApplicationHasComment applicationHasComment,
                                           @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
-        Status status = repoStatus.findById(24L).orElse(null);//BreakShort
+        Status status = repoStatus.findById(23L).orElse(null);//BreakShort
         application.setStatus(status);
         ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
         newApplicationHasComment.setDescriptionBreakShort(applicationHasComment.getDescriptionBreakShort());
