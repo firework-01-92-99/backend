@@ -12,4 +12,6 @@ public interface repoPostingOpenClose  extends JpaRepository<PostingOpenClose,Lo
     long getMAXIdPostingOpenCloseByPosting(Posting posting);
 
     List<PostingOpenClose> findByPosting(Posting posting);
+
+    PostingOpenClose findByPostingAndRound(Posting posting,long round);
 }

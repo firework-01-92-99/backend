@@ -181,13 +181,14 @@ public class ApplicationController {
 
     @GetMapping("/admin_emp/showAllWorkerByTwoAdminStatus")
     public List<HowManyApplication> showAllWorkerByTwoAdminStatus(@RequestParam(name = "idStatusAdmin1") long idStatusAdmin1,
-                                                                  @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2){
+                                                                  @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2,
+                                                                  @RequestParam(name = "round",defaultValue = "1") long round){
         if(idStatusAdmin2 == 0){
             List<HowManyApplication> howManyApplicationList = new ArrayList<>();
             HowManyApplication howManyApplication;
             List<Posting> posting = repoPosting.findAll();
             for(Posting postingPerLine:posting){
-                howManyApplication = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(),idStatusAdmin1);
+                howManyApplication = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(),idStatusAdmin1,round);
                 if(!howManyApplication.getWhoApplicationList().isEmpty()){
                     howManyApplicationList.add(howManyApplication);
                 }
@@ -199,8 +200,8 @@ public class ApplicationController {
             HowManyApplication howManyApplication2;
             List<Posting> posting = repoPosting.findAll();
             for(Posting postingPerLine:posting) {
-                howManyApplication1 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin1);
-                howManyApplication2 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin2);
+                howManyApplication1 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin1,round);
+                howManyApplication2 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin2,round);
                 for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
                     howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
                 }
@@ -428,14 +429,16 @@ public class ApplicationController {
         return howManyApplication;
     }
 
-    public HowManyApplication setAllWorkerWithIdStatusAdmin( long idPosting,long idStatusAdmin){
+    public HowManyApplication setAllWorkerWithIdStatusAdmin( long idPosting,long idStatusAdmin,long round){
         List<WhoApplication> whoApplicationList = new ArrayList<>();
         Posting posting = repoPosting.findById(idPosting).orElse(null);
         List<Application> applicationList = posting.getApplicationList();
         long count = 1;
         for(Application applicationPerLine:applicationList){
             if(applicationPerLine.getIdStatusAdmin() == idStatusAdmin){
-                count = getCount(whoApplicationList,count,applicationPerLine);
+                if(applicationPerLine.getRound() == round){
+                    count = getCount(whoApplicationList,count,applicationPerLine);
+                }
             }
         }
         HowManyApplication howManyApplication = new HowManyApplication(idPosting,whoApplicationList);
@@ -472,6 +475,12 @@ public class ApplicationController {
         }
         if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb()!=null){
             whoApplication.setDescriptionRejectOnWeb(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb());
+        }
+        Posting posting = repoPosting.findById(applicationPerLine.getIdPosting()).orElse(null);
+        PostingOpenClose postingOpenClose = repoPostingOpenClose.findByPostingAndRound(posting,applicationPerLine.getRound());
+        whoApplication.setActiveDate(postingOpenClose.getActiveDate());
+        if(postingOpenClose.getInactiveDate()!=null){
+            whoApplication.setInActiveDate(postingOpenClose.getInactiveDate());
         }
         whoApplicationList.add(whoApplication);
         count++;

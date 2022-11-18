@@ -18,6 +18,8 @@ public class WhoApplication {
     private String postcode;
     private long round;
     private ZonedDateTime date;
+    private ZonedDateTime activeDate;
+    private ZonedDateTime inActiveDate;
     private long workerId;
     private Double rate;
     private String identificationNumber;
@@ -306,6 +308,22 @@ public class WhoApplication {
 
     public void setDescriptionRejectOnSite(String descriptionRejectOnSite) {
         this.descriptionRejectOnSite = descriptionRejectOnSite;
+    }
+
+    public ZonedDateTime getActiveDate() {
+        return activeDate;
+    }
+
+    public void setActiveDate(ZonedDateTime activeDate) {
+        this.activeDate = activeDate;
+    }
+
+    public ZonedDateTime getInActiveDate() {
+        return inActiveDate;
+    }
+
+    public void setInActiveDate(ZonedDateTime inActiveDate) {
+        this.inActiveDate = inActiveDate;
     }
 
     public String getDescriptionBreakShort() {
