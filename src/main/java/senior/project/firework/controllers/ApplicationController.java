@@ -459,8 +459,10 @@ public class ApplicationController {
                 worker.getPhone(),worker.getWorkerType(),worker.getNationality(),applicationPerLine.getStatus().getIdStatus(),applicationPerLine.getStatus().getStatusName(),
                 applicationPerLine.getIdStatusAdmin(),
                 statusAdminName);
-        if(applicationPerLine.getActToRegister().getDescription()!=null){
-            whoApplication.setDescription(applicationPerLine.getActToRegister().getDescription());
+        if(applicationPerLine.getActToRegister()!=null){
+            if(applicationPerLine.getActToRegister().getDescription()!=null){
+                whoApplication.setDescription(applicationPerLine.getActToRegister().getDescription());
+            }
         }
         if(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort()!=null){
             whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort());
