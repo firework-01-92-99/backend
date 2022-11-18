@@ -528,6 +528,19 @@ public class ApplicationController {
         if(postingOpenClose.getInactiveDate()!=null){
             whoApplication.setInActiveDate(postingOpenClose.getInactiveDate());
         }
+        if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(applicationPerLine.getWorker(),applicationPerLine.getPosting().getEmployer(),"ROLE_WORKER",posting) != null){
+            Ratings ratingEmpGiveWorker = repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(applicationPerLine.getWorker(),
+                    applicationPerLine.getPosting().getEmployer(),"ROLE_WORKER",posting);
+            whoApplication.setScoreEmpGiveWorker(ratingEmpGiveWorker.getRate());
+            whoApplication.setCommentEmpGiveWorker(ratingEmpGiveWorker.getComment());
+        }
+        if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(applicationPerLine.getWorker(),applicationPerLine.getPosting().getEmployer(),"ROLE_EMP",posting) != null){
+            Ratings ratingWorkerGiveEmp = repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(applicationPerLine.getWorker(),
+                    applicationPerLine.getPosting().getEmployer(),"ROLE_EMP",posting);
+            whoApplication.setScoreWorkerGiveEmp(ratingWorkerGiveEmp.getRate());
+            whoApplication.setCommentWorkerGiveEmp(ratingWorkerGiveEmp.getComment());
+        }
+
         whoApplicationList.add(whoApplication);
         count++;
         return count;
