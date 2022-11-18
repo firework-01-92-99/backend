@@ -259,7 +259,7 @@ public class ApplicationController {
         }
     }
 
-    @GetMapping("/main/showAllWorkerByIdPostingAllStatus")
+    @GetMapping("/emp/showAllWorkerByIdPostingAllStatus")
     public HowManyApplication showAllWorkerByIdPostingAllStatus(@RequestParam(name = "idPosting") long idPosting){
         return setAllWorker(idPosting,0,0);
     }
