@@ -179,18 +179,49 @@ public class ApplicationController {
         }
     }
 
+    @GetMapping("/admin_emp/showAllWorkerByFourStatus")
+    public HowManyApplication showAllWorkerByTwoStatus(@RequestParam(name = "idPosting") long idPosting,
+                                                       @RequestParam(name = "idStatus1") long idStatus1,
+                                                       @RequestParam(name = "idStatus2") long idStatus2,
+                                                       @RequestParam(name = "idStatus3") long idStatus3,
+                                                       @RequestParam(name = "idStatus4") long idStatus4,
+                                                       @RequestParam(name = "round",defaultValue = "1") long round){
+        HowManyApplication howManyApplication1 = setAllWorker(idPosting,idStatus1,round);
+        HowManyApplication howManyApplication2 = setAllWorker(idPosting,idStatus2,round);
+        HowManyApplication howManyApplication3 = setAllWorker(idPosting,idStatus3,round);
+        HowManyApplication howManyApplication4 = setAllWorker(idPosting,idStatus4,round);
+        for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
+            howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+        }
+        for(WhoApplication whoApplicationPerLine:howManyApplication3.getWhoApplicationList()){
+            howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+        }
+        for(WhoApplication whoApplicationPerLine:howManyApplication4.getWhoApplicationList()){
+            howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+        }
+        return howManyApplication1;
+    }
+
     @GetMapping("/admin_emp/showAllWorkerByTwoAdminStatus")
     public List<HowManyApplication> showAllWorkerByTwoAdminStatus(@RequestParam(name = "idStatusAdmin1") long idStatusAdmin1,
                                                                   @RequestParam(name = "idStatusAdmin2",defaultValue = "0") long idStatusAdmin2,
-                                                                  @RequestParam(name = "round",defaultValue = "1") long round){
+                                                                  @RequestParam(name = "round",defaultValue = "1") long round,
+                                                                  @RequestParam(name = "idEmployer",defaultValue = "0") long idEmployer){
         if(idStatusAdmin2 == 0){
             List<HowManyApplication> howManyApplicationList = new ArrayList<>();
             HowManyApplication howManyApplication;
             List<Posting> posting = repoPosting.findAll();
             for(Posting postingPerLine:posting){
-                howManyApplication = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(),idStatusAdmin1,round);
-                if(!howManyApplication.getWhoApplicationList().isEmpty()){
-                    howManyApplicationList.add(howManyApplication);
+                if(idEmployer==0){
+                    howManyApplication = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(),idStatusAdmin1,round);
+                    if(!howManyApplication.getWhoApplicationList().isEmpty()){
+                        howManyApplicationList.add(howManyApplication);
+                    }
+                }else if(idEmployer == postingPerLine.getIdEmployer()){
+                    howManyApplication = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(),idStatusAdmin1,round);
+                    if(!howManyApplication.getWhoApplicationList().isEmpty()){
+                        howManyApplicationList.add(howManyApplication);
+                    }
                 }
             }
             return howManyApplicationList;
@@ -200,13 +231,24 @@ public class ApplicationController {
             HowManyApplication howManyApplication2;
             List<Posting> posting = repoPosting.findAll();
             for(Posting postingPerLine:posting) {
-                howManyApplication1 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin1,round);
-                howManyApplication2 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin2,round);
-                for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
-                    howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
-                }
-                if(!howManyApplication1.getWhoApplicationList().isEmpty()){
-                    howManyApplicationList.add(howManyApplication1);
+                if(idEmployer==0){
+                    howManyApplication1 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin1,round);
+                    howManyApplication2 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin2,round);
+                    for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
+                        howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+                    }
+                    if(!howManyApplication1.getWhoApplicationList().isEmpty()){
+                        howManyApplicationList.add(howManyApplication1);
+                    }
+                }else if(idEmployer == postingPerLine.getIdEmployer()){
+                    howManyApplication1 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin1,round);
+                    howManyApplication2 = setAllWorkerWithIdStatusAdmin(postingPerLine.getIdPosting(), idStatusAdmin2,round);
+                    for(WhoApplication whoApplicationPerLine:howManyApplication2.getWhoApplicationList()){
+                        howManyApplication1.getWhoApplicationList().add(whoApplicationPerLine);
+                    }
+                    if(!howManyApplication1.getWhoApplicationList().isEmpty()){
+                        howManyApplicationList.add(howManyApplication1);
+                    }
                 }
             }
             return howManyApplicationList;
@@ -262,6 +304,19 @@ public class ApplicationController {
     @GetMapping("/emp/showAllWorkerByIdPostingAllStatus")
     public HowManyApplication showAllWorkerByIdPostingAllStatus(@RequestParam(name = "idPosting") long idPosting){
         return setAllWorker(idPosting,0,0);
+    }
+
+    @GetMapping("/main/showAllWorkerAllApplication")
+    public List<HowManyApplication> showAllWorkerAllApplication(){
+        List<HowManyApplication> howManyApplicationList = new ArrayList<>();
+        List<Posting> posting = repoPosting.findAll();
+        for(Posting postingPerLine:posting){
+            HowManyApplication howManyApplication = setAllWorker(postingPerLine.getIdPosting(),0,0);
+            if(!howManyApplication.getWhoApplicationList().isEmpty()){
+                howManyApplicationList.add(howManyApplication);
+            }
+        }
+        return howManyApplicationList;
     }
 
     public HowManyApplication setAllWorker(long idPosting,long idStatus,long round){
@@ -513,14 +568,16 @@ public class ApplicationController {
                 whoApplication.setDescription(applicationPerLine.getActToRegister().getDescription());
             }
         }
-        if(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort()!=null){
-            whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort());
-        }
-        if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite()!=null){
-            whoApplication.setDescriptionRejectOnSite(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite());
-        }
-        if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb()!=null){
-            whoApplication.setDescriptionRejectOnWeb(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb());
+        if(applicationPerLine.getApplicationHasComment() != null){
+            if(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort()!=null){
+                whoApplication.setDescriptionBreakShort(applicationPerLine.getApplicationHasComment().getDescriptionBreakShort());
+            }
+            if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite()!=null){
+                whoApplication.setDescriptionRejectOnSite(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnSite());
+            }
+            if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb()!=null){
+                whoApplication.setDescriptionRejectOnWeb(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb());
+            }
         }
         Posting posting = repoPosting.findById(applicationPerLine.getIdPosting()).orElse(null);
         PostingOpenClose postingOpenClose = repoPostingOpenClose.findByPostingAndRound(posting,applicationPerLine.getRound());
@@ -582,7 +639,7 @@ public class ApplicationController {
     public Application employerAcceptOnSite(@RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(21L).orElse(null);//Wating_WorkerFinishJob
-        application.setIdStatusAdmin(17L);//Wating_AdminSent
+        //application.setIdStatusAdmin(17L);//Wating_AdminSent
         application.setStatus(status);
         return repoApplication.save(application);
     }
@@ -592,7 +649,7 @@ public class ApplicationController {
                                             @RequestParam(value = "idApplication") long idApplication){
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(16L).orElse(null);//Reject_WorkerOnSite
-        application.setIdStatusAdmin(17L);//Wating_AdminSent
+        //application.setIdStatusAdmin(17L);//Wating_AdminSent
         application.setStatus(status);
         ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
         newApplicationHasComment.setDescriptionRejectOnSite(applicationHasComment.getDescriptionRejectOnSite());
