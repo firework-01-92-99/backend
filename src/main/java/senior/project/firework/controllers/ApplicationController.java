@@ -407,6 +407,18 @@ public class ApplicationController {
                         count = getCount(whoApplicationList, count, applicationPerLine);
                     }
                 }
+            }else if(idStatus == 29){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
+            }else if(idStatus == 31){
+                for(Application applicationPerLine : applicationList){
+                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                        count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                }
             }
         }else{
             List<PostingOpenClose> postingOpenCloseList = repoPostingOpenClose.findByPosting(posting);
@@ -515,6 +527,22 @@ public class ApplicationController {
                             }
                         }
                     }else if(idStatus == 26){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 29){
+                        for(Application applicationPerLine : applicationList){
+                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                if(round == applicationPerLine.getRound()){
+                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                                }
+                            }
+                        }
+                    }else if(idStatus == 31){
                         for(Application applicationPerLine : applicationList){
                             if(applicationPerLine.getStatus().getIdStatus() == idStatus){
                                 if(round == applicationPerLine.getRound()){
