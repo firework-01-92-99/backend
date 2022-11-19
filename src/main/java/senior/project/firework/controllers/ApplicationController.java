@@ -634,6 +634,20 @@ public class ApplicationController {
         application.setIdStatusAdmin(28);
         return repoApplication.save(application);
     }
+
+    @PutMapping("/admin/adminRejectSentWorker")//Admin------------------------------------------
+    public Application adminRejectSentWorker(@RequestBody ApplicationHasComment applicationHasComment,
+                                             @RequestParam(value = "idApplication") long idApplication){
+        Application application = repoApplication.findById(idApplication).orElse(null);
+        Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
+        ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
+        newApplicationHasComment.setDescriptionRejectOnWeb(applicationHasComment.getDescriptionRejectSentWorker());
+        repoApplicationHasComment.save(newApplicationHasComment);
+        application.setApplicationHasComment(newApplicationHasComment);
+        application.setStatus(status);
+        application.setIdStatusAdmin(28);
+        return repoApplication.save(application);
+    }
     //-------------------------------------------------------------------------------------------------
     @PutMapping("/emp/employerAcceptOnSite")//Employer--------------------------------------------- Done
     public Application employerAcceptOnSite(@RequestParam(value = "idApplication") long idApplication){

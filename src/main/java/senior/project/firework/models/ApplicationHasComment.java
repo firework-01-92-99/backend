@@ -18,6 +18,8 @@ public class ApplicationHasComment {
   private String descriptionRejectOnSite;
   @Column(name = "descriptionBreakShort")
   private String descriptionBreakShort;
+  @Column(name = "descriptionRejectSentWorker")
+  private String descriptionRejectSentWorker;
   @OneToOne(mappedBy = "applicationHasComment")
   @JsonIgnore
   private Application application;
@@ -64,6 +66,14 @@ public class ApplicationHasComment {
 
   public Application getApplication() {
     return application;
+  }
+
+  public String getDescriptionRejectSentWorker() {
+    return descriptionRejectSentWorker;
+  }
+
+  public void setDescriptionRejectSentWorker(String descriptionRejectSentWorker) {
+    this.descriptionRejectSentWorker = descriptionRejectSentWorker;
   }
 
   public void setApplication(Application application) {
