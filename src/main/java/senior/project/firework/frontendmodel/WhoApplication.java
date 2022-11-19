@@ -40,6 +40,7 @@ public class WhoApplication {
     private String descriptionRejectOnWeb;
     private String descriptionRejectOnSite;
     private String descriptionBreakShort;
+    private String descriptionRejectSentWorker;
     private long scoreEmpGiveWorker;
     private String commentEmpGiveWorker;
     private long scoreWorkerGiveEmp;
@@ -74,6 +75,14 @@ public class WhoApplication {
         this.statusName = statusName;
         this.idStatusAdmin = idStatusAdmin;
         this.statusAdminName = statusAdminName;
+    }
+
+    public String getDescriptionRejectSentWorker() {
+        return descriptionRejectSentWorker;
+    }
+
+    public void setDescriptionRejectSentWorker(String descriptionRejectSentWorker) {
+        this.descriptionRejectSentWorker = descriptionRejectSentWorker;
     }
 
     public String getPositionName() {

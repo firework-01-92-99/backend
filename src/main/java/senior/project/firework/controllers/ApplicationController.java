@@ -578,6 +578,9 @@ public class ApplicationController {
             if(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb()!=null){
                 whoApplication.setDescriptionRejectOnWeb(applicationPerLine.getApplicationHasComment().getDescriptionRejectOnWeb());
             }
+            if(applicationPerLine.getApplicationHasComment().getDescriptionRejectSentWorker()!=null){
+                whoApplication.setDescriptionRejectSentWorker(applicationPerLine.getApplicationHasComment().getDescriptionRejectSentWorker());
+            }
         }
         Posting posting = repoPosting.findById(applicationPerLine.getIdPosting()).orElse(null);
         PostingOpenClose postingOpenClose = repoPostingOpenClose.findByPostingAndRound(posting,applicationPerLine.getRound());
@@ -641,11 +644,11 @@ public class ApplicationController {
         Application application = repoApplication.findById(idApplication).orElse(null);
         Status status = repoStatus.findById(14L).orElse(null);//Wating_EmployerSummary
         ApplicationHasComment newApplicationHasComment = new ApplicationHasComment(application);
-        newApplicationHasComment.setDescriptionRejectOnWeb(applicationHasComment.getDescriptionRejectSentWorker());
+        newApplicationHasComment.setDescriptionRejectSentWorker(applicationHasComment.getDescriptionRejectSentWorker());
         repoApplicationHasComment.save(newApplicationHasComment);
         application.setApplicationHasComment(newApplicationHasComment);
         application.setStatus(status);
-        application.setIdStatusAdmin(28);
+        application.setIdStatusAdmin(32);
         return repoApplication.save(application);
     }
     //-------------------------------------------------------------------------------------------------
