@@ -668,7 +668,7 @@ public class ApplicationController {
         repoRatings.save(newRating);
         if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null &&
                 repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null){
-            if(application.getStatus().getIdStatus()==23){
+            if(application.getStatus().getIdStatus()==30 || application.getStatus().getIdStatus()==31){
                 Status status = repoStatus.findById(29L).orElse(null);//DoneBreakShort
                 application.setStatus(status);
                 repoApplication.save(application);
@@ -678,9 +678,15 @@ public class ApplicationController {
                 repoApplication.save(application);
             }
         }else{
-            Status status = repoStatus.findById(26L).orElse(null);//empRated
-            application.setStatus(status);
-            repoApplication.save(application);
+            if(application.getStatus().getIdStatus()==23 ){
+                Status status = repoStatus.findById(31L).orElse(null);//empRated_BreakShort
+                application.setStatus(status);
+                repoApplication.save(application);
+            }else{
+                Status status = repoStatus.findById(26L).orElse(null);//empRated
+                application.setStatus(status);
+                repoApplication.save(application);
+            }
         }
         Worker worker = repoWorker.findById(application.getWorker().getIdWorker()).orElse(null);
         List<Ratings> ratingsList = repoRatings.findByWorkerAndForwho(worker,worker.getAccount().getRole().getRoleName());
@@ -703,7 +709,7 @@ public class ApplicationController {
         repoRatings.save(newRating);
         if(repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleEmployer.getRoleName(), application.getPosting() ) !=null &&
                 repoRatings.findByWorkerAndEmployerAndForwhoAndPosting(application.getWorker(), application.getPosting().getEmployer(), roleWorker.getRoleName(), application.getPosting() ) !=null){
-            if(application.getStatus().getIdStatus()==23){
+            if(application.getStatus().getIdStatus()==30 || application.getStatus().getIdStatus()==31){
                 Status status = repoStatus.findById(29L).orElse(null);//DoneBreakShort
                 application.setStatus(status);
                 repoApplication.save(application);
@@ -713,9 +719,15 @@ public class ApplicationController {
                 repoApplication.save(application);
             }
         }else{
-            Status status = repoStatus.findById(25L).orElse(null);//workerRated
-            application.setStatus(status);
-            repoApplication.save(application);
+            if(application.getStatus().getIdStatus()==23 ){
+                Status status = repoStatus.findById(30L).orElse(null);//workerRated_BreakShort
+                application.setStatus(status);
+                repoApplication.save(application);
+            }else{
+                Status status = repoStatus.findById(25L).orElse(null);//workerRated
+                application.setStatus(status);
+                repoApplication.save(application);
+            }
         }
         Employer employer = repoEmployer.findById(application.getPosting().getEmployer().getIdEmployer()).orElse(null);
         List<Ratings> ratingsList = repoRatings.findByEmployerAndForwho(employer,employer.getAccount().getRole().getRoleName());
