@@ -8,6 +8,7 @@ import java.time.ZonedDateTime;
 public class WhoApplication {
     private long count;
     private long applicationId;
+    private String positionName;
     private String establishmentName;
     private String entrepreneurfName;
     private String entrepreneurlName;
@@ -44,9 +45,10 @@ public class WhoApplication {
     private long scoreWorkerGiveEmp;
     private String commentWorkerGiveEmp;
 
-    public WhoApplication(long count, long applicationId, String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String provinceName, String districtName, String subDistrictName, String postcode, long round, ZonedDateTime date, long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, long idStatusAdmin, String statusAdminName) {
+    public WhoApplication(long count, long applicationId, String positionName,String establishmentName, String entrepreneurfName, String entrepreneurlName, String address, String provinceName, String districtName, String subDistrictName, String postcode, long round, ZonedDateTime date, long workerId, Double rate, String identificationNumber, String verifyPic, String sex, String firstName, String middleName, String lastName, String phone, WorkerType workerType, Nationality nationality, long idStatus, String statusName, long idStatusAdmin, String statusAdminName) {
         this.count = count;
         this.applicationId = applicationId;
+        this.positionName = positionName;
         this.establishmentName = establishmentName;
         this.entrepreneurfName = entrepreneurfName;
         this.entrepreneurlName = entrepreneurlName;
@@ -72,6 +74,14 @@ public class WhoApplication {
         this.statusName = statusName;
         this.idStatusAdmin = idStatusAdmin;
         this.statusAdminName = statusAdminName;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
     public ZonedDateTime getDate() {

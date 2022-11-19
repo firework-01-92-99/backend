@@ -552,7 +552,7 @@ public class ApplicationController {
         if(repoStatus.findById(applicationPerLine.getIdStatusAdmin()).orElse(null) != null){
             statusAdminName = repoStatus.findById(applicationPerLine.getIdStatusAdmin()).orElse(null).getStatusName();
         }
-        WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),
+        WhoApplication whoApplication = new WhoApplication(count,applicationPerLine.getIdApplication(),applicationPerLine.getPosting().getPosition().getPositionName(),
                 applicationPerLine.getPosting().getEmployer().getEstablishmentName(),applicationPerLine.getPosting().getEmployer().getEntrepreneurfName(),
                 applicationPerLine.getPosting().getEmployer().getEntrepreneurlName(),applicationPerLine.getPosting().getEmployer().getAddress(),
                 applicationPerLine.getPosting().getEmployer().getProvince().getProvinceName(),applicationPerLine.getPosting().getEmployer().getDistrict().getDistrictName(),
