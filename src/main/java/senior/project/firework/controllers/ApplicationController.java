@@ -323,100 +323,20 @@ public class ApplicationController {
         List<WhoApplication> whoApplicationList = new ArrayList<>();
         Posting posting = repoPosting.findById(idPosting).orElse(null);
         List<Application> applicationList = posting.getApplicationList();
+        List<Status> statusList = repoStatus.findAll();
         long count = 1;
         if(round == 0){
             if(idStatus == 0){
                 for(Application applicationPerLine : applicationList){
                     count = getCount(whoApplicationList, count, applicationPerLine);
                 }
-            }else if(idStatus == 11){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 12){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 13){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 14){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 15){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 16){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 20){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 21){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 22){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 23){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 24){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 25){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 26){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 29){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
-                    }
-                }
-            }else if(idStatus == 31){
-                for(Application applicationPerLine : applicationList){
-                    if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                        count = getCount(whoApplicationList, count, applicationPerLine);
+            }
+            for(Status statusPerLine:statusList){
+                if(idStatus == statusPerLine.getIdStatus()){
+                    for(Application applicationPerLine : applicationList){
+                        if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                            count = getCount(whoApplicationList, count, applicationPerLine);
+                        }
                     }
                 }
             }
@@ -430,123 +350,14 @@ public class ApplicationController {
                                 count = getCount(whoApplicationList, count, applicationPerLine);
                             }
                         }
-                    }else if(idStatus == 11){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 12){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 13){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 14){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 15){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 16){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 20){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 21){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 22){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 23){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 24){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 25){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 26){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 29){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
-                                }
-                            }
-                        }
-                    }else if(idStatus == 31){
-                        for(Application applicationPerLine : applicationList){
-                            if(applicationPerLine.getStatus().getIdStatus() == idStatus){
-                                if(round == applicationPerLine.getRound()){
-                                    count = getCount(whoApplicationList, count, applicationPerLine);
+                    }
+                    for(Status statusPerLine:statusList){
+                        if(idStatus == statusPerLine.getIdStatus()){
+                            for(Application applicationPerLine : applicationList){
+                                if(applicationPerLine.getStatus().getIdStatus() == idStatus){
+                                    if(round == applicationPerLine.getRound()){
+                                        count = getCount(whoApplicationList, count, applicationPerLine);
+                                    }
                                 }
                             }
                         }
