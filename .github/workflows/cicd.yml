@@ -2,7 +2,7 @@ name: client
 on:
   push:
     branches:
-      - save2
+      - prod
 jobs:
   build:
     runs-on: ubuntu-20.04
